@@ -1,6 +1,7 @@
 package com.twinndroid.ui
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.ui.res.stringResource
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -88,11 +89,12 @@ fun HomeHeader(
             Spacer(Modifier.width(8.dp))
             HeaderPill(hs, onGradient, Modifier) {
                 Column(Modifier.padding(horizontal = if (hs.pills) 14.dp else 4.dp, vertical = if (hs.pills) 6.dp else 0.dp)) {
+                    val res = androidx.compose.ui.platform.LocalContext.current.resources
                     Text("TwinnDroid", style = MaterialTheme.typography.headlineMedium, color = contentColor)
                     Text(
                         buildString {
-                            append(if (count == 1) "1 clone" else "$count clones")
-                            if (updates > 0) append(" · $updates update${if (updates > 1) "s" else ""}")
+                            append(res.getQuantityString(R.plurals.clone_count, count, count))
+                            if (updates > 0) append(" · " + res.getQuantityString(R.plurals.update_count, updates, updates))
                         },
                         color = contentColor.copy(alpha = 0.8f),
                     )
@@ -100,11 +102,11 @@ fun HomeHeader(
             }
             Spacer(Modifier.weight(1f))
             HeaderPill(hs, onGradient, Modifier) {
-                IconButton(onClick = onAppearance) { Icon(Icons.Rounded.Palette, "Appearance", tint = contentColor) }
+                IconButton(onClick = onAppearance) { Icon(Icons.Rounded.Palette, stringResource(R.string.appearance), tint = contentColor) }
             }
             Spacer(Modifier.width(6.dp))
             HeaderPill(hs, onGradient, Modifier) {
-                IconButton(onClick = onSettings) { Icon(Icons.Rounded.Settings, "Settings", tint = contentColor) }
+                IconButton(onClick = onSettings) { Icon(Icons.Rounded.Settings, stringResource(R.string.settings), tint = contentColor) }
             }
         }
     }

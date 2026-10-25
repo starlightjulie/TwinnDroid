@@ -2,6 +2,13 @@
 
 Everything that's changed in TwinnDroid, newest first. You can grab any version's APK from the [Releases](../../releases) page.
 
+## 1.1.5
+
+- **TwinnDroid speaks 23 languages.** Pick one from the new **Settings → Language** menu. That covers the 20 most spoken languages in the world (English, Mandarin, Hindi, Spanish, French, Arabic, Bengali, Portuguese, Russian, Urdu, Indonesian, German, Japanese, Nigerian Pidgin, Egyptian Arabic, Marathi, Telugu, Turkish, Tamil and Cantonese) plus Italian, Vietnamese and Korean. Arabic and Urdu flip the whole layout right to left. It only changes TwinnDroid, not your clones. Some translations might be a bit off, so fixes are very welcome.
+- **Update pop-up.** When a new version is out, TwinnDroid tells you when you open it, with the version and what's new. **Update now** opens the latest release here on GitHub. You can turn this off or check by hand in **Settings → Updates**.
+- **Official build check.** **Settings → About** now shows whether your copy is an official build signed with my key. TwinnDroid is only officially available from this GitHub page for now, so if it says unofficial, it came from somewhere else.
+- **New license.** TwinnDroid is now under the GNU GPL v3 with a few extra terms: forks have to stay open source, keep the credit, say they're modified, and use their own name and icon. 1.1.4 and older stay under MIT.
+
 ## 1.1.4
 
 - **Fixed clones getting stuck on "grant file access".** Managers and patchers ask for All files access or Install unknown apps, but their "Open settings" button took you to the original app's page, so the clone could never get it. TwinnDroid now flags any clone that's missing one of these ("Needs … · tap to grant") and lets you grant it in one tap with Shizuku, or opens the clone's own Settings page instead.

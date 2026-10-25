@@ -16,6 +16,11 @@ class Settings(context: Context) {
         get() = prefs.getBoolean("auto_update", false)
         set(v) = prefs.edit { putBoolean("auto_update", v) }
 
+    /** Look for a newer TwinnDroid release on GitHub each time the app starts. */
+    var checkUpdates: Boolean
+        get() = prefs.getBoolean("check_updates", true)
+        set(v) = prefs.edit { putBoolean("check_updates", v) }
+
     var askedNotifications: Boolean
         get() = prefs.getBoolean("asked_notifications", false)
         set(v) = prefs.edit { putBoolean("asked_notifications", v) }

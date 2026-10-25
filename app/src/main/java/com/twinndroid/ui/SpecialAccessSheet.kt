@@ -1,6 +1,8 @@
 package com.twinndroid.ui
 
+import com.twinndroid.R
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.ui.res.stringResource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -39,11 +41,10 @@ fun SpecialAccessSheet(vm: MainViewModel, item: CloneItem, onDismiss: () -> Unit
     val shizuku = ShizukuInstaller.hasPermission()
     ModalBottomSheet(onDismissRequest = onDismiss) {
         Column(Modifier.padding(horizontal = 24.dp).padding(bottom = 32.dp)) {
-            Text("Special access", style = MaterialTheme.typography.titleLarge)
+            Text(stringResource(R.string.special_access), style = MaterialTheme.typography.titleLarge)
             Spacer(Modifier.height(4.dp))
             Text(
-                "${item.config.label} asks for these. Its own \"Open settings\" button opens the page for " +
-                    "${item.config.sourceLabel} instead, so grant them here.",
+                stringResource(R.string.access_sheet_desc, item.config.label, item.config.sourceLabel),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -59,9 +60,9 @@ fun SpecialAccessSheet(vm: MainViewModel, item: CloneItem, onDismiss: () -> Unit
                     )
                     Spacer(Modifier.width(12.dp))
                     Column(Modifier.weight(1f)) {
-                        Text(access.label)
+                        Text(stringResource(access.label))
                         Text(
-                            if (granted) "Allowed" else "Not allowed yet",
+                            stringResource(if (granted) R.string.allowed else R.string.not_allowed),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
@@ -69,9 +70,9 @@ fun SpecialAccessSheet(vm: MainViewModel, item: CloneItem, onDismiss: () -> Unit
                 }
                 if (!granted) {
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(start = 34.dp, bottom = 4.dp)) {
-                        if (shizuku) Button(onClick = { vm.grantAccess(item, access) }) { Text("Grant") }
+                        if (shizuku) Button(onClick = { vm.grantAccess(item, access) }) { Text(stringResource(R.string.grant)) }
                         OutlinedButton(onClick = { SpecialAccess.openSettings(context, item.config.clonePackage, access) }) {
-                            Text("Open settings")
+                            Text(stringResource(R.string.open_settings))
                         }
                     }
                 }
@@ -79,7 +80,7 @@ fun SpecialAccessSheet(vm: MainViewModel, item: CloneItem, onDismiss: () -> Unit
             if (!shizuku) {
                 Spacer(Modifier.height(8.dp))
                 Text(
-                    "Tip: with Shizuku authorized in Settings, TwinnDroid can grant these in one tap.",
+                    stringResource(R.string.access_sheet_tip),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )

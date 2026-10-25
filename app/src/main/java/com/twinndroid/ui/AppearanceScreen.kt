@@ -1,5 +1,7 @@
 package com.twinndroid.ui
 
+import com.twinndroid.R
+import androidx.compose.ui.res.stringResource
 import android.net.Uri
 import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -122,8 +124,8 @@ fun AppearanceScreen(vm: MainViewModel) {
         topBar = {
             TopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent, scrolledContainerColor = Color.Transparent),
-                title = { Text("Appearance") },
-                navigationIcon = { IconButton(onClick = { vm.screen = Screen.Home }) { Icon(Icons.AutoMirrored.Rounded.ArrowBack, "Back") } },
+                title = { Text(stringResource(R.string.appearance)) },
+                navigationIcon = { IconButton(onClick = { vm.screen = Screen.Home }) { Icon(Icons.AutoMirrored.Rounded.ArrowBack, stringResource(R.string.back)) } },
             )
         },
     ) { padding ->
@@ -131,8 +133,8 @@ fun AppearanceScreen(vm: MainViewModel) {
             Modifier.fillMaxSize().padding(padding).verticalScroll(rememberScrollState()).padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            Panel("Theme") {
-                val modes = listOf(ThemeMode.SYSTEM to "System", ThemeMode.LIGHT to "Light", ThemeMode.DARK to "Dark")
+            Panel(stringResource(R.string.theme)) {
+                val modes = listOf(ThemeMode.SYSTEM to stringResource(R.string.theme_system), ThemeMode.LIGHT to stringResource(R.string.theme_light), ThemeMode.DARK to stringResource(R.string.theme_dark))
                 SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
                     modes.forEachIndexed { i, (mode, label) ->
                         SegmentedButton(
@@ -143,19 +145,19 @@ fun AppearanceScreen(vm: MainViewModel) {
                     }
                 }
                 if (cfg.custom != null) {
-                    Hint("Your custom colours decide light or dark by their background. Pick a preset to use this switch again.")
+                    Hint(stringResource(R.string.theme_custom_hint))
                 }
                 if (Build.VERSION.SDK_INT >= 31) {
                     Row(Modifier.fillMaxWidth().padding(top = 12.dp), verticalAlignment = Alignment.CenterVertically) {
                         Column(Modifier.weight(1f)) {
-                            Text("Material You")
-                            Hint("Use colours from your wallpaper")
+                            Text(stringResource(R.string.material_you))
+                            Hint(stringResource(R.string.material_you_desc))
                         }
                         Switch(checked = cfg.dynamicColor, onCheckedChange = { v -> repo.update { it.copy(dynamicColor = v) } })
                     }
                 }
                 Spacer(Modifier.height(12.dp))
-                Text("Presets", style = MaterialTheme.typography.labelLarge)
+                Text(stringResource(R.string.presets), style = MaterialTheme.typography.labelLarge)
                 Spacer(Modifier.height(8.dp))
                 FlowRow(horizontalArrangement = Arrangement.spacedBy(10.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     ThemePresets.all.forEach { preset ->
@@ -192,32 +194,31 @@ fun AppearanceScreen(vm: MainViewModel) {
                         }
                     }
                 }
-                ToggleLine("Match app icon", "Switch TwinnDroid's own icon along with the preset", cfg.matchIcon) { v ->
+                ToggleLine(stringResource(R.string.match_icon), stringResource(R.string.match_icon_desc), cfg.matchIcon) { v ->
                     repo.update { it.copy(matchIcon = v) }
                     if (v) AppIcons.byAlias(ThemePresets.byId(cfg.presetId).icon)?.let { AppIcons.choose(context, it); currentIcon = it }
                 }
             }
 
-            Panel("Background & effects") {
+            Panel(stringResource(R.string.bg_effects)) {
                 NavRow(
                     bgIcon(cfg.background),
-                    "Background animation",
-                    cfg.background.label + if (cfg.parallax) " · Parallax" else "",
+                    stringResource(R.string.bg_animation),
+                    stringResource(cfg.background.label) + if (cfg.parallax) " · " + stringResource(R.string.parallax) else "",
                 ) { vm.screen = Screen.Background }
                 NavRow(
                     Icons.Rounded.ViewDay,
-                    "Home header",
-                    cfg.header.style.label + if (cfg.header.pills) " · Pills" else "",
+                    stringResource(R.string.home_header),
+                    stringResource(cfg.header.style.label) + if (cfg.header.pills) " · " + stringResource(R.string.pills) else "",
                 ) { vm.screen = Screen.Header }
-                ToggleLine("Pure black", "True black background in dark mode, easier on OLED batteries", cfg.pureBlack) { v -> repo.update { it.copy(pureBlack = v) } }
-                ToggleLine("Glass cards", "Translucent cards that let the background show through", cfg.glassCards) { v -> repo.update { it.copy(glassCards = v) } }
-                ToggleLine("Outlines", "Thin edge around cards, panels and tabs", cfg.outlines) { v -> repo.update { it.copy(outlines = v) } }
+                ToggleLine(stringResource(R.string.pure_black), stringResource(R.string.pure_black_desc), cfg.pureBlack) { v -> repo.update { it.copy(pureBlack = v) } }
+                ToggleLine(stringResource(R.string.glass_cards), stringResource(R.string.glass_cards_desc), cfg.glassCards) { v -> repo.update { it.copy(glassCards = v) } }
+                ToggleLine(stringResource(R.string.outlines), stringResource(R.string.outlines_desc), cfg.outlines) { v -> repo.update { it.copy(outlines = v) } }
             }
 
-            Panel("Custom colours") {
+            Panel(stringResource(R.string.custom_colours)) {
                 Hint(
-                    if (cfg.dynamicColor) "Turn off Material You to use custom colours."
-                    else "Tap a colour to change it with the picker or a hex code. Editing starts from the current theme.",
+                    stringResource(if (cfg.dynamicColor) R.string.custom_colours_off else R.string.custom_colours_desc),
                 )
                 Spacer(Modifier.height(8.dp))
                 Aspect.entries.forEach { aspect ->
@@ -232,18 +233,18 @@ fun AppearanceScreen(vm: MainViewModel) {
                         )
                         Spacer(Modifier.width(12.dp))
                         Column(Modifier.weight(1f)) {
-                            Text(aspect.label)
-                            Hint(aspect.description)
+                            Text(stringResource(aspect.label))
+                            Hint(stringResource(aspect.description))
                         }
                         Text("#${formatHex(c)}", fontFamily = FontFamily.Monospace, style = MaterialTheme.typography.bodySmall)
                     }
                 }
                 if (cfg.custom != null) {
-                    TextButton(onClick = { repo.update { it.copy(custom = null) } }) { Text("Reset to preset") }
+                    TextButton(onClick = { repo.update { it.copy(custom = null) } }) { Text(stringResource(R.string.reset_preset)) }
                 }
             }
 
-            Panel("Text size") {
+            Panel(stringResource(R.string.text_size)) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text("A", style = MaterialTheme.typography.bodySmall)
                     Slider(
@@ -254,11 +255,11 @@ fun AppearanceScreen(vm: MainViewModel) {
                     )
                     Text("A", style = MaterialTheme.typography.titleLarge)
                 }
-                Hint("${(cfg.fontScale * 100).toInt()}% of your system text size")
+                Hint(stringResource(R.string.text_size_hint, (cfg.fontScale * 100).toInt()))
             }
 
-            Panel("App icon") {
-                Hint("Choose the TwinnDroid icon shown in your app drawer.")
+            Panel(stringResource(R.string.app_icon)) {
+                Hint(stringResource(R.string.app_icon_desc))
                 Spacer(Modifier.height(12.dp))
                 FlowRow(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     AppIcons.all.forEach { icon ->
@@ -292,10 +293,9 @@ fun AppearanceScreen(vm: MainViewModel) {
                 }
 
                 Spacer(Modifier.height(20.dp))
-                Text("Your own image", style = MaterialTheme.typography.labelLarge)
+                Text(stringResource(R.string.own_image), style = MaterialTheme.typography.labelLarge)
                 Hint(
-                    "Android doesn't let apps swap their real icon for any picture, so TwinnDroid adds a home-screen " +
-                        "shortcut with your image and name instead.",
+                    stringResource(R.string.own_image_desc),
                 )
                 Spacer(Modifier.height(12.dp))
                 Row(verticalAlignment = Alignment.CenterVertically) {
@@ -306,13 +306,13 @@ fun AppearanceScreen(vm: MainViewModel) {
                     ) {
                         val img = customPreview
                         if (img != null) Image(img, null, Modifier.size(60.dp))
-                        else Icon(Icons.Rounded.AddPhotoAlternate, "Choose image")
+                        else Icon(Icons.Rounded.AddPhotoAlternate, stringResource(R.string.choose_image_short))
                     }
                     Spacer(Modifier.width(12.dp))
                     OutlinedTextField(
                         value = shortcutLabel,
                         onValueChange = { shortcutLabel = it.take(24) },
-                        label = { Text("Name") },
+                        label = { Text(stringResource(R.string.name)) },
                         singleLine = true,
                         modifier = Modifier.weight(1f),
                     )
@@ -320,15 +320,15 @@ fun AppearanceScreen(vm: MainViewModel) {
                 Spacer(Modifier.height(12.dp))
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     OutlinedButton(onClick = { pickImage.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)) }) {
-                        Text(if (customUri == null) "Choose image" else "Change image")
+                        Text(stringResource(if (customUri == null) R.string.choose_image_short else R.string.change_image))
                     }
                     Button(
                         enabled = customUri != null,
                         onClick = {
                             val ok = runCatching { AppIcons.pinCustomShortcut(context, customUri!!, shortcutLabel) }.getOrDefault(false)
-                            if (!ok) vm.message = "Your launcher doesn't support adding shortcuts."
+                            if (!ok) vm.message = context.getString(R.string.shortcut_unsupported)
                         },
-                    ) { Text("Add to home screen") }
+                    ) { Text(stringResource(R.string.add_home)) }
                 }
             }
             Spacer(Modifier.height(8.dp))
@@ -337,7 +337,7 @@ fun AppearanceScreen(vm: MainViewModel) {
 
     editing?.let { aspect ->
         ColorPickerDialog(
-            title = aspect.label,
+            title = stringResource(aspect.label),
             initial = aspect.get(active),
             onDismiss = { editing = null },
             onApply = { v ->
@@ -350,11 +350,10 @@ fun AppearanceScreen(vm: MainViewModel) {
     pendingIcon?.let { icon ->
         AlertDialog(
             onDismissRequest = { pendingIcon = null },
-            title = { Text("Switch to ${icon.name} icon?") },
+            title = { Text(stringResource(R.string.switch_icon_title, icon.name)) },
             text = {
                 Text(
-                    "The new icon is applied when you leave TwinnDroid. A TwinnDroid shortcut on your home screen may " +
-                        "disappear; add it again from the app drawer.",
+                    stringResource(R.string.switch_icon_desc),
                 )
             },
             confirmButton = {
@@ -362,9 +361,9 @@ fun AppearanceScreen(vm: MainViewModel) {
                     AppIcons.choose(context, icon)
                     currentIcon = icon
                     pendingIcon = null
-                }) { Text("Switch") }
+                }) { Text(stringResource(R.string.switch_)) }
             },
-            dismissButton = { TextButton(onClick = { pendingIcon = null }) { Text("Cancel") } },
+            dismissButton = { TextButton(onClick = { pendingIcon = null }) { Text(stringResource(R.string.cancel)) } },
         )
     }
 }

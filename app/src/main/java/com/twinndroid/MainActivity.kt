@@ -3,7 +3,7 @@ package com.twinndroid
 import android.Manifest
 import android.os.Build
 import android.os.Bundle
-import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
@@ -16,7 +16,7 @@ import com.twinndroid.ui.theme.TwinnTheme
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
     private val vm: MainViewModel by viewModels()
 
     private val notificationPermission =

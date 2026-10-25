@@ -29,6 +29,16 @@ I was using Shelter to run a second copy of a couple of apps, but I wanted one p
 - **Installs silently** if you use [Shizuku](https://shizuku.rikka.app/) (optional)
 - **Looks how you want**: 14 animated backgrounds, 12 theme presets with matching app icons, your own colours, Material You, a frosted-glass header and more
 - **Backs everything up**, so you can move your clones and settings to a new phone
+- **Speaks your language**: 23 languages, including the 20 most spoken in the world, from **Settings → Language** (Arabic and Urdu get a proper right-to-left layout)
+- **Tells you when there's a new version** with a short pop-up and the release notes
+
+## Where to download
+
+**The only official place to get TwinnDroid is the [Releases page](../../releases/latest) here on GitHub.**
+
+I haven't published it anywhere else yet. Copies on other app stores or APK sites weren't uploaded by me, may be out of date and could be modified, so please don't install those. When I'm ready to put TwinnDroid on F-Droid, Orion Store or Google Play, I'll add the links here myself.
+
+Official builds are signed with my key. **Settings → About** shows **Official build** with a tick on a genuine copy, and [SECURITY.md](SECURITY.md) has the fingerprint if you want to check an APK yourself.
 
 ## What you need
 
@@ -45,6 +55,10 @@ I was using Shelter to run a second copy of a couple of apps, but I wanted one p
 6. Confirm the install. The copy shows up in your app drawer, ready for your other account.
 
 The first time, Android will ask you to let TwinnDroid install apps. Tap **Allow** on the banner in TwinnDroid or in the prompt.
+
+## Updating TwinnDroid
+
+When a new version is out, TwinnDroid shows a pop-up when you open it with what's new. **Update now** takes you to the latest release here, and the new APK installs straight over your current one. You can turn the check off in **Settings → Updates**.
 
 ## Updating clones
 
@@ -214,11 +228,20 @@ TwinnDroid is free and open source. If it's been useful to you, you can buy me a
 
 ## Contributing
 
-Bug reports and pull requests are welcome. If a clone isn't working, please include the **app name, app version and your Android version** so I can look into it.
+Bug reports and pull requests are welcome, and so are fixes to the translations. If a clone isn't working, please include the **app name, app version and your Android version** so I can look into it.
 
 ## License
 
-TwinnDroid is open source under the [MIT License](LICENSE).
+TwinnDroid is free and open source under the [GNU General Public License v3](LICENSE), with a few [additional terms](ADDITIONAL-TERMS.md). You're welcome to read the code, learn from it, build it yourself and improve it.
+
+In short, if you share a modified version of TwinnDroid:
+
+- it has to stay open source under the same license,
+- it has to keep my credit ("StarlightJulie", linking to my GitHub) in the code, the README and the About screen,
+- it has to say clearly that it's modified and not the official release,
+- and it needs its own name and icon, signed with your own key. The TwinnDroid name and split-droid logo are for my official builds.
+
+Please don't re-upload my releases to other stores or sites; link to this page instead. Versions up to and including 1.1.4 were released under the MIT License.
 
 It's built on these open-source projects:
 

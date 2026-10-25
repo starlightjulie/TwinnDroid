@@ -1,5 +1,7 @@
 package com.twinndroid.ui
 
+import com.twinndroid.R
+import androidx.compose.ui.res.stringResource
 import android.content.Intent
 import android.text.format.Formatter
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -102,7 +104,7 @@ fun ExportSheet(vm: MainViewModel, state: ExportState) {
             }
 
             Spacer(Modifier.height(20.dp))
-            Text("Format", style = MaterialTheme.typography.titleMedium)
+            Text(stringResource(R.string.format), style = MaterialTheme.typography.titleMedium)
             Spacer(Modifier.height(8.dp))
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp), maxItemsInEachRow = 3) {
                 ExportFormat.entries.forEach { f ->
@@ -122,7 +124,7 @@ fun ExportSheet(vm: MainViewModel, state: ExportState) {
                         horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
                         val alpha = if (enabled || selected) 1f else 0.4f
-                        Text(f.label, fontWeight = FontWeight.SemiBold, maxLines = 1, color = MaterialTheme.colorScheme.onSurface.copy(alpha = alpha))
+                        Text(stringResource(f.label), fontWeight = FontWeight.SemiBold, maxLines = 1, color = MaterialTheme.colorScheme.onSurface.copy(alpha = alpha))
                         Text(".${f.ext}", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = alpha))
                     }
                 }
@@ -130,8 +132,7 @@ fun ExportSheet(vm: MainViewModel, state: ExportState) {
             Spacer(Modifier.height(10.dp))
             AnimatedContent(state.format, transitionSpec = { fadeIn() togetherWith fadeOut() }, label = "formatDesc") { f ->
                 Text(
-                    if (f == ExportFormat.APK && hasSplits) "This app uses split APKs, so a single .apk won't install. Choose Merged APK instead."
-                    else f.description,
+                    stringResource(if (f == ExportFormat.APK && hasSplits) R.string.fmt_apk_split_warning else f.description),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -154,7 +155,7 @@ fun ExportSheet(vm: MainViewModel, state: ExportState) {
                         val shown by animateFloatAsState(state.progress, spring(stiffness = Spring.StiffnessLow), label = "exportProgress")
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text(
-                                if (state.format == ExportFormat.MERGED && state.progress < 0.9f) "Merging splits…" else "Saving…",
+                                stringResource(if (state.format == ExportFormat.MERGED && state.progress < 0.9f) R.string.merging else R.string.saving),
                                 modifier = Modifier.weight(1f),
                             )
                             Text("${(shown * 100).toInt()}%", fontWeight = FontWeight.SemiBold)
@@ -162,7 +163,7 @@ fun ExportSheet(vm: MainViewModel, state: ExportState) {
                         Spacer(Modifier.height(8.dp))
                         LinearProgressIndicator(progress = { shown }, modifier = Modifier.fillMaxWidth().height(8.dp).clip(CircleShape))
                         Spacer(Modifier.height(8.dp))
-                        TextButton(onClick = vm::closeExport) { Text("Cancel") }
+                        TextButton(onClick = vm::closeExport) { Text(stringResource(R.string.cancel)) }
                     }
                     2 -> Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
                         Box(
@@ -170,7 +171,7 @@ fun ExportSheet(vm: MainViewModel, state: ExportState) {
                             contentAlignment = Alignment.Center,
                         ) { Icon(Icons.Rounded.Check, null, tint = MaterialTheme.colorScheme.onSecondary, modifier = Modifier.size(36.dp)) }
                         Spacer(Modifier.height(10.dp))
-                        Text("Saved ${ApkExporter.fileName(src, state.format)}", textAlign = androidx.compose.ui.text.style.TextAlign.Center)
+                        Text(stringResource(R.string.saved_file, ApkExporter.fileName(src, state.format)), textAlign = androidx.compose.ui.text.style.TextAlign.Center)
                         Spacer(Modifier.height(12.dp))
                         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             OutlinedButton(onClick = {
@@ -178,16 +179,16 @@ fun ExportSheet(vm: MainViewModel, state: ExportState) {
                                     .setType("application/octet-stream")
                                     .putExtra(Intent.EXTRA_STREAM, state.done)
                                     .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                                context.startActivity(Intent.createChooser(send, "Share ${src.label}"))
-                            }) { Icon(Icons.Rounded.Share, null, Modifier.size(18.dp)); Spacer(Modifier.width(6.dp)); Text("Share") }
-                            Button(onClick = vm::closeExport) { Text("Done") }
+                                context.startActivity(Intent.createChooser(send, context.getString(R.string.share_app, src.label)))
+                            }) { Icon(Icons.Rounded.Share, null, Modifier.size(18.dp)); Spacer(Modifier.width(6.dp)); Text(stringResource(R.string.share)) }
+                            Button(onClick = vm::closeExport) { Text(stringResource(R.string.done)) }
                         }
                     }
                     3 -> Column {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Icon(Icons.Rounded.ErrorOutline, null, tint = MaterialTheme.colorScheme.error)
                             Spacer(Modifier.width(8.dp))
-                            Text(state.error ?: "Export failed", color = MaterialTheme.colorScheme.error)
+                            Text(state.error ?: stringResource(R.string.export_failed_short), color = MaterialTheme.colorScheme.error)
                         }
                         Spacer(Modifier.height(12.dp))
                         ExportButton(state, saveApk::launch, saveBundle::launch)
@@ -207,10 +208,10 @@ private fun ExportButton(state: ExportState, saveApk: (String) -> Unit, saveBund
         onClick = { if (state.format.ext == "apk") saveApk(name) else saveBundle(name) },
         enabled = !blocked,
         modifier = Modifier.fillMaxWidth().height(52.dp),
-    ) { Text("Export as ${state.format.label}") }
+    ) { Text(stringResource(R.string.export_as, stringResource(state.format.label))) }
     if (state.format == ExportFormat.MERGED) {
         Text(
-            "Merging large apps can take a minute.",
+            stringResource(R.string.merging_hint),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f),
             modifier = Modifier.padding(top = 6.dp),

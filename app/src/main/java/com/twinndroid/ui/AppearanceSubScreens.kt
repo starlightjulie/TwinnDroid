@@ -1,5 +1,7 @@
 package com.twinndroid.ui
 
+import com.twinndroid.R
+import androidx.compose.ui.res.stringResource
 import android.os.Build
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
@@ -64,7 +66,7 @@ private fun SubScreen(title: String, onBack: () -> Unit, content: @Composable (M
             TopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent, scrolledContainerColor = Color.Transparent),
                 title = { Text(title) },
-                navigationIcon = { IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Rounded.ArrowBack, "Back") } },
+                navigationIcon = { IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Rounded.ArrowBack, stringResource(R.string.back)) } },
             )
         },
     ) { padding -> content(Modifier.padding(padding).consumeWindowInsets(padding)) }
@@ -77,21 +79,20 @@ fun BackgroundScreen(vm: MainViewModel) {
     val context = LocalContext.current
     val repo = remember { ThemeRepository.get(context) }
     val cfg by repo.config.collectAsState()
-    SubScreen("Background & effects", onBack = { vm.screen = Screen.Appearance }) { mod ->
+    SubScreen(stringResource(R.string.bg_effects), onBack = { vm.screen = Screen.Appearance }) { mod ->
         Column(
             mod.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             Text(
-                "The animation that plays behind TwinnDroid's screens. It pauses whenever TwinnDroid isn't on screen. " +
-                    "Inspired by Morphe Patcher.",
+                stringResource(R.string.bg_desc) + " " + stringResource(R.string.inspired_morphe),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
             androidx.compose.material3.FilledTonalButton(onClick = { vm.peek = true }, modifier = Modifier.fillMaxWidth()) {
                 Icon(androidx.compose.material.icons.Icons.Rounded.Visibility, null)
                 Spacer(Modifier.padding(4.dp))
-                Text("Preview background")
+                Text(stringResource(R.string.preview_bg))
             }
             TwinnCard {
                 Column(Modifier.padding(16.dp)) {
@@ -125,7 +126,7 @@ fun BackgroundScreen(vm: MainViewModel) {
                                     tint = if (selected) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.primary,
                                 )
                                 Spacer(Modifier.height(6.dp))
-                                Text(anim.label, style = MaterialTheme.typography.labelMedium, maxLines = 1)
+                                Text(stringResource(anim.label), style = MaterialTheme.typography.labelMedium, maxLines = 1)
                             }
                         }
                     }
@@ -133,7 +134,7 @@ fun BackgroundScreen(vm: MainViewModel) {
             }
             TwinnCard {
                 Column(Modifier.padding(horizontal = 16.dp, vertical = 4.dp)) {
-                    ToggleLine("Parallax", "The background shifts gently when you tilt your phone", cfg.parallax) { v ->
+                    ToggleLine(stringResource(R.string.parallax), stringResource(R.string.parallax_desc), cfg.parallax) { v ->
                         repo.update { it.copy(parallax = v) }
                     }
                 }
@@ -151,11 +152,11 @@ fun HeaderSettingsScreen(vm: MainViewModel) {
     val h = cfg.header
     fun set(f: (HeaderSettings) -> HeaderSettings) = repo.update { it.copy(header = f(it.header)) }
 
-    SubScreen("Home header", onBack = { vm.screen = Screen.Appearance }) { mod ->
+    SubScreen(stringResource(R.string.home_header), onBack = { vm.screen = Screen.Appearance }) { mod ->
         Column(mod.fillMaxSize().verticalScroll(rememberScrollState())) {
             HomeHeader(count = vm.clones.size, updates = 0, onAppearance = {}, onSettings = {}, settings = h)
             Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                Panel("Card") {
+                Panel(stringResource(R.string.card)) {
                     val styles = HeaderStyle.entries
                     SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
                         styles.forEachIndexed { i, s ->
@@ -163,35 +164,35 @@ fun HeaderSettingsScreen(vm: MainViewModel) {
                                 selected = h.style == s,
                                 onClick = { set { it.copy(style = s) } },
                                 shape = SegmentedButtonDefaults.itemShape(i, styles.size),
-                            ) { Text(s.label, maxLines = 1) }
+                            ) { Text(stringResource(s.label), maxLines = 1) }
                         }
                     }
                     AnimatedVisibility(h.style != HeaderStyle.NONE, enter = expandVertically() + fadeIn(), exit = shrinkVertically() + fadeOut()) {
                         Column {
-                            LabeledSlider("Opacity", "${(h.opacity * 100).toInt()}%", h.opacity, 0f..1f) { v -> set { it.copy(opacity = v) } }
-                            LabeledSlider("Blur", "${h.blur.toInt()} dp", h.blur, 0f..40f) { v -> set { it.copy(blur = v) } }
-                            if (Build.VERSION.SDK_INT < 31) Hint("Blur needs Android 12 or newer.")
-                            else if (h.opacity >= 0.999f && h.style != HeaderStyle.GLASS) Hint("Lower the opacity to see the blurred background through the card.")
+                            LabeledSlider(stringResource(R.string.opacity), "${(h.opacity * 100).toInt()}%", h.opacity, 0f..1f) { v -> set { it.copy(opacity = v) } }
+                            LabeledSlider(stringResource(R.string.blur), "${h.blur.toInt()} dp", h.blur, 0f..40f) { v -> set { it.copy(blur = v) } }
+                            if (Build.VERSION.SDK_INT < 31) Hint(stringResource(R.string.blur_needs_12))
+                            else if (h.opacity >= 0.999f && h.style != HeaderStyle.GLASS) Hint(stringResource(R.string.blur_hint))
                         }
                     }
-                    LabeledSlider("Roundness", "${h.radius.toInt()} dp", h.radius, 0f..48f) { v -> set { it.copy(radius = v) } }
-                    ToggleLine("Floating card", "Inset from the edges with all four corners rounded", h.floating) { v -> set { it.copy(floating = v) } }
+                    LabeledSlider(stringResource(R.string.roundness), "${h.radius.toInt()} dp", h.radius, 0f..48f) { v -> set { it.copy(radius = v) } }
+                    ToggleLine(stringResource(R.string.floating_card), stringResource(R.string.floating_card_desc), h.floating) { v -> set { it.copy(floating = v) } }
                 }
-                Panel("Pills") {
+                Panel(stringResource(R.string.pills)) {
                     ToggleLine(
-                        "Pills behind icon, title & buttons",
-                        "Keeps them readable over busy backgrounds",
+                        stringResource(R.string.pills_toggle),
+                        stringResource(R.string.pills_toggle_desc),
                         h.pills,
                     ) { v -> set { it.copy(pills = v) } }
                     AnimatedVisibility(h.pills, enter = expandVertically() + fadeIn(), exit = shrinkVertically() + fadeOut()) {
                         Column {
-                            LabeledSlider("Pill opacity", "${(h.pillOpacity * 100).toInt()}%", h.pillOpacity, 0f..0.9f) { v -> set { it.copy(pillOpacity = v) } }
-                            LabeledSlider("Pill blur", "${h.pillBlur.toInt()} dp", h.pillBlur, 0f..30f) { v -> set { it.copy(pillBlur = v) } }
-                            LabeledSlider("Pill roundness", "${(h.pillRadius * 2).toInt()}%", h.pillRadius, 0f..50f) { v -> set { it.copy(pillRadius = v) } }
+                            LabeledSlider(stringResource(R.string.pill_opacity), "${(h.pillOpacity * 100).toInt()}%", h.pillOpacity, 0f..0.9f) { v -> set { it.copy(pillOpacity = v) } }
+                            LabeledSlider(stringResource(R.string.pill_blur), "${h.pillBlur.toInt()} dp", h.pillBlur, 0f..30f) { v -> set { it.copy(pillBlur = v) } }
+                            LabeledSlider(stringResource(R.string.pill_roundness), "${(h.pillRadius * 2).toInt()}%", h.pillRadius, 0f..50f) { v -> set { it.copy(pillRadius = v) } }
                         }
                     }
                 }
-                TextButton(onClick = { set { HeaderSettings() } }) { Text("Reset header") }
+                TextButton(onClick = { set { HeaderSettings() } }) { Text(stringResource(R.string.reset_header)) }
             }
         }
     }

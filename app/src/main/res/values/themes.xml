@@ -1,5 +1,5 @@
 <resources>
-    <style name="Theme.TwinnDroid" parent="android:Theme.Material.NoActionBar">
+    <style name="Theme.TwinnDroid" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@color/twinn_bg</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>

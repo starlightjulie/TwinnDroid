@@ -15,7 +15,11 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.twinndroid.CloneOperations
+import com.twinndroid.BuildConfig
+import com.twinndroid.R
+import com.twinndroid.data.AppUpdate
 import com.twinndroid.data.CloneConfig
+import com.twinndroid.data.UpdateChecker
 import com.twinndroid.data.CloneRepository
 import com.twinndroid.data.IconMode
 import com.twinndroid.data.Settings
@@ -36,7 +40,7 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import java.util.UUID
 
-enum class Screen { Home, Editor, IconEditor, Settings, Appearance, Background, Header }
+enum class Screen { Home, Editor, IconEditor, Settings, Language, Appearance, Background, Header }
 
 data class AppEntry(val packageName: String, val label: String, val icon: ImageBitmap?, val isSystem: Boolean)
 
@@ -104,11 +108,14 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     var tab by mutableIntStateOf(0)
     /** Hides the UI so the background animation can be seen on its own. */
     var peek by mutableStateOf(false)
+    /** Set when GitHub has a newer TwinnDroid release than this one. */
+    var appUpdate by mutableStateOf<AppUpdate?>(null)
     var message by mutableStateOf<String?>(null)
     var busy by mutableStateOf(false)
         private set
 
     init {
+        if (settings.checkUpdates) checkForAppUpdate()
         viewModelScope.launch { repo.clones.collect { refreshClones() } }
     }
 
@@ -248,10 +255,10 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         val e = editor ?: return
         val c = e.config.copy(label = e.config.label.trim(), clonePackage = e.config.clonePackage.trim())
         val err = when {
-            !PACKAGE_REGEX.matches(c.clonePackage) -> "Not a valid package name"
-            c.clonePackage == c.sourcePackage -> "Must differ from the original package"
-            repo.clones.value.any { it.id != c.id && it.clonePackage == c.clonePackage } -> "Another clone already uses this package"
-            c.label.isEmpty() -> "Name cannot be empty"
+            !PACKAGE_REGEX.matches(c.clonePackage) -> ctx.getString(R.string.err_package_invalid)
+            c.clonePackage == c.sourcePackage -> ctx.getString(R.string.err_package_same)
+            repo.clones.value.any { it.id != c.id && it.clonePackage == c.clonePackage } -> ctx.getString(R.string.err_package_used)
+            c.label.isEmpty() -> ctx.getString(R.string.err_name_empty)
             else -> null
         }
         if (err != null) {
@@ -300,10 +307,17 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     private var lastPreview: Pair<String, ImageBitmap?>? = null
     private fun editorPreviewFor(config: CloneConfig): ImageBitmap? = lastPreview?.takeIf { it.first == config.id }?.second
 
+    /** Asks GitHub for a newer release. [manual] reports "up to date" too, for the Settings button. */
+    fun checkForAppUpdate(manual: Boolean = false) = viewModelScope.launch {
+        val update = UpdateChecker.check(BuildConfig.VERSION_NAME)
+        appUpdate = update
+        if (manual && update == null) message = ctx.getString(R.string.update_none)
+    }
+
     /** Grants a special access to a clone through Shizuku, then refreshes the list. */
     fun grantAccess(item: CloneItem, access: SpecialAccess) = launchBusy {
         val ok = ShizukuInstaller.allowAppOp(ctx, item.config.clonePackage, access.op)
-        if (!ok) message = "Couldn't grant ${access.label}. Open its settings page and allow it there."
+        if (!ok) message = ctx.getString(R.string.err_grant, ctx.getString(access.label))
         refreshClones()
     }
 

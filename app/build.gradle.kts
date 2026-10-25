@@ -16,8 +16,8 @@ android {
         applicationId = "com.twinndroid"
         minSdk = 26
         targetSdk = 36
-        versionCode = 6
-        versionName = "1.1.4"
+        versionCode = 7
+        versionName = "1.1.5"
     }
 
     // Release key: keystore.properties next to the project, in ~/.twinndroid-signing/, or TWINN_KEYSTORE_* env vars.
@@ -101,6 +101,8 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
 
     implementation("androidx.core:core-ktx:1.17.0")
+    // Per-app language picker (works back to Android 8 via AppCompat)
+    implementation("androidx.appcompat:appcompat:1.7.1")
     implementation("androidx.activity:activity-compose:1.11.0")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.9.4")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.9.4")

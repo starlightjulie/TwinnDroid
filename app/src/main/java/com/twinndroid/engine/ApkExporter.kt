@@ -1,5 +1,7 @@
 package com.twinndroid.engine
 
+import com.twinndroid.R
+import androidx.annotation.StringRes
 import android.content.Context
 import androidx.core.graphics.drawable.toBitmap
 import com.reandroid.apk.ApkBundle
@@ -18,12 +20,12 @@ import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 import kotlin.coroutines.coroutineContext
 
-enum class ExportFormat(val ext: String, val label: String, val description: String) {
-    APK("apk", "APK", "Single installable file. Only for apps without split APKs."),
-    MERGED("apk", "Merged", "Splits combined into one installable APK. Re-signed, so it can't update the original."),
-    APKS("apks", "APKS", "Original split set. Install with SAI or TwinnDroid."),
-    XAPK("xapk", "XAPK", "APKPure-style bundle with app info and icon."),
-    APKM("apkm", "APKM", "APKMirror-style bundle (unencrypted)."),
+enum class ExportFormat(val ext: String, @StringRes val label: Int, @StringRes val description: Int) {
+    APK("apk", R.string.fmt_apk, R.string.fmt_apk_desc),
+    MERGED("apk", R.string.fmt_merged, R.string.fmt_merged_desc),
+    APKS("apks", R.string.fmt_apks, R.string.fmt_apks_desc),
+    XAPK("xapk", R.string.fmt_xapk, R.string.fmt_xapk_desc),
+    APKM("apkm", R.string.fmt_apkm, R.string.fmt_apkm_desc),
 }
 
 /** Saves an app's APK set in an installable format. Original signatures are kept except for [ExportFormat.MERGED]. */

@@ -40,7 +40,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.util.lerp
+import com.twinndroid.R
 import com.twinndroid.ui.theme.AnimatedBackground
 import com.twinndroid.ui.theme.Backdrop
 import com.twinndroid.ui.theme.LocalBackdrop
@@ -48,10 +50,11 @@ import com.twinndroid.ui.theme.rememberBackdrop
 import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
 
-private val TABS = listOf(
-    TabItem("Clones", Icons.Rounded.Layers),
-    TabItem("New clone", Icons.Rounded.AddCircle),
-    TabItem("Extract", Icons.Rounded.Unarchive),
+@Composable
+private fun tabs() = listOf(
+    TabItem(stringResource(R.string.tab_clones), Icons.Rounded.Layers),
+    TabItem(stringResource(R.string.tab_new_clone), Icons.Rounded.AddCircle),
+    TabItem(stringResource(R.string.tab_extract), Icons.Rounded.Unarchive),
 )
 
 @Composable
@@ -61,6 +64,7 @@ fun TwinnRoot(vm: MainViewModel) {
             Screen.Editor -> vm.closeEditor()
             Screen.IconEditor -> vm.screen = Screen.Editor
             Screen.Background, Screen.Header -> vm.screen = Screen.Appearance
+            Screen.Language -> vm.screen = Screen.Settings
             else -> vm.screen = Screen.Home
         }
     }
@@ -76,10 +80,12 @@ fun TwinnRoot(vm: MainViewModel) {
     vm.message?.let { msg ->
         AlertDialog(
             onDismissRequest = { vm.message = null },
-            confirmButton = { TextButton(onClick = { vm.message = null }) { Text("OK") } },
+            confirmButton = { TextButton(onClick = { vm.message = null }) { Text(stringResource(R.string.ok)) } },
             text = { Text(msg, style = androidx.compose.material3.MaterialTheme.typography.bodyLarge) },
         )
     }
+
+    vm.appUpdate?.let { UpdateDialog(it) { vm.appUpdate = null } }
 }
 
 @Composable
@@ -106,6 +112,7 @@ private fun RootContent(vm: MainViewModel, backdrop: Backdrop) {
                 Screen.Editor -> EditorScreen(vm)
                 Screen.IconEditor -> IconEditorScreen(vm)
                 Screen.Settings -> SettingsScreen(vm)
+                Screen.Language -> LanguageScreen(vm)
                 Screen.Appearance -> AppearanceScreen(vm)
                 Screen.Background -> BackgroundScreen(vm)
                 Screen.Header -> HeaderSettingsScreen(vm)
@@ -121,7 +128,7 @@ private fun RootContent(vm: MainViewModel, backdrop: Backdrop) {
                 contentAlignment = Alignment.BottomCenter,
             ) {
                 Text(
-                    "Tap anywhere to return",
+                    stringResource(R.string.tap_to_return),
                     modifier = Modifier.navigationBarsPadding().padding(32.dp),
                     color = androidx.compose.material3.MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f),
                 )
@@ -146,7 +153,7 @@ private fun RootContent(vm: MainViewModel, backdrop: Backdrop) {
 
 @Composable
 private fun MainTabs(vm: MainViewModel) {
-    val pager = rememberPagerState(initialPage = vm.tab) { TABS.size }
+    val pager = rememberPagerState(initialPage = vm.tab) { 3 }
     val scope = rememberCoroutineScope()
     LaunchedEffect(pager) { snapshotFlow { pager.settledPage }.collect { vm.tab = it } }
     LaunchedEffect(vm.tab) { if (vm.tab != pager.currentPage && !pager.isScrollInProgress) pager.animateScrollToPage(vm.tab) }
@@ -174,8 +181,9 @@ private fun MainTabs(vm: MainViewModel) {
                 }
             }
         }
+        CreatorCredit(Modifier.padding(top = 2.dp))
         PillTabBar(
-            tabs = TABS,
+            tabs = tabs(),
             selected = pager.targetPage,
             onSelect = { i -> scope.launch { pager.animateScrollToPage(i, animationSpec = spring(stiffness = Spring.StiffnessMediumLow)) } },
         )

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -45,7 +46,17 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.rounded.LocalCafe
+import androidx.compose.material.icons.rounded.Translate
+import androidx.compose.material.icons.rounded.Verified
+import androidx.compose.material.icons.rounded.WarningAmber
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import com.twinndroid.BuildConfig
+import com.twinndroid.R
+import com.twinndroid.data.Languages
+import com.twinndroid.data.OfficialBuild
 import com.twinndroid.data.BackupManager
 import com.twinndroid.engine.SigningKeys
 import com.twinndroid.install.ShizukuInstaller
@@ -58,6 +69,8 @@ fun SettingsScreen(vm: MainViewModel) {
     var tick by remember { mutableIntStateOf(0) }
     var useShizuku by remember { mutableStateOf(vm.settings.useShizuku) }
     var autoUpdate by remember { mutableStateOf(vm.settings.autoUpdate) }
+    var checkUpdates by remember { mutableStateOf(vm.settings.checkUpdates) }
+    val official = remember { OfficialBuild.isOfficial(context) }
     var fingerprint by remember { mutableStateOf(runCatching { SigningKeys.fingerprint(context) }.getOrDefault("?")) }
 
     DisposableEffect(Unit) {
@@ -77,19 +90,19 @@ fun SettingsScreen(vm: MainViewModel) {
     val exportKey = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("application/x-pkcs12")) { uri ->
         if (uri != null) runCatching {
             context.contentResolver.openOutputStream(uri)!!.use { SigningKeys.export(context, it) }
-        }.onFailure { vm.message = "Export failed: ${it.message}" }
+        }.onFailure { vm.message = context.getString(R.string.export_failed, it.message) }
     }
     val importKey = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
         if (uri != null) runCatching {
             context.contentResolver.openInputStream(uri)!!.use { SigningKeys.import(context, it) }
             fingerprint = SigningKeys.fingerprint(context)
-        }.onFailure { vm.message = "Not a valid TwinnDroid key: ${it.message}" }
+        }.onFailure { vm.message = context.getString(R.string.key_invalid, it.message) }
     }
 
     val exportBackup = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("application/zip")) { uri ->
         if (uri != null) runCatching {
             context.contentResolver.openOutputStream(uri)!!.use { BackupManager.export(context, it) }
-        }.onSuccess { vm.message = "Backup saved." }.onFailure { vm.message = "Backup failed: ${it.message}" }
+        }.onSuccess { vm.message = context.getString(R.string.backup_saved) }.onFailure { vm.message = context.getString(R.string.backup_failed, it.message) }
     }
     val importBackup = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
         if (uri != null) runCatching {
@@ -97,7 +110,7 @@ fun SettingsScreen(vm: MainViewModel) {
             fingerprint = SigningKeys.fingerprint(context)
             useShizuku = vm.settings.useShizuku
             autoUpdate = vm.settings.autoUpdate
-        }.onSuccess { vm.message = "Backup restored. Your clones are back." }.onFailure { vm.message = "Restore failed: ${it.message}" }
+        }.onSuccess { vm.message = context.getString(R.string.backup_restored) }.onFailure { vm.message = context.getString(R.string.restore_failed, it.message) }
     }
 
     Scaffold(
@@ -105,8 +118,8 @@ fun SettingsScreen(vm: MainViewModel) {
         topBar = {
             TopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent, scrolledContainerColor = Color.Transparent),
-                title = { Text("Settings") },
-                navigationIcon = { IconButton(onClick = { vm.screen = Screen.Home }) { Icon(Icons.AutoMirrored.Rounded.ArrowBack, "Back") } },
+                title = { Text(stringResource(R.string.settings)) },
+                navigationIcon = { IconButton(onClick = { vm.screen = Screen.Home }) { Icon(Icons.AutoMirrored.Rounded.ArrowBack, stringResource(R.string.back)) } },
             )
         },
     ) { padding ->
@@ -117,47 +130,61 @@ fun SettingsScreen(vm: MainViewModel) {
             val running = remember(tick) { ShizukuInstaller.isRunning() }
             val granted = remember(tick) { ShizukuInstaller.hasPermission() }
 
-            SettingsCard("Appearance") {
-                Text("Themes, custom colours, text size and the TwinnDroid app icon.", style = MaterialTheme.typography.bodyMedium)
+            SettingsCard(stringResource(R.string.language)) {
+                Text(stringResource(R.string.language_desc), style = MaterialTheme.typography.bodyMedium)
                 Spacer(Modifier.height(8.dp))
-                OutlinedButton(onClick = { vm.screen = Screen.Appearance }) { Text("Open appearance settings") }
+                OutlinedButton(onClick = { vm.screen = Screen.Language }) {
+                    Icon(Icons.Rounded.Translate, null, Modifier.size(18.dp))
+                    Spacer(Modifier.width(8.dp))
+                    Text(Languages.currentName() ?: stringResource(R.string.language_system))
+                }
             }
 
-            SettingsCard("Shizuku (optional)") {
+            SettingsCard(stringResource(R.string.appearance)) {
+                Text(stringResource(R.string.appearance_desc), style = MaterialTheme.typography.bodyMedium)
+                Spacer(Modifier.height(8.dp))
+                OutlinedButton(onClick = { vm.screen = Screen.Appearance }) { Text(stringResource(R.string.appearance_open)) }
+            }
+
+            SettingsCard(stringResource(R.string.shizuku_title)) {
                 Text(
                     when {
-                        granted -> "✓ Ready — clones install without a confirmation dialog."
-                        running -> "Shizuku is running but TwinnDroid isn't authorized yet."
-                        else -> "Not running. Install Shizuku and start it with Wireless debugging (no root needed) for prompt-free installs and background auto-updates."
+                        granted -> stringResource(R.string.shizuku_ready)
+                        running -> stringResource(R.string.shizuku_unauthorized)
+                        else -> stringResource(R.string.shizuku_not_running)
                     },
                     style = MaterialTheme.typography.bodyMedium,
                 )
                 Spacer(Modifier.height(8.dp))
                 when {
-                    running && !granted -> Button(onClick = ShizukuInstaller::requestPermission) { Text("Authorize TwinnDroid") }
+                    running && !granted -> Button(onClick = ShizukuInstaller::requestPermission) { Text(stringResource(R.string.shizuku_authorize)) }
                     !running -> OutlinedButton(onClick = {
                         context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://shizuku.rikka.app/download/")))
-                    }) { Text("Get Shizuku") }
+                    }) { Text(stringResource(R.string.shizuku_get)) }
                 }
-                ToggleRow("Use Shizuku for installs", "Falls back to Android's installer when unavailable.", useShizuku) {
+                ToggleRow(stringResource(R.string.shizuku_use), stringResource(R.string.shizuku_use_desc), useShizuku) {
                     useShizuku = it; vm.settings.useShizuku = it
                 }
             }
 
-            SettingsCard("Updates") {
+            SettingsCard(stringResource(R.string.updates)) {
                 Text(
-                    "TwinnDroid checks every few hours whether the original of a clone was updated, and notifies you. " +
-                        "Rebuilding keeps the clone's data and login because it's signed with the same key.",
+                    stringResource(R.string.updates_desc),
                     style = MaterialTheme.typography.bodyMedium,
                 )
-                ToggleRow("Auto-update in background", "Rebuilds and installs silently. Requires Shizuku.", autoUpdate, enabled = granted || autoUpdate) {
+                ToggleRow(stringResource(R.string.auto_update), stringResource(R.string.auto_update_desc), autoUpdate, enabled = granted || autoUpdate) {
                     autoUpdate = it; vm.settings.autoUpdate = it
                 }
+                ToggleRow(stringResource(R.string.check_app_updates), stringResource(R.string.check_app_updates_desc), checkUpdates) {
+                    checkUpdates = it; vm.settings.checkUpdates = it
+                }
+                Spacer(Modifier.height(8.dp))
+                OutlinedButton(onClick = { vm.checkForAppUpdate(manual = true) }) { Text(stringResource(R.string.check_now)) }
             }
 
-            SettingsCard("Signing key") {
+            SettingsCard(stringResource(R.string.signing_key)) {
                 Text(
-                    "All clones are signed with this key. Back it up — after reinstalling TwinnDroid you need the same key to update existing clones.",
+                    stringResource(R.string.signing_key_desc),
                     style = MaterialTheme.typography.bodyMedium,
                 )
                 Spacer(Modifier.height(8.dp))
@@ -165,33 +192,71 @@ fun SettingsScreen(vm: MainViewModel) {
                 Text(fingerprint, fontFamily = FontFamily.Monospace, fontSize = 11.sp, lineHeight = 14.sp)
                 Spacer(Modifier.height(12.dp))
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    OutlinedButton(onClick = { exportKey.launch("twinndroid-key.p12") }) { Text("Export") }
-                    OutlinedButton(onClick = { importKey.launch(arrayOf("*/*")) }) { Text("Import") }
+                    OutlinedButton(onClick = { exportKey.launch("twinndroid-key.p12") }) { Text(stringResource(R.string.export)) }
+                    OutlinedButton(onClick = { importKey.launch(arrayOf("*/*")) }) { Text(stringResource(R.string.import_)) }
                 }
             }
 
-            SettingsCard("Backup & restore") {
+            SettingsCard(stringResource(R.string.backup_title)) {
                 Text(
-                    "Saves your clone list, signing key, imported APKs, icons and settings to one file. Restore it after " +
-                        "reinstalling TwinnDroid or on a new phone and your clones keep updating.",
+                    stringResource(R.string.backup_desc),
                     style = MaterialTheme.typography.bodyMedium,
                 )
                 Spacer(Modifier.height(12.dp))
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Button(onClick = { exportBackup.launch("TwinnDroid-backup.zip") }) { Text("Back up") }
-                    OutlinedButton(onClick = { importBackup.launch(arrayOf("application/zip", "application/octet-stream", "*/*")) }) { Text("Restore") }
+                    Button(onClick = { exportBackup.launch("TwinnDroid-backup.zip") }) { Text(stringResource(R.string.back_up)) }
+                    OutlinedButton(onClick = { importBackup.launch(arrayOf("application/zip", "application/octet-stream", "*/*")) }) { Text(stringResource(R.string.restore)) }
                 }
             }
 
-            SettingsCard("About") {
+            SettingsCard(stringResource(R.string.about)) {
                 Text("TwinnDroid ${BuildConfig.VERSION_NAME}", style = MaterialTheme.typography.titleMedium)
                 Spacer(Modifier.height(4.dp))
                 Text(
-                    "Clones are real, separately installed apps: TwinnDroid renames the package, provider authorities and " +
-                        "custom permissions inside the APK, applies your name/icon/permission tweaks, then re-signs it. " +
-                        "Nothing runs inside TwinnDroid and no root is needed.",
+                    stringResource(R.string.about_desc),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                Spacer(Modifier.height(10.dp))
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        if (official) Icons.Rounded.Verified else Icons.Rounded.WarningAmber, null,
+                        Modifier.size(18.dp),
+                        tint = if (official) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error,
+                    )
+                    Spacer(Modifier.width(6.dp))
+                    Text(
+                        stringResource(if (official) R.string.official_build else R.string.unofficial_build),
+                        style = MaterialTheme.typography.labelLarge,
+                        color = if (official) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error,
+                    )
+                }
+                if (!official) {
+                    Text(
+                        stringResource(R.string.unofficial_build_desc),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+                Spacer(Modifier.height(8.dp))
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    OutlinedButton(onClick = { context.openUrl(CREATOR_GITHUB) }) {
+                        Icon(painterResource(R.drawable.ic_github), null, Modifier.size(16.dp))
+                        Spacer(Modifier.width(6.dp))
+                        Text("StarlightJulie")
+                    }
+                    OutlinedButton(onClick = { context.openUrl(CREATOR_KOFI) }) {
+                        Icon(Icons.Rounded.LocalCafe, null, Modifier.size(16.dp))
+                        Spacer(Modifier.width(6.dp))
+                        Text("Ko-fi")
+                    }
+                }
+                Spacer(Modifier.height(8.dp))
+                Text(
+                    stringResource(R.string.license_notice),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.clickable { context.openUrl(LICENSE_URL) },
                 )
             }
         }

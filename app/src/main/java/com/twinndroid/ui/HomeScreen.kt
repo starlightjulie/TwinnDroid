@@ -1,6 +1,7 @@
 package com.twinndroid.ui
 
 import android.content.Intent
+import androidx.compose.ui.res.stringResource
 import android.net.Uri
 import android.provider.Settings as AndroidSettings
 import androidx.compose.animation.core.Spring
@@ -90,9 +91,9 @@ fun ClonesPage(vm: MainViewModel, onNewClone: () -> Unit) {
 
         if (!canInstall) item(key = "warn") {
             WarningCard(
-                "TwinnDroid needs permission to install apps",
-                "Allow it once, or set up Shizuku in Settings for prompt-free installs.",
-                "Allow",
+                stringResource(R.string.install_perm_title),
+                stringResource(R.string.install_perm_desc),
+                stringResource(R.string.allow),
                 Modifier.animateItem(),
             ) {
                 context.startActivity(
@@ -129,15 +130,15 @@ fun ClonesPage(vm: MainViewModel, onNewClone: () -> Unit) {
     confirmDelete?.let { item ->
         AlertDialog(
             onDismissRequest = { confirmDelete = null },
-            title = { Text("Remove ${item.config.label}?") },
+            title = { Text(stringResource(R.string.remove_clone_title, item.config.label)) },
             text = {
                 Text(
-                    if (item.installedVersion != null) "This removes it from TwinnDroid only. The installed clone stays on your device; uninstall it separately if you want it gone."
-                    else "This removes the clone settings from TwinnDroid.",
+                    if (item.installedVersion != null) stringResource(R.string.remove_clone_installed)
+                    else stringResource(R.string.remove_clone_desc),
                 )
             },
-            confirmButton = { TextButton(onClick = { vm.delete(item.config); confirmDelete = null }) { Text("Remove") } },
-            dismissButton = { TextButton(onClick = { confirmDelete = null }) { Text("Cancel") } },
+            confirmButton = { TextButton(onClick = { vm.delete(item.config); confirmDelete = null }) { Text(stringResource(R.string.remove)) } },
+            dismissButton = { TextButton(onClick = { confirmDelete = null }) { Text(stringResource(R.string.cancel)) } },
         )
     }
 }
@@ -152,15 +153,15 @@ private fun EmptyState(onNewClone: () -> Unit) {
             Image(painterResource(R.drawable.ic_launcher_foreground), null, Modifier.size(120.dp))
         }
         Spacer(Modifier.height(20.dp))
-        Text("No clones yet", style = MaterialTheme.typography.titleLarge)
+        Text(stringResource(R.string.empty_title), style = MaterialTheme.typography.titleLarge)
         Spacer(Modifier.height(6.dp))
         Text(
-            "Make a second copy of an app with its own login, name and icon.",
+            stringResource(R.string.empty_desc),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
         Spacer(Modifier.height(16.dp))
-        FilledTonalButton(onClick = onNewClone) { Text("Make your first clone") }
+        FilledTonalButton(onClick = onNewClone) { Text(stringResource(R.string.empty_button)) }
     }
 }
 
@@ -194,6 +195,7 @@ private fun CloneCard(
     onAccess: () -> Unit,
 ) {
     val c = item.config
+    val ctx = LocalContext.current
     var menu by remember { mutableStateOf(false) }
     TwinnCard(modifier.fillMaxWidth().padding(horizontal = 16.dp)) {
         Column(Modifier.padding(16.dp)) {
@@ -218,7 +220,7 @@ private fun CloneCard(
                     if (item.missingAccess.isNotEmpty()) {
                         Spacer(Modifier.height(6.dp))
                         Text(
-                            "Needs ${item.missingAccess.joinToString { it.label.lowercase() }} · tap to grant",
+                            stringResource(R.string.needs_access, item.missingAccess.joinToString { ctx.getString(it.label).lowercase() }),
                             style = MaterialTheme.typography.labelMedium,
                             color = MaterialTheme.colorScheme.tertiary,
                             modifier = Modifier.clip(RoundedCornerShape(8.dp)).clickable(onClick = onAccess).padding(vertical = 2.dp),
@@ -226,17 +228,17 @@ private fun CloneCard(
                     }
                 }
                 Box {
-                    IconButton(onClick = { menu = true }) { Icon(Icons.Rounded.MoreVert, "More") }
+                    IconButton(onClick = { menu = true }) { Icon(Icons.Rounded.MoreVert, stringResource(R.string.more)) }
                     DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
-                        DropdownMenuItem(text = { Text("Edit") }, leadingIcon = { Icon(Icons.Rounded.Edit, null) }, onClick = { menu = false; onEdit() })
-                        DropdownMenuItem(text = { Text("Rebuild & reinstall") }, leadingIcon = { Icon(Icons.Rounded.Build, null) }, onClick = { menu = false; onBuild() })
+                        DropdownMenuItem(text = { Text(stringResource(R.string.edit)) }, leadingIcon = { Icon(Icons.Rounded.Edit, null) }, onClick = { menu = false; onEdit() })
+                        DropdownMenuItem(text = { Text(stringResource(R.string.rebuild)) }, leadingIcon = { Icon(Icons.Rounded.Build, null) }, onClick = { menu = false; onBuild() })
                         if (item.installedVersion != null) {
-                            DropdownMenuItem(text = { Text("Uninstall clone") }, leadingIcon = { Icon(Icons.Rounded.Delete, null) }, onClick = { menu = false; onUninstall() })
+                            DropdownMenuItem(text = { Text(stringResource(R.string.uninstall_clone)) }, leadingIcon = { Icon(Icons.Rounded.Delete, null) }, onClick = { menu = false; onUninstall() })
                         }
                         if (item.access.isNotEmpty()) {
-                            DropdownMenuItem(text = { Text("Special access") }, leadingIcon = { Icon(Icons.Rounded.AdminPanelSettings, null) }, onClick = { menu = false; onAccess() })
+                            DropdownMenuItem(text = { Text(stringResource(R.string.special_access)) }, leadingIcon = { Icon(Icons.Rounded.AdminPanelSettings, null) }, onClick = { menu = false; onAccess() })
                         }
-                        DropdownMenuItem(text = { Text("Remove from list") }, onClick = { menu = false; onDelete() })
+                        DropdownMenuItem(text = { Text(stringResource(R.string.remove_from_list)) }, onClick = { menu = false; onDelete() })
                     }
                 }
             }
@@ -244,18 +246,18 @@ private fun CloneCard(
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 when {
                     item.updateAvailable -> FilledTonalButton(onClick = onBuild) {
-                        Icon(Icons.Rounded.SystemUpdate, null, Modifier.size(18.dp)); Spacer(Modifier.width(6.dp)); Text("Update")
+                        Icon(Icons.Rounded.SystemUpdate, null, Modifier.size(18.dp)); Spacer(Modifier.width(6.dp)); Text(stringResource(R.string.update))
                     }
                     item.installedVersion == null -> FilledTonalButton(onClick = onBuild) {
-                        Icon(Icons.Rounded.Build, null, Modifier.size(18.dp)); Spacer(Modifier.width(6.dp)); Text("Build & install")
+                        Icon(Icons.Rounded.Build, null, Modifier.size(18.dp)); Spacer(Modifier.width(6.dp)); Text(stringResource(R.string.build_install))
                     }
                 }
                 if (item.installedVersion != null) {
                     OutlinedButton(onClick = onOpen) {
-                        Icon(Icons.AutoMirrored.Rounded.OpenInNew, null, Modifier.size(18.dp)); Spacer(Modifier.width(6.dp)); Text("Open")
+                        Icon(Icons.AutoMirrored.Rounded.OpenInNew, null, Modifier.size(18.dp)); Spacer(Modifier.width(6.dp)); Text(stringResource(R.string.open))
                     }
                 }
-                OutlinedButton(onClick = onEdit) { Text("Customize") }
+                OutlinedButton(onClick = onEdit) { Text(stringResource(R.string.customize)) }
             }
         }
     }
@@ -264,16 +266,16 @@ private fun CloneCard(
 @Composable
 private fun StatusChip(item: CloneItem) {
     val (text, color) = when {
-        item.updateAvailable -> "Update available" to MaterialTheme.colorScheme.tertiary
-        item.installedVersion != null -> "Installed · ${item.config.builtVersionName ?: item.installedVersion}" to MaterialTheme.colorScheme.secondary
-        else -> "Not installed" to MaterialTheme.colorScheme.outline
+        item.updateAvailable -> stringResource(R.string.status_update) to MaterialTheme.colorScheme.tertiary
+        item.installedVersion != null -> stringResource(R.string.status_installed, item.config.builtVersionName ?: item.installedVersion ?: "") to MaterialTheme.colorScheme.secondary
+        else -> stringResource(R.string.status_not_installed) to MaterialTheme.colorScheme.outline
     }
     Row(verticalAlignment = Alignment.CenterVertically) {
         Box(Modifier.size(8.dp).clip(CircleShape).background(color))
         Spacer(Modifier.width(6.dp))
         Text(text, style = MaterialTheme.typography.labelMedium, color = color)
         Text(
-            "  ·  from ${item.config.sourceLabel}",
+            "  ·  " + stringResource(R.string.status_from, item.config.sourceLabel),
             style = MaterialTheme.typography.labelMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             maxLines = 1,

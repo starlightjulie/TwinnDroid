@@ -1,5 +1,7 @@
 package com.twinndroid.ui
 
+import com.twinndroid.R
+import androidx.compose.ui.res.stringResource
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -105,8 +107,8 @@ fun EditorScreen(vm: MainViewModel) {
         topBar = {
             TopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent, scrolledContainerColor = Color.Transparent),
-                title = { Text(if (state.isNew) "New clone" else "Customize clone") },
-                navigationIcon = { IconButton(onClick = vm::closeEditor) { Icon(Icons.AutoMirrored.Rounded.ArrowBack, "Back") } },
+                title = { Text(stringResource(if (state.isNew) R.string.new_clone_title else R.string.customize_clone)) },
+                navigationIcon = { IconButton(onClick = vm::closeEditor) { Icon(Icons.AutoMirrored.Rounded.ArrowBack, stringResource(R.string.back)) } },
             )
         },
         bottomBar = {
@@ -117,7 +119,7 @@ fun EditorScreen(vm: MainViewModel) {
                 ) {
                     Icon(Icons.Rounded.Check, null)
                     Spacer(Modifier.width(8.dp))
-                    Text(if (state.isNew) "Clone & install" else "Save, rebuild & install")
+                    Text(stringResource(if (state.isNew) R.string.clone_install else R.string.save_rebuild))
                 }
             }
         },
@@ -136,13 +138,13 @@ fun EditorScreen(vm: MainViewModel) {
                 }
                 Spacer(Modifier.width(16.dp))
                 Column {
-                    Text(c.label.ifBlank { "Unnamed" }, style = MaterialTheme.typography.titleLarge, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                    Text(c.label.ifBlank { stringResource(R.string.unnamed) }, style = MaterialTheme.typography.titleLarge, maxLines = 1, overflow = TextOverflow.Ellipsis)
                     Text(
-                        "Clone of ${c.sourceLabel}${state.sourceVersion?.let { " $it" } ?: ""}",
+                        stringResource(R.string.clone_of, c.sourceLabel + (state.sourceVersion?.let { " $it" } ?: "")),
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                     Text(
-                        if (c.sourceKind == SourceKind.INSTALLED) "From installed app · auto-update capable" else "From APK file",
+                        stringResource(if (c.sourceKind == SourceKind.INSTALLED) R.string.from_installed else R.string.from_apk_file),
                         style = MaterialTheme.typography.labelMedium,
                         color = MaterialTheme.colorScheme.secondary,
                     )
@@ -161,13 +163,13 @@ fun EditorScreen(vm: MainViewModel) {
                         Spacer(Modifier.width(12.dp))
                         Column {
                             Text(
-                                if (shield) "Likely won't run as a clone" else "Sign-in may not work",
+                                stringResource(if (shield) R.string.tamper_shield_title else R.string.tamper_integrity_title),
                                 style = MaterialTheme.typography.titleSmall,
                                 color = if (shield) MaterialTheme.colorScheme.onErrorContainer else MaterialTheme.colorScheme.onSurface,
                             )
                             Spacer(Modifier.height(2.dp))
                             Text(
-                                state.tamper.detail,
+                                if (shield) stringResource(R.string.tamper_shield, state.tamper.product.orEmpty()) else stringResource(R.string.tamper_integrity),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = if (shield) MaterialTheme.colorScheme.onErrorContainer else MaterialTheme.colorScheme.onSurfaceVariant,
                             )
@@ -176,11 +178,11 @@ fun EditorScreen(vm: MainViewModel) {
                 }
             }
 
-            Section("Identity") {
+            Section(stringResource(R.string.identity)) {
                 OutlinedTextField(
                     value = c.label,
                     onValueChange = { v -> vm.updateConfig { it.copy(label = v) } },
-                    label = { Text("App name") },
+                    label = { Text(stringResource(R.string.app_name_label)) },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth(),
                 )
@@ -188,21 +190,21 @@ fun EditorScreen(vm: MainViewModel) {
                 OutlinedTextField(
                     value = c.clonePackage,
                     onValueChange = { v -> vm.updateConfig { it.copy(clonePackage = v.replace(" ", "")) } },
-                    label = { Text("Package name") },
+                    label = { Text(stringResource(R.string.package_name)) },
                     singleLine = true,
                     isError = state.packageError != null,
                     supportingText = {
                         Text(
                             state.packageError
-                                ?: if (!state.isNew && c.builtVersionCode > 0) "Changing this creates a new app (fresh data) instead of updating the existing clone."
-                                else "Each clone needs a unique package. This is what keeps its login separate.",
+                                ?: if (!state.isNew && c.builtVersionCode > 0) stringResource(R.string.package_change_warning)
+                                else stringResource(R.string.package_hint),
                         )
                     },
                     modifier = Modifier.fillMaxWidth(),
                 )
             }
 
-            Section("Icon") {
+            Section(stringResource(R.string.icon)) {
                 Row(
                     Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp)).clickable { vm.screen = Screen.IconEditor }.padding(vertical = 4.dp),
                     verticalAlignment = Alignment.CenterVertically,
@@ -215,16 +217,19 @@ fun EditorScreen(vm: MainViewModel) {
                     Column(Modifier.weight(1f)) {
                         Text(
                             when (c.iconMode) {
-                                IconMode.ORIGINAL -> "Original icon"
-                                IconMode.BADGE -> "Badge"
-                                IconMode.CUSTOM -> "Custom image"
+                                IconMode.ORIGINAL -> stringResource(R.string.icon_original)
+                                IconMode.BADGE -> stringResource(R.string.badge)
+                                IconMode.CUSTOM -> stringResource(R.string.icon_custom)
                             },
                         )
+                        val badgeLine = stringResource(R.string.badge_quoted, c.badgeText)
+                        val adjusted = stringResource(R.string.adjusted)
+                        val iconHint = stringResource(R.string.icon_hint)
                         Text(
                             buildString {
-                                if (c.iconMode == IconMode.BADGE) append("“${c.badgeText}” badge")
-                                if (!c.iconAdjust.isIdentity) { if (isNotEmpty()) append(" · "); append("adjusted") }
-                                if (isEmpty()) append("Name, badge, colour, tint")
+                                if (c.iconMode == IconMode.BADGE) append(badgeLine)
+                                if (!c.iconAdjust.isIdentity) { if (isNotEmpty()) append(" · "); append(adjusted) }
+                                if (isEmpty()) append(iconHint)
                             },
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -234,16 +239,16 @@ fun EditorScreen(vm: MainViewModel) {
                 }
             }
 
-            Section("Permissions") {
+            Section(stringResource(R.string.permissions)) {
                 val removed = c.removedPermissions.toSet()
                 Row(
                     Modifier.fillMaxWidth().clickable { permsExpanded = !permsExpanded }.padding(vertical = 4.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Column(Modifier.weight(1f)) {
-                        Text("${state.permissions.size - removed.size} of ${state.permissions.size} kept")
+                        Text(stringResource(R.string.permissions_kept, state.permissions.size - removed.size, state.permissions.size))
                         Text(
-                            "Untick a permission to remove it from the clone. Removing ones the app needs can make it crash.",
+                            stringResource(R.string.permissions_hint),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
@@ -254,7 +259,7 @@ fun EditorScreen(vm: MainViewModel) {
                     if (state.permissions.any { it in SENSITIVE }) {
                         TextButton(onClick = {
                             vm.updateConfig { cfg -> cfg.copy(removedPermissions = (cfg.removedPermissions + state.permissions.filter { it in SENSITIVE }).distinct()) }
-                        }) { Text("Remove privacy-sensitive permissions") }
+                        }) { Text(stringResource(R.string.remove_sensitive)) }
                     }
                     HorizontalDivider()
                     state.permissions.forEach { perm ->
@@ -280,12 +285,12 @@ fun EditorScreen(vm: MainViewModel) {
                 }
             }
 
-            Section("Advanced") {
+            Section(stringResource(R.string.advanced)) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Column(Modifier.weight(1f)) {
-                        Text("Debuggable")
+                        Text(stringResource(R.string.debuggable))
                         Text(
-                            "Lets you inspect the clone with adb / Android Studio.",
+                            stringResource(R.string.debuggable_desc),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
@@ -299,8 +304,7 @@ fun EditorScreen(vm: MainViewModel) {
                     Icon(Icons.Rounded.Info, null, tint = MaterialTheme.colorScheme.primary)
                     Spacer(Modifier.width(12.dp))
                     Text(
-                        "Clones are re-signed with TwinnDroid's key. Apps that check their own signature or use Play Integrity " +
-                            "(most banking apps, some games, Google Sign-In tied to the original) may refuse to log in.",
+                        stringResource(R.string.resign_note),
                         style = MaterialTheme.typography.bodySmall,
                     )
                 }

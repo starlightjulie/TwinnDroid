@@ -1,6 +1,8 @@
 package com.twinndroid.install
 
 import android.app.AppOpsManager
+import com.twinndroid.R
+import androidx.annotation.StringRes
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -16,7 +18,7 @@ import android.provider.Settings
  * real package name, so it can open the right page — or grant it directly through Shizuku.
  */
 enum class SpecialAccess(
-    val label: String,
+    @StringRes val label: Int,
     val permission: String,
     val op: String,
     val opStr: String,
@@ -24,7 +26,7 @@ enum class SpecialAccess(
     val minSdk: Int,
 ) {
     ALL_FILES(
-        "All files access",
+        R.string.access_all_files,
         "android.permission.MANAGE_EXTERNAL_STORAGE",
         "MANAGE_EXTERNAL_STORAGE",
         "android:manage_external_storage",
@@ -32,7 +34,7 @@ enum class SpecialAccess(
         30,
     ),
     INSTALL_APPS(
-        "Install unknown apps",
+        R.string.access_install_apps,
         "android.permission.REQUEST_INSTALL_PACKAGES",
         "REQUEST_INSTALL_PACKAGES",
         "android:request_install_packages",
@@ -40,7 +42,7 @@ enum class SpecialAccess(
         26,
     ),
     OVERLAY(
-        "Display over other apps",
+        R.string.access_overlay,
         "android.permission.SYSTEM_ALERT_WINDOW",
         "SYSTEM_ALERT_WINDOW",
         "android:system_alert_window",

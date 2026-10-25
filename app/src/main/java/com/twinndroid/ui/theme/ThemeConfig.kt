@@ -1,5 +1,7 @@
 package com.twinndroid.ui.theme
 
+import com.twinndroid.R
+import androidx.annotation.StringRes
 import android.content.Context
 import androidx.core.content.edit
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,31 +15,31 @@ enum class ThemeMode { SYSTEM, LIGHT, DARK }
 
 /** How the big title card on the Clones tab is drawn. */
 @Serializable
-enum class HeaderStyle(val label: String) {
-    GRADIENT("Gradient"),
-    GLASS("Glass"),
-    SOLID("Solid"),
-    NONE("None"),
+enum class HeaderStyle(@StringRes val label: Int) {
+    GRADIENT(R.string.hs_gradient),
+    GLASS(R.string.hs_glass),
+    SOLID(R.string.hs_solid),
+    NONE(R.string.none),
 }
 
 @Serializable
-enum class BgAnimation(val label: String) {
-    SPACE("Space"),
-    PARTICLES("Particles"),
-    CIRCLES("Circles"),
-    RINGS("Rings"),
-    MESH("Mesh"),
-    SHAPES("Shapes"),
-    SNOW("Snow"),
-    GRID("Grid"),
-    LAVA("Lava lamp"),
-    AURORA("Aurora"),
-    WAVES("Waves"),
-    FIREFLIES("Fireflies"),
-    BOKEH("Bokeh"),
-    METEORS("Meteors"),
-    NONE("None"),
-    RANDOM("Random"),
+enum class BgAnimation(@StringRes val label: Int) {
+    SPACE(R.string.bg_space),
+    PARTICLES(R.string.bg_particles),
+    CIRCLES(R.string.bg_circles),
+    RINGS(R.string.bg_rings),
+    MESH(R.string.bg_mesh),
+    SHAPES(R.string.bg_shapes),
+    SNOW(R.string.bg_snow),
+    GRID(R.string.bg_grid),
+    LAVA(R.string.bg_lava),
+    AURORA(R.string.bg_aurora),
+    WAVES(R.string.bg_waves),
+    FIREFLIES(R.string.bg_fireflies),
+    BOKEH(R.string.bg_bokeh),
+    METEORS(R.string.bg_meteors),
+    NONE(R.string.none),
+    RANDOM(R.string.bg_random),
 }
 
 /** The user-editable colour "aspects" of the app. Values are ARGB. */
@@ -52,14 +54,14 @@ data class Palette(
     val headerEnd: Long,
 )
 
-enum class Aspect(val label: String, val description: String) {
-    PRIMARY("Accent", "Buttons, switches and highlights"),
-    SECONDARY("Secondary", "Installed status and success states"),
-    TERTIARY("Tertiary", "Update badges"),
-    BACKGROUND("Background", "Behind everything"),
-    SURFACE("Cards", "Clone cards and settings panels"),
-    HEADER_START("Header start", "Left side of the header gradient"),
-    HEADER_END("Header end", "Right side of the header gradient");
+enum class Aspect(@StringRes val label: Int, @StringRes val description: Int) {
+    PRIMARY(R.string.aspect_primary, R.string.aspect_primary_desc),
+    SECONDARY(R.string.aspect_secondary, R.string.aspect_secondary_desc),
+    TERTIARY(R.string.aspect_tertiary, R.string.aspect_tertiary_desc),
+    BACKGROUND(R.string.aspect_background, R.string.aspect_background_desc),
+    SURFACE(R.string.aspect_surface, R.string.aspect_surface_desc),
+    HEADER_START(R.string.aspect_header_start, R.string.aspect_header_start_desc),
+    HEADER_END(R.string.aspect_header_end, R.string.aspect_header_end_desc);
 
     fun get(p: Palette): Long = when (this) {
         PRIMARY -> p.primary
