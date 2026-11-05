@@ -17,10 +17,11 @@ No root, no virtual space. Every copy is a real app, kept apart by Android itsel
 
 <br><br>
 
-<img src="docs/screenshots/clones.png" width="24%" alt="The Clones tab with three clones">
-<img src="docs/screenshots/editor.png" width="24%" alt="The clone editor">
-<img src="docs/screenshots/sandbox.png" width="24%" alt="The Sandbox tab">
-<img src="docs/screenshots/isolation.png" width="24%" alt="Sandbox and isolation options for a clone">
+<img src="docs/screenshots/clones.png" width="19%" alt="The Clones tab with three clones">
+<img src="docs/screenshots/editor.png" width="19%" alt="The new clone editor">
+<img src="docs/screenshots/appearance.png" width="19%" alt="The Appearance menu">
+<img src="docs/screenshots/sandbox.png" width="19%" alt="The Sandbox tab">
+<img src="docs/screenshots/isolation.png" width="19%" alt="Sandbox and isolation options for a clone">
 
 </div>
 
@@ -41,7 +42,7 @@ I was using Shelter to run a second copy of a couple of apps, but I wanted one p
 - **Keeps clones updated**: when the original app updates, you get a heads-up, and one tap updates the copy without logging you out
 - **Extracts APKs** from any installed app (splits included) as `.apk`, `.apks`, `.xapk`, `.apkm`, or one merged `.apk`
 - **Installs silently** if you use [Shizuku](https://shizuku.rikka.app/) (optional)
-- **Looks how you want**: 14 animated backgrounds, 12 theme presets with matching app icons, your own colours, Material You, a frosted-glass header and more
+- **Looks how you want**: 14 animated backgrounds, 12 theme presets with matching app icons, your own colours and saved themes, Material You, a frosted-glass header and more
 - **Backs everything up**, so you can move your clones and settings to a new phone
 - **Speaks your language**: 23 languages, including the 20 most spoken in the world, from **Settings → Language** (Arabic and Urdu get a proper right-to-left layout)
 - **Tells you when there's a new version** with a short pop-up and the release notes
@@ -175,6 +176,7 @@ Tap the palette button on the Clones tab:
 | **Background & effects** | Space, Particles, Circles, Rings, Mesh, Shapes, Snow, Grid, Lava lamp, Aurora, Waves, Fireflies, Bokeh, Meteors, None or Random, plus tilt **Parallax**. **Preview background** hides everything so you can just watch it. Animations pause when TwinnDroid is in the background and turn off if you've disabled animations in Android. The look was inspired by [Morphe Patcher](https://github.com/MorpheApp/morphe-manager). |
 | **Home header** | Gradient, Glass, Solid or None, with opacity, real blur (Android 12+), roundness and a floating style. You can also put frosted pills behind the icon, title and buttons. |
 | **Presets** | TwinnDroid, Midnight AMOLED, Ocean, Forest, Sunset, Rose, High contrast, Lavender, Cyberpunk, Nord, Dracula, Matcha. Turn on **Match app icon** and TwinnDroid's icon changes with the theme. |
+| **My themes** | Drop-downs for custom colours, background & effects, text size and the home header. Save the whole look under a name and switch between your themes with one tap. |
 | **System / Light / Dark** | Follow your phone or pick one |
 | **Material You** | Colours from your wallpaper (Android 12+) |
 | **Custom colours** | Pick each colour yourself with a picker or hex code |
