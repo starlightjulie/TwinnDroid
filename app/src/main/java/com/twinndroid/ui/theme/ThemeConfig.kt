@@ -166,6 +166,10 @@ object ThemePresets {
     fun byId(id: String) = all.firstOrNull { it.id == id } ?: all.first()
 }
 
+/** A look saved under a name: colours, background, text size and home header together. */
+@Serializable
+data class SavedTheme(val name: String, val look: ThemeConfig)
+
 @Serializable
 data class ThemeConfig(
     val presetId: String = "twinn",
@@ -187,6 +191,7 @@ data class ThemeConfig(
     /** Switch the TwinnDroid launcher icon along with the theme preset. */
     val matchIcon: Boolean = false,
     val header: HeaderSettings = HeaderSettings(),
+    val savedThemes: List<SavedTheme> = emptyList(),
 ) {
     fun palette(systemDark: Boolean): Palette {
         custom?.let { return it }
@@ -198,6 +203,17 @@ data class ThemeConfig(
         }
         return if (dark) preset.dark else preset.light
     }
+
+    /** What a saved theme carries, which is also what decides if one is in use. */
+    fun lookOnly() = copy(presetId = ThemeConfig().presetId, mode = ThemeMode.SYSTEM, matchIcon = false, savedThemes = emptyList())
+
+    /** Saves this look. [colours] become its own colours, so it stays the same whichever preset is picked later. */
+    fun savingTheme(name: String, colours: Palette): ThemeConfig {
+        val kept = copy(custom = colours, dynamicColor = false)
+        return kept.copy(savedThemes = savedThemes.filterNot { it.name.equals(name, ignoreCase = true) } + SavedTheme(name, kept.lookOnly()))
+    }
+
+    fun usingTheme(theme: SavedTheme) = theme.look.copy(presetId = presetId, mode = mode, matchIcon = matchIcon, savedThemes = savedThemes)
 }
 
 /** The big title card on the Clones tab and the pills around its buttons, title and icon. */

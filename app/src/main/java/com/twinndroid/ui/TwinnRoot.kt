@@ -65,7 +65,7 @@ fun TwinnRoot(vm: MainViewModel) {
         when (vm.screen) {
             Screen.Editor -> vm.closeEditor()
             Screen.IconEditor, Screen.Cell -> vm.screen = Screen.Editor
-            Screen.Background, Screen.Header -> vm.screen = Screen.Appearance
+            Screen.Background, Screen.Header, Screen.MyThemes -> vm.screen = Screen.Appearance
             Screen.Language -> vm.screen = Screen.Settings
             else -> vm.screen = Screen.Home
         }
@@ -119,6 +119,7 @@ private fun RootContent(vm: MainViewModel, backdrop: Backdrop) {
                 Screen.Appearance -> AppearanceScreen(vm)
                 Screen.Background -> BackgroundScreen(vm)
                 Screen.Header -> HeaderSettingsScreen(vm)
+                Screen.MyThemes -> MyThemesScreen(vm)
             }
         }
 

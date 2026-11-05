@@ -96,40 +96,7 @@ fun BackgroundScreen(vm: MainViewModel) {
             }
             TwinnCard {
                 Column(Modifier.padding(16.dp)) {
-                    FlowRow(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp),
-                        maxItemsInEachRow = 3,
-                    ) {
-                        BgAnimation.entries.forEach { anim ->
-                            val selected = cfg.background == anim
-                            Column(
-                                Modifier
-                                    .weight(1f)
-                                    .clip(RoundedCornerShape(18.dp))
-                                    .background(
-                                        if (selected) MaterialTheme.colorScheme.primaryContainer
-                                        else MaterialTheme.colorScheme.surfaceContainerHigh.copy(alpha = 0.6f),
-                                    )
-                                    .border(
-                                        if (selected) BorderStroke(2.dp, MaterialTheme.colorScheme.primary)
-                                        else BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
-                                        RoundedCornerShape(18.dp),
-                                    )
-                                    .clickable { repo.update { it.copy(background = anim) } }
-                                    .padding(vertical = 14.dp),
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                            ) {
-                                Icon(
-                                    bgIcon(anim),
-                                    null,
-                                    tint = if (selected) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.primary,
-                                )
-                                Spacer(Modifier.height(6.dp))
-                                Text(stringResource(anim.label), style = MaterialTheme.typography.labelMedium, maxLines = 1)
-                            }
-                        }
-                    }
+                    BackgroundGrid()
                 }
             }
             TwinnCard {
@@ -156,45 +123,143 @@ fun HeaderSettingsScreen(vm: MainViewModel) {
         Column(mod.fillMaxSize().verticalScroll(rememberScrollState())) {
             HomeHeader(count = vm.clones.size, updates = 0, onAppearance = {}, onSettings = {}, settings = h)
             Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                Panel(stringResource(R.string.card)) {
-                    val styles = HeaderStyle.entries
-                    SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
-                        styles.forEachIndexed { i, s ->
-                            SegmentedButton(
-                                selected = h.style == s,
-                                onClick = { set { it.copy(style = s) } },
-                                shape = SegmentedButtonDefaults.itemShape(i, styles.size),
-                            ) { Text(stringResource(s.label), maxLines = 1) }
-                        }
-                    }
-                    AnimatedVisibility(h.style != HeaderStyle.NONE, enter = expandVertically() + fadeIn(), exit = shrinkVertically() + fadeOut()) {
-                        Column {
-                            LabeledSlider(stringResource(R.string.opacity), "${(h.opacity * 100).toInt()}%", h.opacity, 0f..1f) { v -> set { it.copy(opacity = v) } }
-                            LabeledSlider(stringResource(R.string.blur), "${h.blur.toInt()} dp", h.blur, 0f..40f) { v -> set { it.copy(blur = v) } }
-                            if (Build.VERSION.SDK_INT < 31) Hint(stringResource(R.string.blur_needs_12))
-                            else if (h.opacity >= 0.999f && h.style != HeaderStyle.GLASS) Hint(stringResource(R.string.blur_hint))
-                        }
-                    }
-                    LabeledSlider(stringResource(R.string.roundness), "${h.radius.toInt()} dp", h.radius, 0f..48f) { v -> set { it.copy(radius = v) } }
-                    ToggleLine(stringResource(R.string.floating_card), stringResource(R.string.floating_card_desc), h.floating) { v -> set { it.copy(floating = v) } }
-                }
-                Panel(stringResource(R.string.pills)) {
-                    ToggleLine(
-                        stringResource(R.string.pills_toggle),
-                        stringResource(R.string.pills_toggle_desc),
-                        h.pills,
-                    ) { v -> set { it.copy(pills = v) } }
-                    AnimatedVisibility(h.pills, enter = expandVertically() + fadeIn(), exit = shrinkVertically() + fadeOut()) {
-                        Column {
-                            LabeledSlider(stringResource(R.string.pill_opacity), "${(h.pillOpacity * 100).toInt()}%", h.pillOpacity, 0f..0.9f) { v -> set { it.copy(pillOpacity = v) } }
-                            LabeledSlider(stringResource(R.string.pill_blur), "${h.pillBlur.toInt()} dp", h.pillBlur, 0f..30f) { v -> set { it.copy(pillBlur = v) } }
-                            LabeledSlider(stringResource(R.string.pill_roundness), "${(h.pillRadius * 2).toInt()}%", h.pillRadius, 0f..50f) { v -> set { it.copy(pillRadius = v) } }
-                        }
-                    }
-                }
+                Panel(stringResource(R.string.card)) { HeaderCardControls(h, ::set) }
+                Panel(stringResource(R.string.pills)) { HeaderPillControls(h, ::set) }
                 TextButton(onClick = { set { HeaderSettings() } }) { Text(stringResource(R.string.reset_header)) }
             }
         }
+    }
+}
+
+/** Every background animation as a grid of tiles. */
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun BackgroundGrid() {
+    val context = LocalContext.current
+    val repo = remember { ThemeRepository.get(context) }
+    val cfg by repo.config.collectAsState()
+    FlowRow(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        maxItemsInEachRow = 3,
+    ) {
+        BgAnimation.entries.forEach { anim ->
+            val selected = cfg.background == anim
+            Column(
+                Modifier
+                    .weight(1f)
+                    .clip(RoundedCornerShape(18.dp))
+                    .background(
+                        if (selected) MaterialTheme.colorScheme.primaryContainer
+                        else MaterialTheme.colorScheme.surfaceContainerHigh.copy(alpha = 0.6f),
+                    )
+                    .border(
+                        if (selected) BorderStroke(2.dp, MaterialTheme.colorScheme.primary)
+                        else BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+                        RoundedCornerShape(18.dp),
+                    )
+                    .clickable { repo.update { it.copy(background = anim) } }
+                    .padding(vertical = 14.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Icon(
+                    bgIcon(anim),
+                    null,
+                    tint = if (selected) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.primary,
+                )
+                Spacer(Modifier.height(6.dp))
+                Text(stringResource(anim.label), style = MaterialTheme.typography.labelMedium, maxLines = 1)
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun HeaderCardControls(h: HeaderSettings, set: ((HeaderSettings) -> HeaderSettings) -> Unit) {
+    val styles = HeaderStyle.entries
+    SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
+        styles.forEachIndexed { i, s ->
+            SegmentedButton(
+                selected = h.style == s,
+                onClick = { set { it.copy(style = s) } },
+                shape = SegmentedButtonDefaults.itemShape(i, styles.size),
+            ) { Text(stringResource(s.label), maxLines = 1) }
+        }
+    }
+    AnimatedVisibility(h.style != HeaderStyle.NONE, enter = expandVertically() + fadeIn(), exit = shrinkVertically() + fadeOut()) {
+        Column {
+            LabeledSlider(stringResource(R.string.opacity), "${(h.opacity * 100).toInt()}%", h.opacity, 0f..1f) { v -> set { it.copy(opacity = v) } }
+            LabeledSlider(stringResource(R.string.blur), "${h.blur.toInt()} dp", h.blur, 0f..40f) { v -> set { it.copy(blur = v) } }
+            if (Build.VERSION.SDK_INT < 31) Hint(stringResource(R.string.blur_needs_12))
+            else if (h.opacity >= 0.999f && h.style != HeaderStyle.GLASS) Hint(stringResource(R.string.blur_hint))
+        }
+    }
+    LabeledSlider(stringResource(R.string.roundness), "${h.radius.toInt()} dp", h.radius, 0f..48f) { v -> set { it.copy(radius = v) } }
+    ToggleLine(stringResource(R.string.floating_card), stringResource(R.string.floating_card_desc), h.floating) { v -> set { it.copy(floating = v) } }
+}
+
+@Composable
+private fun HeaderPillControls(h: HeaderSettings, set: ((HeaderSettings) -> HeaderSettings) -> Unit) {
+    ToggleLine(
+        stringResource(R.string.pills_toggle),
+        stringResource(R.string.pills_toggle_desc),
+        h.pills,
+    ) { v -> set { it.copy(pills = v) } }
+    AnimatedVisibility(h.pills, enter = expandVertically() + fadeIn(), exit = shrinkVertically() + fadeOut()) {
+        Column {
+            LabeledSlider(stringResource(R.string.pill_opacity), "${(h.pillOpacity * 100).toInt()}%", h.pillOpacity, 0f..0.9f) { v -> set { it.copy(pillOpacity = v) } }
+            LabeledSlider(stringResource(R.string.pill_blur), "${h.pillBlur.toInt()} dp", h.pillBlur, 0f..30f) { v -> set { it.copy(pillBlur = v) } }
+            LabeledSlider(stringResource(R.string.pill_roundness), "${(h.pillRadius * 2).toInt()}%", h.pillRadius, 0f..50f) { v -> set { it.copy(pillRadius = v) } }
+        }
+    }
+}
+
+/** The Background & effects fold in My themes: the page's controls plus the look toggles. */
+@Composable
+fun BackgroundSettings(vm: MainViewModel) {
+    val context = LocalContext.current
+    val repo = remember { ThemeRepository.get(context) }
+    val cfg by repo.config.collectAsState()
+    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        Hint(stringResource(R.string.bg_desc) + " " + stringResource(R.string.inspired_morphe))
+        androidx.compose.material3.FilledTonalButton(onClick = { vm.peek = true }, modifier = Modifier.fillMaxWidth()) {
+            Icon(Icons.Rounded.Visibility, null)
+            Spacer(Modifier.padding(4.dp))
+            Text(stringResource(R.string.preview_bg))
+        }
+        BackgroundGrid()
+        Column {
+            ToggleLine(stringResource(R.string.parallax), stringResource(R.string.parallax_desc), cfg.parallax) { v -> repo.update { it.copy(parallax = v) } }
+            ToggleLine(stringResource(R.string.pure_black), stringResource(R.string.pure_black_desc), cfg.pureBlack) { v -> repo.update { it.copy(pureBlack = v) } }
+            ToggleLine(stringResource(R.string.glass_cards), stringResource(R.string.glass_cards_desc), cfg.glassCards) { v -> repo.update { it.copy(glassCards = v) } }
+            ToggleLine(stringResource(R.string.outlines), stringResource(R.string.outlines_desc), cfg.outlines) { v -> repo.update { it.copy(outlines = v) } }
+        }
+    }
+}
+
+/** The Home header fold in My themes, with the same live preview as the page. */
+@Composable
+fun HomeHeaderSettings(vm: MainViewModel) {
+    val context = LocalContext.current
+    val repo = remember { ThemeRepository.get(context) }
+    val cfg by repo.config.collectAsState()
+    val h = cfg.header
+    fun set(f: (HeaderSettings) -> HeaderSettings) = repo.update { it.copy(header = f(it.header)) }
+
+    Column {
+        HomeHeader(
+            count = vm.clones.size, updates = 0, onAppearance = {}, onSettings = {}, settings = h,
+            modifier = Modifier.clip(RoundedCornerShape(16.dp)),
+        )
+        Spacer(Modifier.height(12.dp))
+        Text(stringResource(R.string.card), style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
+        Spacer(Modifier.height(8.dp))
+        HeaderCardControls(h, ::set)
+        Spacer(Modifier.height(12.dp))
+        Text(stringResource(R.string.pills), style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
+        HeaderPillControls(h, ::set)
+        TextButton(onClick = { set { HeaderSettings() } }) { Text(stringResource(R.string.reset_header)) }
     }
 }
 

@@ -43,7 +43,7 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import java.util.UUID
 
-enum class Screen { Home, Editor, IconEditor, Cell, Settings, Language, Appearance, Background, Header }
+enum class Screen { Home, Editor, IconEditor, Cell, Settings, Language, Appearance, Background, Header, MyThemes }
 
 data class AppEntry(val packageName: String, val label: String, val icon: ImageBitmap?, val isSystem: Boolean)
 

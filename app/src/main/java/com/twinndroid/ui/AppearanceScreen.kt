@@ -34,6 +34,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.AddPhotoAlternate
 import androidx.compose.material.icons.rounded.Check
+import androidx.compose.material.icons.rounded.Close
+import androidx.compose.material.icons.rounded.Palette
 import androidx.compose.material.icons.automirrored.rounded.KeyboardArrowRight
 import androidx.compose.material.icons.rounded.EmojiObjects
 import androidx.compose.material.icons.rounded.Flare
@@ -90,8 +92,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.twinndroid.ui.theme.Aspect
+import com.twinndroid.ui.theme.Palette
 import com.twinndroid.ui.theme.ThemeConfig
 import com.twinndroid.ui.theme.ThemeMode
 import com.twinndroid.ui.theme.ThemePresets
@@ -161,36 +166,10 @@ fun AppearanceScreen(vm: MainViewModel) {
                 Spacer(Modifier.height(8.dp))
                 FlowRow(horizontalArrangement = Arrangement.spacedBy(10.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     ThemePresets.all.forEach { preset ->
-                        val p = ThemeConfig(presetId = preset.id, mode = cfg.mode).palette(systemDark)
                         val selected = cfg.custom == null && !cfg.dynamicColor && cfg.presetId == preset.id
-                        Column(
-                            Modifier
-                                .width(96.dp)
-                                .clip(RoundedCornerShape(16.dp))
-                                .border(
-                                    if (selected) BorderStroke(3.dp, MaterialTheme.colorScheme.primary)
-                                    else BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
-                                    RoundedCornerShape(16.dp),
-                                )
-                                .clickable {
-                                    repo.update { it.copy(presetId = preset.id, custom = null, dynamicColor = false) }
-                                    if (cfg.matchIcon) AppIcons.byAlias(preset.icon)?.let { AppIcons.choose(context, it); currentIcon = it }
-                                }
-                                .background(Color(p.background)),
-                        ) {
-                            Box(Modifier.fillMaxWidth().height(26.dp).background(Brush.linearGradient(listOf(Color(p.headerStart), Color(p.headerEnd)))))
-                            Row(Modifier.padding(8.dp), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                                listOf(p.primary, p.secondary, p.tertiary, p.surface).forEach {
-                                    Box(Modifier.size(14.dp).clip(CircleShape).background(Color(it)))
-                                }
-                            }
-                            Text(
-                                preset.name,
-                                style = MaterialTheme.typography.labelMedium,
-                                color = if (Color(p.background).run { red + green + blue } > 1.5f) Color.Black else Color.White,
-                                modifier = Modifier.padding(start = 8.dp, end = 8.dp, bottom = 8.dp),
-                                maxLines = 1,
-                            )
+                        PaletteTile(preset.name, ThemeConfig(presetId = preset.id, mode = cfg.mode).palette(systemDark), selected) {
+                            repo.update { it.copy(presetId = preset.id, custom = null, dynamicColor = false) }
+                            if (cfg.matchIcon) AppIcons.byAlias(preset.icon)?.let { AppIcons.choose(context, it); currentIcon = it }
                         }
                     }
                 }
@@ -198,6 +177,11 @@ fun AppearanceScreen(vm: MainViewModel) {
                     repo.update { it.copy(matchIcon = v) }
                     if (v) AppIcons.byAlias(ThemePresets.byId(cfg.presetId).icon)?.let { AppIcons.choose(context, it); currentIcon = it }
                 }
+                NavRow(
+                    Icons.Rounded.Palette,
+                    stringResource(R.string.my_themes),
+                    stringResource(if (cfg.custom != null) R.string.custom_status_on else R.string.custom_status_off, cfg.savedThemes.size),
+                ) { vm.screen = Screen.MyThemes }
             }
 
             Panel(stringResource(R.string.bg_effects)) {
@@ -364,6 +348,44 @@ fun AppearanceScreen(vm: MainViewModel) {
                 }) { Text(stringResource(R.string.switch_)) }
             },
             dismissButton = { TextButton(onClick = { pendingIcon = null }) { Text(stringResource(R.string.cancel)) } },
+        )
+    }
+}
+
+/** A small card showing a set of colours: a preset, or a saved theme when it has [onDelete]. */
+@Composable
+internal fun PaletteTile(name: String, p: Palette, selected: Boolean, width: Dp = 96.dp, onDelete: (() -> Unit)? = null, onClick: () -> Unit) {
+    Column(
+        Modifier
+            .width(width)
+            .clip(RoundedCornerShape(16.dp))
+            .border(
+                if (selected) BorderStroke(3.dp, MaterialTheme.colorScheme.primary)
+                else BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+                RoundedCornerShape(16.dp),
+            )
+            .clickable(onClick = onClick)
+            .background(Color(p.background)),
+    ) {
+        Box(Modifier.fillMaxWidth().height(26.dp).background(Brush.linearGradient(listOf(Color(p.headerStart), Color(p.headerEnd))))) {
+            if (onDelete != null) {
+                IconButton(onClick = onDelete, modifier = Modifier.align(Alignment.CenterEnd).size(26.dp)) {
+                    Icon(Icons.Rounded.Close, stringResource(R.string.delete), Modifier.size(16.dp), tint = Color.White)
+                }
+            }
+        }
+        Row(Modifier.padding(8.dp), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+            listOf(p.primary, p.secondary, p.tertiary, p.surface).forEach {
+                Box(Modifier.size(14.dp).clip(CircleShape).background(Color(it)))
+            }
+        }
+        Text(
+            name,
+            style = MaterialTheme.typography.labelMedium,
+            color = if (Color(p.background).run { red + green + blue } > 1.5f) Color.Black else Color.White,
+            modifier = Modifier.padding(start = 8.dp, end = 8.dp, bottom = 8.dp),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
         )
     }
 }
