@@ -23,6 +23,8 @@ object TamperScan {
     private val SHIELD_MARKERS = linkedMapOf(
         ".ecc" to "Promon SHIELD",
         "libshield.so" to "Promon SHIELD",
+        // Supercell ships SHIELD in every game, but not all of them carry the .ecc files.
+        "libsupercell_" to "Promon SHIELD",
         "libjiagu" to "360 Jiagu",
         "libdexhelper" to "Bangcle / SecShell",
         "libsecexe" to "Bangcle / SecShell",
