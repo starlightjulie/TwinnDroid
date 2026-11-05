@@ -10,6 +10,18 @@ No root, no virtual space. Every copy is a real app, kept apart by Android itsel
 
 [Download](../../releases/latest) · [Changelog](CHANGELOG.md) · [Support on Ko-fi](https://ko-fi.com/vvanadium)
 
+<a href="../../releases/latest"><img src="https://img.shields.io/github/v/release/starlightjulie/TwinnDroid?label=download&color=FFC531" alt="Latest release"></a>
+<img src="https://img.shields.io/badge/Android-8.0%2B-1C2E5C" alt="Android 8.0 or newer">
+<img src="https://img.shields.io/badge/languages-23-1C2E5C" alt="23 languages">
+<a href="LICENSE"><img src="https://img.shields.io/badge/license-GPLv3-1C2E5C" alt="GPLv3 licence"></a>
+
+<br><br>
+
+<img src="docs/screenshots/clones.png" width="24%" alt="The Clones tab with three clones">
+<img src="docs/screenshots/editor.png" width="24%" alt="The clone editor">
+<img src="docs/screenshots/sandbox.png" width="24%" alt="The Sandbox tab">
+<img src="docs/screenshots/isolation.png" width="24%" alt="Sandbox and isolation options for a clone">
+
 </div>
 
 ---
