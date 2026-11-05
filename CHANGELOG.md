@@ -2,6 +2,16 @@
 
 Everything that's changed in TwinnDroid, newest first. You can grab any version's APK from the [Releases](../../releases) page.
 
+## 2.0.0
+
+- **The Sandbox is here.** A new tab sets up a separate space on your phone where apps get their own storage, accounts and contacts, and can't see anything outside it. Android keeps it apart, not TwinnDroid, and it doesn't need root.
+- **Apps that wouldn't clone now run.** The sandbox runs apps unchanged, so games like Clash Royale that crash as clones work fine in there. These apps get one copy in the sandbox, on top of your normal install. The warning in the clone editor now has an **Add original to sandbox** button that puts it there in one tap.
+- **As many copies as you want of apps that can be cloned.** Put the original and any number of clones of an app in the sandbox, each with its own login. If you're coming from Shelter, that's the big difference, and everything else Shelter does is in here too: freezing, auto-freeze on lock, unfreeze-and-launch shortcuts, moving files across, widgets and the NFC payment stub.
+- **Hardened clones.** The clone editor has a new **Sandbox and isolation** section. A clone can get its own signing key, lose sight of other apps, stop other apps reaching it, and lose shared storage, backups, the ad ID, start at boot or internet. It works on any phone, and Android enforces all of it.
+- **Control any sandboxed app.** Block camera, location, contacts and more per app, reset an app's data, or set rules for the whole sandbox like blocking copy and paste.
+- **Fixed the Customize button** breaking into vertical letters when a clone had an update waiting. Buttons now wrap onto a new line on narrow screens, with big text or in longer languages.
+- Everything new is translated into all 23 languages.
+
 ## 1.1.5
 
 - **TwinnDroid speaks 23 languages.** Pick one from the new **Settings → Language** menu. That covers the 20 most spoken languages in the world (English, Mandarin, Hindi, Spanish, French, Arabic, Bengali, Portuguese, Russian, Urdu, Indonesian, German, Japanese, Nigerian Pidgin, Egyptian Arabic, Marathi, Telugu, Turkish, Tamil and Cantonese) plus Italian, Vietnamese and Korean. Arabic and Urdu flip the whole layout right to left. It only changes TwinnDroid, not your clones. Some translations might be a bit off, so fixes are very welcome.
