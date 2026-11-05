@@ -34,6 +34,7 @@ class CloneEngine(
         val key = keyProvider()
         var minSdk = 21
         val unsigned = mutableListOf<File>()
+        val takenDrawables = if (iconPng != null) sources.maxOf(::highestDrawableEntry) else -1
 
         sources.forEachIndexed { index, src ->
             log("Patching ${src.name} (${index + 1}/${sources.size})")
@@ -54,7 +55,7 @@ class CloneEngine(
                     ManifestPatcher.setLabel(manifest, config.label)
                     ManifestPatcher.removePermissions(manifest, config.removedPermissions)
                     if (config.debuggable) manifest.isDebuggable = true
-                    if (iconPng != null) injectIcon(module, iconPng)?.let {
+                    if (iconPng != null) injectIcon(module, iconPng, takenDrawables)?.let {
                         ManifestPatcher.setIcon(manifest, it)
                     } ?: log("  ! No resource table, keeping original icon")
                 }
@@ -90,14 +91,35 @@ class CloneEngine(
         }
     }
 
-    /** Adds the PNG as a new drawable resource in the base APK; returns its resource id. */
-    private fun injectIcon(module: ApkModule, png: ByteArray): Int? {
+    /** The highest drawable entry id in one APK, or -1 if it has none. */
+    private fun highestDrawableEntry(apk: File): Int {
+        val module = ApkModule.loadApkFile(apk)
+        try {
+            if (!module.hasTableBlock()) return -1
+            return module.tableBlock.packages.asSequence().mapNotNull { it.getSpecTypePair("drawable") }.maxOfOrNull { it.highestEntryId } ?: -1
+        } finally {
+            module.close()
+        }
+    }
+
+    /**
+     * Adds the PNG as a new drawable resource in the base APK; returns its resource id.
+     *
+     * The id has to clear [takenDrawables], the highest one in any APK of the set. Images that only
+     * exist at certain densities are only in the split's table, so the next free id in the base can
+     * already belong to one, and Android would show that image as the icon instead.
+     */
+    private fun injectIcon(module: ApkModule, png: ByteArray, takenDrawables: Int): Int? {
         if (!module.hasTableBlock()) return null
         val table = module.tableBlock
         val pkg = table.packages.asSequence().firstOrNull { it.id == 0x7f }
             ?: table.packages.asSequence().firstOrNull() ?: return null
-        val path = "res/twinndroid_clone_icon.png"
-        val entry = pkg.getOrCreate("", "drawable", "twinndroid_clone_icon")
+        val name = "twinndroid_clone_icon"
+        val path = "res/$name.png"
+        val entry = pkg.getEntry("", "drawable", name) ?: run {
+            val drawables = pkg.getOrCreateSpecTypePair("drawable")
+            drawables.getOrCreateEntry((maxOf(drawables.highestEntryId, takenDrawables) + 1).toShort(), "").apply { setName(name, true) }
+        }
         entry.setValueAsString(path)
         module.add(ByteInputSource(png, path).apply { method = ZipEntry.STORED })
         return entry.resourceId

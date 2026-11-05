@@ -58,7 +58,21 @@ class CloneEngineTest {
         val text = base.androidManifest.toString()
         assertTrue("label not applied", base.androidManifest.applicationLabelString == "Twinn Test Clone")
         assertTrue("permission not removed", "POST_NOTIFICATIONS" !in base.androidManifest.usesPermissions.joinToString())
+        val icon = base.androidManifest.iconResourceId
+        val pkg = base.tableBlock.packages.asSequence().first { it.id == 0x7f }
+        assertEquals("twinndroid_clone_icon", pkg.getEntry("", "drawable", "twinndroid_clone_icon").name)
+        assertEquals(pkg.getEntry("", "drawable", "twinndroid_clone_icon").resourceId, icon)
         base.close()
+        // A split's density-only image must not share the icon's id, or Android shows that instead
+        for (apk in signed.drop(1)) {
+            val split = ApkModule.loadApkFile(apk)
+            if (split.hasTableBlock()) {
+                split.tableBlock.packages.asSequence().mapNotNull { it.getSpecTypePair("drawable") }.forEach {
+                    assertTrue("icon id clashes with ${apk.name}", it.highestEntryId < (icon and 0xFFFF))
+                }
+            }
+            split.close()
+        }
         println(text.take(200))
     }
 
