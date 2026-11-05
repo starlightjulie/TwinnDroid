@@ -2,6 +2,13 @@
 
 Everything that's changed in TwinnDroid, newest first. You can grab any version's APK from the [Releases](../../releases) page.
 
+## 2.1.0
+
+- **My themes.** There's a new **My themes** page under Match app icon in Appearance, with drop-downs for custom colours, background & effects, text size and the home header. Set it all up how you like, save it under a name, and switch between your saved themes with one tap. Everything's still in the Appearance menu too.
+- **Fixed the old theme colour sticking around** behind everything when you changed themes with the background animation off.
+- **Fixed clones of some apps getting the wrong icon.** Signal's clone showed one of its welcome pictures instead of its icon and badge, because TwinnDroid's icon could end up sharing an ID with an image from the app's split files. Clones built before this need a rebuild to pick up the fix.
+- Everything new is translated into all 23 languages.
+
 ## 2.0.0
 
 - **The Sandbox is here.** A new tab sets up a separate space on your phone where apps get their own storage, accounts and contacts, and can't see anything outside it. Android keeps it apart, not TwinnDroid, and it doesn't need root.
