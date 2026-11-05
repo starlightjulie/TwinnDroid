@@ -69,7 +69,7 @@ internal class Field(n: Int, seed: Int) {
     val kind = IntArray(n) { rnd.nextInt(3) }
 }
 
-internal class BackdropColors(
+internal data class BackdropColors(
     val bg: Color,
     val ink: Color,
     val c1: Color,
@@ -94,7 +94,8 @@ class Backdrop internal constructor() {
     internal val tilt = mutableStateOf(Offset.Zero)
     internal var style by mutableStateOf(BgAnimation.SPACE)
     internal var rootSize by mutableStateOf(Size.Zero)
-    internal var colors = BackdropColors(Color.Black, Color.White, Color.White, Color.White, Color.White, true)
+    // State, so the backdrop repaints on a theme change even with no animation ticking.
+    internal var colors by mutableStateOf(BackdropColors(Color.Black, Color.White, Color.White, Color.White, Color.White, true))
 
     // Per-style scratch data, rebuilt when the style changes.
     internal var field = Field(1, 1)
