@@ -17,6 +17,10 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.FlowRowScope
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -41,6 +45,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.twinndroid.ui.theme.LocalTwinnExtras
 
@@ -60,6 +65,31 @@ fun TwinnCard(
         border = if (extras.outlines) BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.7f)) else null,
         content = content,
     )
+}
+
+/** Horizontal padding for buttons that share a row, so more of them fit before it wraps. */
+val TightButtonPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+
+/** A row of buttons that moves to a new line when it runs out of space, and never squeezes a label. */
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+fun ButtonRow(
+    modifier: Modifier = Modifier,
+    horizontalArrangement: Arrangement.Horizontal = Arrangement.spacedBy(8.dp),
+    content: @Composable FlowRowScope.() -> Unit,
+) {
+    FlowRow(
+        modifier.fillMaxWidth(),
+        horizontalArrangement = horizontalArrangement,
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        content = content,
+    )
+}
+
+/** Button label that stays on one line, ellipsised only if it's wider than a whole row. */
+@Composable
+fun OneLine(text: String) {
+    Text(text, maxLines = 1, overflow = TextOverflow.Ellipsis)
 }
 
 class TabItem(val label: String, val icon: ImageVector)

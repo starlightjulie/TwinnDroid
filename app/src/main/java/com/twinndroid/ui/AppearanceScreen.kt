@@ -318,7 +318,7 @@ fun AppearanceScreen(vm: MainViewModel) {
                     )
                 }
                 Spacer(Modifier.height(12.dp))
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                ButtonRow {
                     OutlinedButton(onClick = { pickImage.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)) }) {
                         Text(stringResource(if (customUri == null) R.string.choose_image_short else R.string.change_image))
                     }

@@ -69,7 +69,7 @@ fun SpecialAccessSheet(vm: MainViewModel, item: CloneItem, onDismiss: () -> Unit
                     }
                 }
                 if (!granted) {
-                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(start = 34.dp, bottom = 4.dp)) {
+                    ButtonRow(Modifier.padding(start = 34.dp, bottom = 4.dp)) {
                         if (shizuku) Button(onClick = { vm.grantAccess(item, access) }) { Text(stringResource(R.string.grant)) }
                         OutlinedButton(onClick = { SpecialAccess.openSettings(context, item.config.clonePackage, access) }) {
                             Text(stringResource(R.string.open_settings))

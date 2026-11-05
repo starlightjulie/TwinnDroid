@@ -243,21 +243,23 @@ private fun CloneCard(
                 }
             }
             Spacer(Modifier.height(12.dp))
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            // Wraps instead of squeezing: three buttons don't fit on every width, text size or language.
+            ButtonRow {
+                val grow = Modifier.weight(1f)
                 when {
-                    item.updateAvailable -> FilledTonalButton(onClick = onBuild) {
-                        Icon(Icons.Rounded.SystemUpdate, null, Modifier.size(18.dp)); Spacer(Modifier.width(6.dp)); Text(stringResource(R.string.update))
+                    item.updateAvailable -> FilledTonalButton(onClick = onBuild, modifier = grow, contentPadding = TightButtonPadding) {
+                        Icon(Icons.Rounded.SystemUpdate, null, Modifier.size(18.dp)); Spacer(Modifier.width(6.dp)); OneLine(stringResource(R.string.update))
                     }
-                    item.installedVersion == null -> FilledTonalButton(onClick = onBuild) {
-                        Icon(Icons.Rounded.Build, null, Modifier.size(18.dp)); Spacer(Modifier.width(6.dp)); Text(stringResource(R.string.build_install))
+                    item.installedVersion == null -> FilledTonalButton(onClick = onBuild, modifier = grow, contentPadding = TightButtonPadding) {
+                        Icon(Icons.Rounded.Build, null, Modifier.size(18.dp)); Spacer(Modifier.width(6.dp)); OneLine(stringResource(R.string.build_install))
                     }
                 }
                 if (item.installedVersion != null) {
-                    OutlinedButton(onClick = onOpen) {
-                        Icon(Icons.AutoMirrored.Rounded.OpenInNew, null, Modifier.size(18.dp)); Spacer(Modifier.width(6.dp)); Text(stringResource(R.string.open))
+                    OutlinedButton(onClick = onOpen, modifier = grow, contentPadding = TightButtonPadding) {
+                        Icon(Icons.AutoMirrored.Rounded.OpenInNew, null, Modifier.size(18.dp)); Spacer(Modifier.width(6.dp)); OneLine(stringResource(R.string.open))
                     }
                 }
-                OutlinedButton(onClick = onEdit) { Text(stringResource(R.string.customize)) }
+                OutlinedButton(onClick = onEdit, modifier = grow, contentPadding = TightButtonPadding) { OneLine(stringResource(R.string.customize)) }
             }
         }
     }

@@ -191,7 +191,7 @@ fun SettingsScreen(vm: MainViewModel) {
                 Text("SHA-256", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Text(fingerprint, fontFamily = FontFamily.Monospace, fontSize = 11.sp, lineHeight = 14.sp)
                 Spacer(Modifier.height(12.dp))
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                ButtonRow {
                     OutlinedButton(onClick = { exportKey.launch("twinndroid-key.p12") }) { Text(stringResource(R.string.export)) }
                     OutlinedButton(onClick = { importKey.launch(arrayOf("*/*")) }) { Text(stringResource(R.string.import_)) }
                 }
@@ -203,7 +203,7 @@ fun SettingsScreen(vm: MainViewModel) {
                     style = MaterialTheme.typography.bodyMedium,
                 )
                 Spacer(Modifier.height(12.dp))
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                ButtonRow {
                     Button(onClick = { exportBackup.launch("TwinnDroid-backup.zip") }) { Text(stringResource(R.string.back_up)) }
                     OutlinedButton(onClick = { importBackup.launch(arrayOf("application/zip", "application/octet-stream", "*/*")) }) { Text(stringResource(R.string.restore)) }
                 }
@@ -239,7 +239,7 @@ fun SettingsScreen(vm: MainViewModel) {
                     )
                 }
                 Spacer(Modifier.height(8.dp))
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                ButtonRow {
                     OutlinedButton(onClick = { context.openUrl(CREATOR_GITHUB) }) {
                         Icon(painterResource(R.drawable.ic_github), null, Modifier.size(16.dp))
                         Spacer(Modifier.width(6.dp))

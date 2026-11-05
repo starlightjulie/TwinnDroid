@@ -173,7 +173,7 @@ fun ExportSheet(vm: MainViewModel, state: ExportState) {
                         Spacer(Modifier.height(10.dp))
                         Text(stringResource(R.string.saved_file, ApkExporter.fileName(src, state.format)), textAlign = androidx.compose.ui.text.style.TextAlign.Center)
                         Spacer(Modifier.height(12.dp))
-                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        ButtonRow {
                             OutlinedButton(onClick = {
                                 val send = Intent(Intent.ACTION_SEND)
                                     .setType("application/octet-stream")
