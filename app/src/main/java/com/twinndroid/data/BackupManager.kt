@@ -20,7 +20,7 @@ import java.util.zip.ZipOutputStream
 object BackupManager {
     private const val MARKER = "twinndroid-backup.txt"
     private val FILES = listOf("clones.json", "signing.p12")
-    private val DIRS = listOf("sources", "icons")
+    private val DIRS = listOf("sources", "icons", "keys")
     private val PREFS = listOf("settings", "theme")
 
     fun export(context: Context, out: OutputStream) {

@@ -43,6 +43,23 @@ object SigningKeys {
         return f.inputStream().use { read(it) }.also { cached = it }
     }
 
+    /** A key belonging to one clone alone. Kept in filesDir/keys so backups carry it. */
+    @Synchronized
+    fun forClone(context: Context, cloneId: String): Key {
+        val f = cloneKeyFile(context, cloneId)
+        if (!f.exists()) {
+            f.parentFile?.mkdirs()
+            generate(f)
+        }
+        return f.inputStream().use { read(it) }
+    }
+
+    fun deleteCloneKey(context: Context, cloneId: String) {
+        cloneKeyFile(context, cloneId).delete()
+    }
+
+    private fun cloneKeyFile(context: Context, cloneId: String) = File(File(context.filesDir, "keys"), "$cloneId.p12")
+
     private fun read(input: InputStream): Key {
         val ks = KeyStore.getInstance("PKCS12")
         ks.load(input, PASSWORD)
@@ -73,7 +90,7 @@ object SigningKeys {
         val ks = KeyStore.getInstance("PKCS12")
         ks.load(null, null)
         ks.setKeyEntry(ALIAS, key.privateKey, PASSWORD, arrayOf(key.certificate))
-        val tmp = File(target.parentFile, "signing.p12.tmp")
+        val tmp = File(target.parentFile, target.name + ".tmp")
         tmp.outputStream().use { ks.store(it, PASSWORD) }
         tmp.renameTo(target)
     }

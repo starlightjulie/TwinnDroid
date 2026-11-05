@@ -19,7 +19,10 @@ class CloneEngine(
     private val workRoot: File,
     private val keyProvider: () -> SigningKeys.Key,
 ) {
-    constructor(context: Context) : this(File(context.cacheDir, "build"), { SigningKeys.get(context) })
+    constructor(context: Context, config: CloneConfig? = null) : this(
+        File(context.cacheDir, "build"),
+        { if (config?.cell?.ownKey == true) SigningKeys.forClone(context, config.id) else SigningKeys.get(context) },
+    )
 
     suspend fun build(
         config: CloneConfig,
@@ -44,6 +47,7 @@ class CloneEngine(
                 // Resources.getIdentifier(name, type, getPackageName()) resolves against the
                 // resource table's package name, so it must match the new package too.
                 renameResourcePackage(module, oldPkg, config.clonePackage)
+                config.cell?.let { ManifestPatcher.harden(manifest, it, isBase) }
 
                 if (isBase) {
                     manifest.minSdkVersion?.let { minSdk = it }

@@ -1,6 +1,7 @@
 package com.twinndroid.engine
 
 import com.reandroid.apk.ApkModule
+import com.twinndroid.data.CellOptions
 import com.twinndroid.data.CloneConfig
 import com.twinndroid.data.SourceKind
 import kotlinx.coroutines.runBlocking
@@ -59,5 +60,53 @@ class CloneEngineTest {
         assertTrue("permission not removed", "POST_NOTIFICATIONS" !in base.androidManifest.usesPermissions.joinToString())
         base.close()
         println(text.take(200))
+    }
+
+    @Test
+    fun hardensApkSet() = runBlocking {
+        val inputs = System.getenv("TWINN_TEST_APKS")?.split(',')?.map { File(it.trim()) }
+        assumeTrue("TWINN_TEST_APKS not set", inputs != null)
+        val out = File("build/clone-test-cell").apply { deleteRecursively(); mkdirs() }
+        val config = CloneConfig(
+            id = "cell",
+            sourceKind = SourceKind.FILE,
+            sourcePackage = "",
+            sourceLabel = "",
+            clonePackage = "com.example.twinncell",
+            label = "Twinn Cell",
+            cell = CellOptions(noInternet = true),
+        )
+        val key = SigningKeys.newKey()
+        val signed = CloneEngine(out) { key }.build(config, inputs!!, null) { println(it) }
+
+        val base = ApkModule.loadApkFile(signed.first())
+        val manifest = base.androidManifest
+        val permissions = manifest.usesPermissions.joinToString()
+        for (gone in listOf("android.permission.INTERNET", "android.permission.QUERY_ALL_PACKAGES", "android.permission.RECEIVE_BOOT_COMPLETED")) {
+            assertTrue("$gone not removed", gone !in permissions)
+        }
+        val root = manifest.manifestElement
+        assertTrue("<queries> not removed", root.recursiveElements().asSequence().none { it.name == "queries" })
+
+        val app = manifest.applicationElement
+        assertEquals("allowBackup not off", 0, app.searchAttributeByResourceId(android.R.attr.allowBackup).data)
+
+        var launchers = 0
+        for (el in root.recursiveElements().asSequence().filter { it.name in setOf("activity", "activity-alias", "service", "receiver", "provider") }) {
+            val filters = el.recursiveElements().asSequence().toList()
+            val reachable = filters.any { child ->
+                val v = child.searchAttributeByResourceId(android.R.attr.name)?.valueAsString
+                v == "android.intent.category.LAUNCHER" || v == "android.intent.category.BROWSABLE" || v == "android.intent.category.LEANBACK_LAUNCHER" ||
+                    v == "android.appwidget.action.APPWIDGET_UPDATE"
+            }
+            val exported = el.searchAttributeByResourceId(android.R.attr.exported)
+            if (reachable) {
+                launchers++
+            } else {
+                assertEquals("${el.name} still exported", 0, exported?.data)
+            }
+        }
+        assertTrue("launcher entry lost", launchers > 0)
+        base.close()
     }
 }

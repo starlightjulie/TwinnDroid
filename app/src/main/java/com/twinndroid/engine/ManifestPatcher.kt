@@ -4,6 +4,7 @@ import com.reandroid.arsc.chunk.xml.AndroidManifestBlock
 import com.reandroid.arsc.chunk.xml.ResXmlAttribute
 import com.reandroid.arsc.chunk.xml.ResXmlElement
 import com.reandroid.arsc.value.ValueType
+import com.twinndroid.data.CellOptions
 
 /**
  * Rewrites a binary AndroidManifest so the app can be installed side by side with the original,
@@ -16,6 +17,32 @@ object ManifestPatcher {
     private val COMPONENT_TAGS = setOf("application", "activity", "activity-alias", "service", "receiver", "provider")
     private val PERMISSION_DECL_TAGS = setOf("permission", "permission-group", "permission-tree")
     private val USES_PERMISSION_TAGS = setOf("uses-permission", "uses-permission-sdk-23", "uses-permission-sdk-m")
+    private val EXPORTABLE_TAGS = setOf("activity", "activity-alias", "service", "receiver", "provider")
+    private val REACHABLE_CATEGORIES = setOf(
+        "android.intent.category.LAUNCHER",
+        "android.intent.category.LEANBACK_LAUNCHER",
+        "android.intent.category.BROWSABLE",
+    )
+    private val AD_PERMISSIONS = listOf(
+        "com.google.android.gms.permission.AD_ID",
+        "android.permission.ACCESS_ADSERVICES_AD_ID",
+        "android.permission.ACCESS_ADSERVICES_ATTRIBUTION",
+        "android.permission.ACCESS_ADSERVICES_TOPICS",
+    )
+    private val STORAGE_PERMISSIONS = listOf(
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.MANAGE_EXTERNAL_STORAGE",
+        "android.permission.READ_MEDIA_IMAGES",
+        "android.permission.READ_MEDIA_VIDEO",
+        "android.permission.READ_MEDIA_AUDIO",
+        "android.permission.READ_MEDIA_VISUAL_USER_SELECTED",
+        "android.permission.ACCESS_MEDIA_LOCATION",
+    )
+    private val BOOT_PERMISSIONS = listOf(
+        "android.permission.RECEIVE_BOOT_COMPLETED",
+        "android.intent.action.QUICKBOOT_POWERON",
+    )
 
     /** Attributes holding class names that may be written relative to the package (".Foo"). */
     private val CLASS_NAME_ATTRS = intArrayOf(
@@ -35,6 +62,11 @@ object ManifestPatcher {
     private fun ResXmlAttribute.setReference(resId: Int) {
         valueType = ValueType.REFERENCE
         data = resId
+    }
+
+    private fun ResXmlAttribute.setFalse() {
+        valueType = ValueType.BOOLEAN
+        data = 0
     }
 
     private fun ResXmlElement.isInsideQueries(): Boolean =
@@ -136,6 +168,45 @@ object ManifestPatcher {
             el.attr(android.R.attr.roundIcon)?.setReference(resId)
         }
     }
+
+    /** Applies a cell's walls. Must run on every APK of a split set, since splits can carry components. */
+    fun harden(manifest: AndroidManifestBlock, cell: CellOptions, isBase: Boolean) {
+        val root = manifest.manifestElement ?: return
+        if (cell.privateComponents) privatizeComponents(manifest)
+        if (!isBase) return
+
+        val removed = buildList {
+            if (cell.hideApps) add("android.permission.QUERY_ALL_PACKAGES")
+            if (cell.noAdId) addAll(AD_PERMISSIONS)
+            if (cell.noStorage) addAll(STORAGE_PERMISSIONS)
+            if (cell.noBoot) addAll(BOOT_PERMISSIONS)
+            // ACCESS_NETWORK_STATE stays: apps crash on connectivity checks without it, and it can't reach anything.
+            if (cell.noInternet) add("android.permission.INTERNET")
+        }
+        removePermissions(manifest, removed)
+        if (cell.hideApps) root.removeElementsIf { it.name == "queries" }
+        if (cell.noBackup) {
+            val app = manifest.getOrCreateApplicationElement()
+            app.getOrCreateAndroidAttribute("allowBackup", android.R.attr.allowBackup).setFalse()
+            app.removeAttributesWithId(android.R.attr.fullBackupContent)
+            app.removeAttributesWithId(android.R.attr.dataExtractionRules)
+        }
+    }
+
+    private fun privatizeComponents(manifest: AndroidManifestBlock) {
+        for (el in manifest.allElements()) {
+            if (el.name !in EXPORTABLE_TAGS || el.isInsideQueries() || el.mustStayReachable()) continue
+            el.getOrCreateAndroidAttribute("exported", android.R.attr.exported).setFalse()
+        }
+    }
+
+    /** The launcher icon, web links coming back from a login, and home-screen widgets. */
+    private fun ResXmlElement.mustStayReachable(): Boolean =
+        recursiveElements().asSequence().any { child ->
+            val value = child.attr(android.R.attr.name)?.str()
+            (child.name == "category" && value in REACHABLE_CATEGORIES) ||
+                (child.name == "action" && value == "android.appwidget.action.APPWIDGET_UPDATE")
+        }
 
     fun removePermissions(manifest: AndroidManifestBlock, permissions: Collection<String>) {
         if (permissions.isEmpty()) return
