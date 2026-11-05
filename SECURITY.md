@@ -28,6 +28,14 @@ Android also won't let a differently signed copy install over an official one, s
 
 There are no analytics, ads or trackers.
 
+## The sandbox and device admin
+
+The sandbox needs TwinnDroid to be the owner of a work profile, so Android's setup calls it an admin. That only applies inside the sandbox. It has no control over the rest of your phone, and it can't read your personal apps or data.
+
+The two halves of TwinnDroid talk through one bridge. Only apps signed with the same key as TwinnDroid can use it, so nothing else on your phone can send it commands.
+
+Apps in the sandbox are only as separated as Android's work profile makes them, and clones are only as locked down as the options you pick. Screenshots and anything with accessibility access can still see the screen, and network traffic still goes out through the same connection.
+
 ## Reporting a problem
 
 If you find a security issue, please don't open a public issue. Use GitHub's [private vulnerability reporting](../../security/advisories/new) instead, and I'll get back to you as soon as I can.

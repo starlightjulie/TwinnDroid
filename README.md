@@ -4,9 +4,9 @@
 
 # TwinnDroid
 
-**Run two (or more) copies of the same Android app, each logged into a different account.**
+**Run two (or more) copies of the same Android app, each logged into a different account, and lock them away in a sandbox if you want.**
 
-No root, no virtual space. Every copy is a real app installed on its own.
+No root, no virtual space. Every copy is a real app, kept apart by Android itself.
 
 [Download](../../releases/latest) · [Changelog](CHANGELOG.md) · [Support on Ko-fi](https://ko-fi.com/vvanadium)
 
@@ -20,6 +20,8 @@ I was using Shelter to run a second copy of a couple of apps, but I wanted one p
 
 ## What it does
 
+- **Sandboxes apps** in a separate space on your phone, with its own storage, accounts and contacts. It runs apps unchanged, so even ones that refuse to be cloned work in there, and it can hold as many clones as you like of any app that allows cloning
+- **Hardens clones** so they can't see other apps or be reached by them, and can't be linked to your other clones
 - **Clones apps** you already have installed, or an `.apk` / `.apks` / `.xapk` / `.apkm` file
 - **Lets you rename them**, so you can tell "Discord" and "Discord (Alt)" apart
 - **Changes the icon**: keep the original, add a coloured number badge, or use your own picture. You can also tweak hue, saturation, brightness, contrast, tint, flip and rotation, with a live preview
@@ -55,6 +57,57 @@ Official builds are signed with my key. **Settings → About** shows **Official 
 6. Confirm the install. The copy shows up in your app drawer, ready for your other account.
 
 The first time, Android will ask you to let TwinnDroid install apps. Tap **Allow** on the banner in TwinnDroid or in the prompt.
+
+## The sandbox
+
+The **Sandbox** tab sets up a separate space on your phone. It's built on Android's work profile, the same thing companies use to keep work apps apart, except here you're the one in charge and TwinnDroid is the admin. Android keeps it separate, not TwinnDroid, so an app inside it can't reach out no matter what it tries.
+
+Apps in the sandbox get their own storage, accounts, contacts and data. They can't see your other apps or your files.
+
+Setting it up:
+
+1. Open the **Sandbox** tab and tap **Create sandbox**.
+2. Android walks you through a short setup. It talks about "work" and an "IT admin" because that's what the feature was built for. The admin here is TwinnDroid on your own phone, and nobody else can see anything.
+3. The first time you add an app, Android asks you to turn on **Allow from this source** for TwinnDroid. It only needs doing once.
+
+What you can do in there:
+
+| | |
+|---|---|
+| **Add app** | Puts an unchanged copy of any app in the sandbox, system apps included |
+| **Add APK** | Installs an `.apk`, `.apks`, `.xapk` or `.apkm` straight into the sandbox |
+| **More copies** | For apps that can be cloned, make a clone as usual and turn on **Install in the sandbox**. There's no limit, and each copy has its own login |
+| **Freeze** | Stops an app completely until you need it. **Auto-freeze** does it when your screen locks |
+| **Shortcuts** | One tap on your home screen wakes a frozen app and opens it, or freezes everything |
+| **Reset app data** | Wipes one app back to fresh, handy for testing |
+| **Block permissions** | Turn off camera, location, contacts and more for any app, without touching the app |
+| **Send files in / Bring files out** | Moves files across, into `Download/TwinnDroid` on the other side |
+| **Copy to main profile** | Brings an app back out |
+| **Rules** | Block copy and paste, block sharing in, block contact lookups, or let adb and Shizuku reach the sandbox for testing |
+
+Things to know:
+
+- **Android allows one work profile per phone.** If Shelter, Island or your job already has it, you'll need to remove that one first, and that deletes everything in it. TwinnDroid tells you if the slot's taken. Samsung's Secure Folder doesn't count, so it can stay.
+- **Apps with anti-tamper protection work here, but only as the original.** Clash Royale crashes as a clone, hardened or not, because a clone is always a changed copy, and changing it is what sets the check off. Use **Add app** instead, or tap **Add original to sandbox** on the warning in the clone editor. It runs fine that way because nothing about it has been changed. I've tested that with Clash Royale and Clash of Clans on an S25 Ultra.
+- **Those apps get one copy per Android profile.** A second copy in the same place would need a different package name, and that's exactly what they reject. So that's your normal install plus one in the sandbox. Samsung's Secure Folder or Android's Private Space could hold one more, but I haven't tested those yet.
+- **Switching from Shelter?** TwinnDroid does what Shelter does, and for apps that can be cloned it can also hold several copies of the same app, where Shelter is limited to one.
+
+## Hardened clones
+
+In the clone editor, **Sandbox and isolation** lets you harden a clone. This works on any phone, with or without the sandbox. Android enforces all of it, so it isn't something an app can get around:
+
+| Option | What it does |
+|---|---|
+| **Own signing key** | Gives it a device ID of its own, so it can't be linked to your other clones that way |
+| **Hide other apps** | It can't see what else is installed (apps built for Android 11 or newer) |
+| **Private components** | Other apps can't open its screens or call into it. Its icon, web links and widgets still work |
+| **No shared storage** | It only gets its own private folder |
+| **No backups** | Keeps its data out of cloud and adb backups |
+| **No advertising ID** | Removes its access to your ad ID |
+| **No start at boot** | It won't start by itself when your phone turns on |
+| **No internet** | Blocks all network access. Most apps need it, so test first |
+
+Put the two together and you get a hardened clone inside the sandbox, which is as walled off as Android allows without root.
 
 ## Updating TwinnDroid
 
@@ -131,8 +184,8 @@ Most do. I've used it with various social media apps, multiple tools apps, notes
 
 Some apps protect themselves, and those **won't work as clones**. TwinnDroid spots the common ones and warns you in the editor before you build, so you don't waste time on a copy that just crashes:
 
-- **Apps with anti-tamper protection** (Promon SHIELD and similar). They check that they haven't been modified and close straight away if they have. Supercell games like Clash Royale and Clash of Clans do this. No no-root cloner can get around it. Only a work-profile app like Shelter or Island, which runs the unmodified app, can.
-- **Banking and payment apps**, for the same reason.
+- **Apps with anti-tamper protection** (Promon SHIELD and similar). They check that they haven't been modified and close straight away if they have. Supercell games like Clash Royale and Clash of Clans do this. No no-root cloner can get around it, and hardening a clone doesn't help. **The sandbox can run them**, though, because it doesn't change the app at all. You get one copy in there, on top of your normal install.
+- **Banking and payment apps**, for the same reason. These may work in the sandbox too, though some refuse to run in a work profile.
 - **Apps that use Google Play Integrity**, or tie *Sign in with Google* to the original app. A clone is signed with a different key, so sign-in may fail even if the app opens. This is the app checking its own signature, not a missing Google Play Services issue, so MicroG won't help.
 
 A couple of other things:
@@ -173,7 +226,18 @@ source APKs (base + splits)
   └─► PackageInstaller session, or Shizuku `pm install-*` (all splits at once)
 ```
 
-Because the clone has a new package name, Android gives it its own data folder, and that's what keeps the logins separate. LSPatch isn't needed: it keeps the original package name, so on its own it can't make side-by-side copies.
+Because the clone has a new package name, Android gives it its own data folder, and that's what keeps the logins separate. LSPatch isn't needed: it keeps the original package name, so on its own it can't make side-by-side copies, and its hooks run inside the app, so it can't isolate anything either.
+
+</details>
+
+<details>
+<summary><b>How the sandbox works</b></summary>
+
+TwinnDroid becomes the profile owner of a work profile through Android's normal setup, which also puts a second copy of TwinnDroid inside it. That inner copy has no icon or UI. It holds the owner's powers and does what the main copy asks.
+
+Apps can't call across profiles, so the two copies talk through Android's intent forwarding. The inner copy allows two actions across the boundary, one each way. Each command starts an invisible activity on the far side and answers on a `ResultReceiver`, and only apps signed with TwinnDroid's key can start it. APKs and files cross as content URIs, read straight from where they already are.
+
+Clones get hardened at build time in `ManifestPatcher.harden`, so every wall is something Android enforces from the manifest, rather than code running inside the app.
 
 </details>
 
@@ -214,6 +278,7 @@ Where things live:
 |---|---|
 | `engine/` | `ManifestPatcher`, `CloneEngine` (patch + sign), `ApkExporter` (extract/merge), `ApkSources`, `TamperScan`, `IconFactory`, `SigningKeys` |
 | `install/` | `SessionInstaller` (PackageInstaller), `ShizukuInstaller` + `ShellService`, `SpecialAccess` |
+| `sandbox/` | `SandboxPolicy` (runs inside the profile as its owner), `SandboxBridge` + `SandboxBridgeActivity` (commands across the profile boundary), `Sandbox` (the main-profile side), `SandboxFileProvider` |
 | `ui/` | Compose screens and the tab pager, `theme/` (presets, palette → Material 3 scheme, `AnimatedBackground`), `AppIcons` |
 | `data/` | Clone configs, settings, `BackupManager` |
 | `UpdateWorker.kt` | Periodic update check and auto-update |
