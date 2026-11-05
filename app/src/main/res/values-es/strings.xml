@@ -384,4 +384,19 @@
     <string name="sandbox_install_blocked">El sandbox necesita permiso para instalar apps. Activa \"Permitir de esta fuente\" para él e inténtalo de nuevo.</string>
     <string name="tamper_add_to_sandbox">Añadir original al sandbox</string>
     <string name="cell_tamper_note">Reforzar no arregla esta app. Rechaza cualquier copia modificada, y un clon siempre lo es. Vuelve atrás y toca Añadir original al sandbox.</string>
+    <string name="my_themes">Mis temas</string>
+    <string name="use_my_colours">Usar mis propios colores</string>
+    <string name="custom_status_on">Colores propios activados · %1$d temas guardados</string>
+    <string name="custom_status_off">Colores propios desactivados · %1$d temas guardados</string>
+    <string name="save_set">Guardar como tema</string>
+    <string name="saved_sets">Temas guardados</string>
+    <string name="set_default_name">Mi tema %1$d</string>
+    <string name="set_saved">Guardado: %1$s</string>
+    <string name="delete_set_confirm">¿Eliminar el tema «%1$s»? No se puede deshacer.</string>
+    <string name="save">Guardar</string>
+    <string name="delete">Eliminar</string>
+    <string name="delete_q">¿Eliminar?</string>
+    <string name="use_my_colours_hint">Empieza desde el preajuste actual</string>
+    <string name="no_sets">Aún no hay temas guardados. Configura todo a tu gusto y toca Guardar como tema.</string>
+    <string name="sets_hint">Toca un tema para usarlo. Guardar con el mismo nombre lo reemplaza.</string>
 </resources>

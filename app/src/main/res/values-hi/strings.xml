@@ -384,4 +384,19 @@
     <string name="sandbox_install_blocked">सैंडबॉक्स को ऐप इंस्टॉल करने की अनुमति चाहिए। उसके लिए \"इस स्रोत से अनुमति दें\" चालू करें, फिर दोबारा कोशिश करें।</string>
     <string name="tamper_add_to_sandbox">मूल ऐप सैंडबॉक्स में जोड़ें</string>
     <string name="cell_tamper_note">मज़बूत करने से यह ऐप ठीक नहीं होगा। यह हर बदली हुई कॉपी को ठुकराता है, और क्लोन हमेशा बदली हुई कॉपी होता है। वापस जाएं और मूल ऐप सैंडबॉक्स में जोड़ें पर टैप करें।</string>
+    <string name="my_themes">मेरी थीम</string>
+    <string name="use_my_colours">मेरे रंग इस्तेमाल करें</string>
+    <string name="custom_status_on">अपने रंग चालू · %1$d सेव थीम</string>
+    <string name="custom_status_off">अपने रंग बंद · %1$d सेव थीम</string>
+    <string name="save_set">थीम के रूप में सेव करें</string>
+    <string name="saved_sets">सेव की गई थीम</string>
+    <string name="set_default_name">मेरी थीम %1$d</string>
+    <string name="set_saved">%1$s सेव हुआ</string>
+    <string name="delete_set_confirm">थीम «%1$s» हटाएँ? इसे वापस नहीं किया जा सकता।</string>
+    <string name="save">सेव करें</string>
+    <string name="delete">हटाएँ</string>
+    <string name="delete_q">हटाएँ?</string>
+    <string name="use_my_colours_hint">मौजूदा प्रीसेट से शुरू होता है</string>
+    <string name="no_sets">अभी कोई सेव की गई थीम नहीं है। सब कुछ अपनी पसंद से सेट करें, फिर थीम के रूप में सेव करें पर टैप करें।</string>
+    <string name="sets_hint">इस्तेमाल करने के लिए किसी थीम पर टैप करें। उसी नाम से सेव करने पर वह बदल जाती है।</string>
 </resources>

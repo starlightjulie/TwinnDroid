@@ -384,4 +384,19 @@
     <string name="sandbox_install_blocked">Die Sandbox braucht die Erlaubnis, Apps zu installieren. Schalte dafür „Von dieser Quelle zulassen“ ein und versuch es noch einmal.</string>
     <string name="tamper_add_to_sandbox">Original zur Sandbox hinzufügen</string>
     <string name="cell_tamper_note">Härten hilft bei dieser App nicht. Sie lehnt jede veränderte Kopie ab, und ein Klon ist immer eine. Geh zurück und tippe auf „Original zur Sandbox hinzufügen“.</string>
+    <string name="my_themes">Meine Themes</string>
+    <string name="use_my_colours">Eigene Farben verwenden</string>
+    <string name="custom_status_on">Eigene Farben an · %1$d gespeicherte Themes</string>
+    <string name="custom_status_off">Eigene Farben aus · %1$d gespeicherte Themes</string>
+    <string name="save_set">Als Theme speichern</string>
+    <string name="saved_sets">Gespeicherte Themes</string>
+    <string name="set_default_name">Mein Theme %1$d</string>
+    <string name="set_saved">%1$s gespeichert</string>
+    <string name="delete_set_confirm">Theme „%1$s“ löschen? Das lässt sich nicht rückgängig machen.</string>
+    <string name="save">Speichern</string>
+    <string name="delete">Löschen</string>
+    <string name="delete_q">Löschen?</string>
+    <string name="use_my_colours_hint">Startet mit der aktuellen Vorlage</string>
+    <string name="no_sets">Noch keine gespeicherten Themes. Stell alles nach Wunsch ein und tippe dann auf Als Theme speichern.</string>
+    <string name="sets_hint">Tippe auf ein Theme, um es zu verwenden. Beim Speichern unter demselben Namen wird es ersetzt.</string>
 </resources>

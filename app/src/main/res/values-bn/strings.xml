@@ -384,4 +384,19 @@
     <string name="sandbox_install_blocked">স্যান্ডবক্সের অ্যাপ ইনস্টলের অনুমতি দরকার। এর জন্য \"এই উৎস থেকে অনুমতি দিন\" চালু করে আবার চেষ্টা করুন।</string>
     <string name="tamper_add_to_sandbox">আসল অ্যাপ স্যান্ডবক্সে যোগ করুন</string>
     <string name="cell_tamper_note">শক্তিশালী করলে এই অ্যাপ ঠিক হবে না। এটি যেকোনো বদলানো কপি ফিরিয়ে দেয়, আর ক্লোন সবসময়ই বদলানো কপি। ফিরে গিয়ে আসল অ্যাপ স্যান্ডবক্সে যোগ করুন ট্যাপ করুন।</string>
+    <string name="my_themes">আমার থিম</string>
+    <string name="use_my_colours">আমার রং ব্যবহার করুন</string>
+    <string name="custom_status_on">নিজের রং চালু · %1$dটি থিম সংরক্ষিত</string>
+    <string name="custom_status_off">নিজের রং বন্ধ · %1$dটি থিম সংরক্ষিত</string>
+    <string name="save_set">থিম হিসেবে সংরক্ষণ</string>
+    <string name="saved_sets">সংরক্ষিত থিম</string>
+    <string name="set_default_name">আমার থিম %1$d</string>
+    <string name="set_saved">%1$s সংরক্ষিত</string>
+    <string name="delete_set_confirm">থিম «%1$s» মুছবেন? এটি ফেরানো যাবে না।</string>
+    <string name="save">সংরক্ষণ</string>
+    <string name="delete">মুছুন</string>
+    <string name="delete_q">মুছবেন?</string>
+    <string name="use_my_colours_hint">বর্তমান প্রিসেট থেকে শুরু হয়</string>
+    <string name="no_sets">এখনও কোনো সংরক্ষিত থিম নেই। সবকিছু নিজের মতো সাজান, তারপর থিম হিসেবে সংরক্ষণ চাপুন।</string>
+    <string name="sets_hint">ব্যবহার করতে কোনো থিমে চাপুন। একই নামে সংরক্ষণ করলে সেটি বদলে যাবে।</string>
 </resources>

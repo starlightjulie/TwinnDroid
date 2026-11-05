@@ -382,4 +382,19 @@
     <string name="sandbox_install_blocked">沙盒需要安装应用的权限。请为它开启“允许此来源”，然后重试。</string>
     <string name="tamper_add_to_sandbox">将原应用添加到沙盒</string>
     <string name="cell_tamper_note">加固解决不了这个问题。此应用会拒绝任何被改动的副本，而分身一定是被改动过的。请返回并点按“将原应用添加到沙盒”。</string>
+    <string name="my_themes">我的主题</string>
+    <string name="use_my_colours">使用我的颜色</string>
+    <string name="custom_status_on">自定义颜色开 · 已保存 %1$d 个主题</string>
+    <string name="custom_status_off">自定义颜色关 · 已保存 %1$d 个主题</string>
+    <string name="save_set">保存为主题</string>
+    <string name="saved_sets">已保存的主题</string>
+    <string name="set_default_name">我的主题 %1$d</string>
+    <string name="set_saved">已保存 %1$s</string>
+    <string name="delete_set_confirm">删除主题“%1$s”？此操作无法撤销。</string>
+    <string name="save">保存</string>
+    <string name="delete">删除</string>
+    <string name="delete_q">删除？</string>
+    <string name="use_my_colours_hint">从当前预设开始</string>
+    <string name="no_sets">还没有保存的主题。按你的喜好设置好后，点按“保存为主题”。</string>
+    <string name="sets_hint">点按主题即可使用。用相同名称保存会替换它。</string>
 </resources>

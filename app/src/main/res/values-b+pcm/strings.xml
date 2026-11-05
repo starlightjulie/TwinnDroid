@@ -384,4 +384,19 @@
     <string name="sandbox_install_blocked">Sandbox need permission to install apps. On \"Allow from this source\" for am, then try again.</string>
     <string name="tamper_add_to_sandbox">Add original to sandbox</string>
     <string name="cell_tamper_note">Hardening no go fix this app. E dey reject any copy wey dem change, and clone na always changed copy. Go back and tap Add original to sandbox.</string>
+    <string name="my_themes">My themes</string>
+    <string name="use_my_colours">Use my own colours</string>
+    <string name="custom_status_on">Your own colour dey on · %1$d theme wey you save</string>
+    <string name="custom_status_off">Your own colour dey off · %1$d theme wey you save</string>
+    <string name="save_set">Save am as theme</string>
+    <string name="saved_sets">Theme wey you save</string>
+    <string name="set_default_name">My theme %1$d</string>
+    <string name="set_saved">Don save %1$s</string>
+    <string name="delete_set_confirm">Delete the theme \"%1$s\"? You no fit undo am.</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="delete_q">Delete?</string>
+    <string name="use_my_colours_hint">E go start from the preset wey dey now</string>
+    <string name="no_sets">No saved theme dey yet. Set everything how you like am, then tap Save am as theme.</string>
+    <string name="sets_hint">Tap theme to use am. If you save with the same name, e go replace am.</string>
 </resources>

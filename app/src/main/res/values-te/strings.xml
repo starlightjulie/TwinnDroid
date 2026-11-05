@@ -384,4 +384,19 @@
     <string name="sandbox_install_blocked">శాండ్‌బాక్స్‌కు యాప్‌లు ఇన్‌స్టాల్ చేసే అనుమతి కావాలి. దానికి \"ఈ మూలం నుండి అనుమతించు\" ఆన్ చేసి మళ్లీ ప్రయత్నించండి.</string>
     <string name="tamper_add_to_sandbox">అసలు యాప్‌ను శాండ్‌బాక్స్‌కు జోడించు</string>
     <string name="cell_tamper_note">బలోపేతం చేసినా ఈ యాప్ సరిపోదు. ఇది మార్చిన ప్రతి కాపీని తిరస్కరిస్తుంది, క్లోన్ ఎప్పుడూ మార్చిన కాపీయే. వెనక్కి వెళ్లి అసలు యాప్‌ను శాండ్‌బాక్స్‌కు జోడించు నొక్కండి.</string>
+    <string name="my_themes">నా థీమ్‌లు</string>
+    <string name="use_my_colours">నా రంగులు వాడు</string>
+    <string name="custom_status_on">సొంత రంగులు ఆన్ · %1$d సేవ్ చేసిన థీమ్‌లు</string>
+    <string name="custom_status_off">సొంత రంగులు ఆఫ్ · %1$d సేవ్ చేసిన థీమ్‌లు</string>
+    <string name="save_set">థీమ్‌గా సేవ్ చేయండి</string>
+    <string name="saved_sets">సేవ్ చేసిన థీమ్‌లు</string>
+    <string name="set_default_name">నా థీమ్ %1$d</string>
+    <string name="set_saved">%1$s సేవ్ అయింది</string>
+    <string name="delete_set_confirm">థీమ్ «%1$s» తొలగించాలా? దీన్ని వెనక్కి తీసుకోలేరు.</string>
+    <string name="save">సేవ్</string>
+    <string name="delete">తొలగించు</string>
+    <string name="delete_q">తొలగించాలా?</string>
+    <string name="use_my_colours_hint">ప్రస్తుత ప్రీసెట్ నుండి మొదలవుతుంది</string>
+    <string name="no_sets">ఇంకా సేవ్ చేసిన థీమ్‌లు లేవు. అన్నీ మీకు నచ్చినట్లు సెట్ చేసి, థీమ్‌గా సేవ్ చేయండి నొక్కండి.</string>
+    <string name="sets_hint">ఉపయోగించడానికి థీమ్‌ను నొక్కండి. అదే పేరుతో సేవ్ చేస్తే అది మారిపోతుంది.</string>
 </resources>

@@ -392,4 +392,19 @@
     <string name="sandbox_install_blocked">تحتاج مساحة العزل إلى إذن لتثبيت التطبيقات. فعّل \"السماح من هذا المصدر\" لها ثم حاول مجددًا.</string>
     <string name="tamper_add_to_sandbox">إضافة الأصلي إلى مساحة العزل</string>
     <string name="cell_tamper_note">التحصين لن يصلح هذا التطبيق. فهو يرفض أي نسخة معدّلة، والنسخة المستنسخة معدّلة دائمًا. ارجع وانقر على إضافة الأصلي إلى مساحة العزل.</string>
+    <string name="my_themes">سماتي</string>
+    <string name="use_my_colours">استخدام ألواني</string>
+    <string name="custom_status_on">ألوانك مفعّلة · %1$d سمات محفوظة</string>
+    <string name="custom_status_off">ألوانك متوقفة · %1$d سمات محفوظة</string>
+    <string name="save_set">حفظ كسمة</string>
+    <string name="saved_sets">السمات المحفوظة</string>
+    <string name="set_default_name">سمتي %1$d</string>
+    <string name="set_saved">حُفظت %1$s</string>
+    <string name="delete_set_confirm">حذف السمة «%1$s»؟ لا يمكن التراجع عن ذلك.</string>
+    <string name="save">حفظ</string>
+    <string name="delete">حذف</string>
+    <string name="delete_q">حذف؟</string>
+    <string name="use_my_colours_hint">يبدأ من السمة الجاهزة الحالية</string>
+    <string name="no_sets">لا توجد سمات محفوظة بعد. اضبط كل شيء كما تحب، ثم اضغط «حفظ كسمة».</string>
+    <string name="sets_hint">اضغط على سمة لاستخدامها. الحفظ بالاسم نفسه يستبدلها.</string>
 </resources>

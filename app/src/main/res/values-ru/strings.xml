@@ -388,4 +388,19 @@
     <string name="sandbox_install_blocked">Песочнице нужно разрешение на установку приложений. Включите для неё «Разрешить из этого источника» и попробуйте снова.</string>
     <string name="tamper_add_to_sandbox">Добавить оригинал в песочницу</string>
     <string name="cell_tamper_note">Защита здесь не поможет. Это приложение отвергает любые изменённые копии, а клон всегда такая копия. Вернитесь назад и нажмите «Добавить оригинал в песочницу».</string>
+    <string name="my_themes">Мои темы</string>
+    <string name="use_my_colours">Использовать свои цвета</string>
+    <string name="custom_status_on">Свои цвета вкл · сохранённых тем: %1$d</string>
+    <string name="custom_status_off">Свои цвета выкл · сохранённых тем: %1$d</string>
+    <string name="save_set">Сохранить как тему</string>
+    <string name="saved_sets">Сохранённые темы</string>
+    <string name="set_default_name">Моя тема %1$d</string>
+    <string name="set_saved">Сохранено: %1$s</string>
+    <string name="delete_set_confirm">Удалить тему «%1$s»? Это нельзя отменить.</string>
+    <string name="save">Сохранить</string>
+    <string name="delete">Удалить</string>
+    <string name="delete_q">Удалить?</string>
+    <string name="use_my_colours_hint">Начинается с текущего пресета</string>
+    <string name="no_sets">Сохранённых тем пока нет. Настройте всё по своему вкусу и нажмите «Сохранить как тему».</string>
+    <string name="sets_hint">Нажмите на тему, чтобы применить её. Сохранение с тем же именем заменит её.</string>
 </resources>

@@ -384,4 +384,19 @@
     <string name="sandbox_install_blocked">சாண்ட்பாக்ஸுக்கு ஆப்ஸ் நிறுவ அனுமதி தேவை. அதற்கு \"இந்த மூலத்திலிருந்து அனுமதி\" என்பதை இயக்கி மீண்டும் முயற்சிக்கவும்.</string>
     <string name="tamper_add_to_sandbox">அசல் ஆப்ஸை சாண்ட்பாக்ஸில் சேர்</string>
     <string name="cell_tamper_note">வலுவூட்டுவது இந்த ஆப்ஸைச் சரிசெய்யாது. இது மாற்றப்பட்ட எந்த நகலையும் நிராகரிக்கும், குளோன் எப்போதும் மாற்றப்பட்ட நகல்தான். பின்சென்று அசல் ஆப்ஸை சாண்ட்பாக்ஸில் சேர் என்பதைத் தட்டவும்.</string>
+    <string name="my_themes">என் தீம்கள்</string>
+    <string name="use_my_colours">என் நிறங்களைப் பயன்படுத்து</string>
+    <string name="custom_status_on">சொந்த நிறங்கள் இயக்கம் · %1$d சேமித்த தீம்கள்</string>
+    <string name="custom_status_off">சொந்த நிறங்கள் அணைப்பு · %1$d சேமித்த தீம்கள்</string>
+    <string name="save_set">தீமாகச் சேமி</string>
+    <string name="saved_sets">சேமித்த தீம்கள்</string>
+    <string name="set_default_name">என் தீம் %1$d</string>
+    <string name="set_saved">%1$s சேமிக்கப்பட்டது</string>
+    <string name="delete_set_confirm">தீம் «%1$s» ஐ நீக்கவா? இதைத் திரும்பப் பெற முடியாது.</string>
+    <string name="save">சேமி</string>
+    <string name="delete">நீக்கு</string>
+    <string name="delete_q">நீக்கவா?</string>
+    <string name="use_my_colours_hint">தற்போதைய முன்னமைவிலிருந்து தொடங்கும்</string>
+    <string name="no_sets">சேமித்த தீம்கள் இன்னும் இல்லை. எல்லாவற்றையும் உங்கள் விருப்பப்படி அமைத்து, தீமாகச் சேமி என்பதைத் தட்டவும்.</string>
+    <string name="sets_hint">பயன்படுத்த ஒரு தீமைத் தட்டவும். அதே பெயரில் சேமித்தால் அது மாற்றப்படும்.</string>
 </resources>

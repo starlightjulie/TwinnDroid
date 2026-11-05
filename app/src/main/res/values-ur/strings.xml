@@ -384,4 +384,19 @@
     <string name="sandbox_install_blocked">سینڈ باکس کو ایپس انسٹال کرنے کی اجازت درکار ہے۔ اس کے لیے \"اس ذریعے سے اجازت دیں\" آن کریں، پھر دوبارہ کوشش کریں۔</string>
     <string name="tamper_add_to_sandbox">اصل ایپ سینڈ باکس میں شامل کریں</string>
     <string name="cell_tamper_note">مضبوط کرنے سے یہ ایپ ٹھیک نہیں ہوگی۔ یہ ہر بدلی ہوئی کاپی رد کرتی ہے، اور کلون ہمیشہ بدلی ہوئی کاپی ہوتا ہے۔ واپس جائیں اور اصل ایپ سینڈ باکس میں شامل کریں پر تھپتھپائیں۔</string>
+    <string name="my_themes">میری تھیمز</string>
+    <string name="use_my_colours">میرے رنگ استعمال کریں</string>
+    <string name="custom_status_on">اپنے رنگ آن · %1$d محفوظ تھیمز</string>
+    <string name="custom_status_off">اپنے رنگ آف · %1$d محفوظ تھیمز</string>
+    <string name="save_set">تھیم کے طور پر محفوظ کریں</string>
+    <string name="saved_sets">محفوظ تھیمز</string>
+    <string name="set_default_name">میری تھیم %1$d</string>
+    <string name="set_saved">%1$s محفوظ ہوا</string>
+    <string name="delete_set_confirm">تھیم «%1$s» حذف کریں؟ یہ واپس نہیں ہو سکتا۔</string>
+    <string name="save">محفوظ کریں</string>
+    <string name="delete">حذف کریں</string>
+    <string name="delete_q">حذف کریں؟</string>
+    <string name="use_my_colours_hint">موجودہ پری سیٹ سے شروع ہوتا ہے</string>
+    <string name="no_sets">ابھی کوئی محفوظ تھیم نہیں۔ سب کچھ اپنی پسند سے سیٹ کریں، پھر تھیم کے طور پر محفوظ کریں پر ٹیپ کریں۔</string>
+    <string name="sets_hint">استعمال کرنے کے لیے تھیم پر ٹیپ کریں۔ اسی نام سے محفوظ کرنے پر وہ بدل جاتی ہے۔</string>
 </resources>

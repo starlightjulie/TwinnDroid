@@ -382,4 +382,19 @@
     <string name="sandbox_install_blocked">Sandbox butuh izin untuk memasang aplikasi. Nyalakan \"Izinkan dari sumber ini\" untuknya, lalu coba lagi.</string>
     <string name="tamper_add_to_sandbox">Tambah aplikasi asli ke sandbox</string>
     <string name="cell_tamper_note">Memperkuat tidak akan memperbaiki aplikasi ini. Ia menolak salinan yang diubah, dan klon selalu berupa salinan yang diubah. Kembali lalu ketuk Tambah aplikasi asli ke sandbox.</string>
+    <string name="my_themes">Temaku</string>
+    <string name="use_my_colours">Pakai warna saya</string>
+    <string name="custom_status_on">Warna sendiri aktif · %1$d tema tersimpan</string>
+    <string name="custom_status_off">Warna sendiri nonaktif · %1$d tema tersimpan</string>
+    <string name="save_set">Simpan sebagai tema</string>
+    <string name="saved_sets">Tema tersimpan</string>
+    <string name="set_default_name">Temaku %1$d</string>
+    <string name="set_saved">%1$s disimpan</string>
+    <string name="delete_set_confirm">Hapus tema \"%1$s\"? Ini tidak bisa dibatalkan.</string>
+    <string name="save">Simpan</string>
+    <string name="delete">Hapus</string>
+    <string name="delete_q">Hapus?</string>
+    <string name="use_my_colours_hint">Dimulai dari preset saat ini</string>
+    <string name="no_sets">Belum ada tema tersimpan. Atur semuanya sesuai keinginan, lalu ketuk Simpan sebagai tema.</string>
+    <string name="sets_hint">Ketuk tema untuk memakainya. Menyimpan dengan nama yang sama akan menggantinya.</string>
 </resources>

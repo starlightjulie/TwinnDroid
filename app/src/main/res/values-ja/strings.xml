@@ -382,4 +382,19 @@
     <string name="sandbox_install_blocked">サンドボックスにアプリのインストール権限が必要です。「この提供元のアプリを許可」をオンにして、もう一度お試しください。</string>
     <string name="tamper_add_to_sandbox">元のアプリをサンドボックスに追加</string>
     <string name="cell_tamper_note">強化してもこのアプリは直りません。変更されたコピーをすべて拒否し、クローンは必ず変更されたコピーです。戻って「元のアプリをサンドボックスに追加」をタップしてください。</string>
+    <string name="my_themes">マイテーマ</string>
+    <string name="use_my_colours">自分の色を使う</string>
+    <string name="custom_status_on">自分の色 オン · 保存済みテーマ %1$d 件</string>
+    <string name="custom_status_off">自分の色 オフ · 保存済みテーマ %1$d 件</string>
+    <string name="save_set">テーマとして保存</string>
+    <string name="saved_sets">保存したテーマ</string>
+    <string name="set_default_name">マイテーマ %1$d</string>
+    <string name="set_saved">%1$s を保存しました</string>
+    <string name="delete_set_confirm">テーマ「%1$s」を削除しますか？元に戻せません。</string>
+    <string name="save">保存</string>
+    <string name="delete">削除</string>
+    <string name="delete_q">削除しますか？</string>
+    <string name="use_my_colours_hint">現在のプリセットから始めます</string>
+    <string name="no_sets">保存したテーマはまだありません。好みに設定してから「テーマとして保存」をタップしてください。</string>
+    <string name="sets_hint">テーマをタップすると適用されます。同じ名前で保存すると置き換えられます。</string>
 </resources>

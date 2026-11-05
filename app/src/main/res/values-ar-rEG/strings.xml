@@ -392,4 +392,19 @@
     <string name="sandbox_install_blocked">مساحة العزل محتاجة إذن تسطّب تطبيقات. شغّل \"السماح من المصدر ده\" ليها وحاول تاني.</string>
     <string name="tamper_add_to_sandbox">ضيف الأصلي لمساحة العزل</string>
     <string name="cell_tamper_note">التحصين مش هيصلّح التطبيق ده. هو بيرفض أي نسخة متعدّلة، والنسخة دايمًا متعدّلة. ارجع ودوس على ضيف الأصلي لمساحة العزل.</string>
+    <string name="my_themes">الثيمات بتاعتي</string>
+    <string name="use_my_colours">استخدم ألواني</string>
+    <string name="custom_status_on">ألوانك شغالة · %1$d ثيمات محفوظة</string>
+    <string name="custom_status_off">ألوانك مقفولة · %1$d ثيمات محفوظة</string>
+    <string name="save_set">احفظه كثيم</string>
+    <string name="saved_sets">الثيمات المحفوظة</string>
+    <string name="set_default_name">الثيم بتاعي %1$d</string>
+    <string name="set_saved">اتحفظت %1$s</string>
+    <string name="delete_set_confirm">تمسح الثيم «%1$s»؟ مفيش رجوع.</string>
+    <string name="save">حفظ</string>
+    <string name="delete">امسح</string>
+    <string name="delete_q">تمسح؟</string>
+    <string name="use_my_colours_hint">بيبدأ من الثيم الجاهز الحالي</string>
+    <string name="no_sets">مفيش ثيمات محفوظة لسه. ظبط كل حاجة زي ما تحب، وبعدين دوس «احفظه كثيم».</string>
+    <string name="sets_hint">دوس على ثيم عشان تستخدمه. لو حفظت بنفس الاسم هيتبدل.</string>
 </resources>

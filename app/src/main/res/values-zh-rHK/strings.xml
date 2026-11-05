@@ -382,4 +382,19 @@
     <string name="sandbox_install_blocked">沙盒要權限先裝到 App。幫佢開「允許此來源」，再試多次。</string>
     <string name="tamper_add_to_sandbox">將原裝 App 加入沙盒</string>
     <string name="cell_tamper_note">加固解決唔到呢個問題。呢個 App 會拒絕任何改過嘅副本，而分身一定係改過嘅。返去撳「將原裝 App 加入沙盒」啦。</string>
+    <string name="my_themes">我的主題</string>
+    <string name="use_my_colours">用我自己嘅顏色</string>
+    <string name="custom_status_on">自訂顏色開 · 已儲存 %1$d 個主題</string>
+    <string name="custom_status_off">自訂顏色關 · 已儲存 %1$d 個主題</string>
+    <string name="save_set">儲存為主題</string>
+    <string name="saved_sets">已儲存嘅主題</string>
+    <string name="set_default_name">我的主題 %1$d</string>
+    <string name="set_saved">已儲存 %1$s</string>
+    <string name="delete_set_confirm">刪除主題「%1$s」？呢個動作冇得還原。</string>
+    <string name="save">儲存</string>
+    <string name="delete">刪除</string>
+    <string name="delete_q">刪除？</string>
+    <string name="use_my_colours_hint">由目前嘅預設主題開始</string>
+    <string name="no_sets">仲未有儲存咗嘅主題。設定好晒之後，撳「儲存為主題」。</string>
+    <string name="sets_hint">撳主題就可以用。用同一個名儲存會取代佢。</string>
 </resources>

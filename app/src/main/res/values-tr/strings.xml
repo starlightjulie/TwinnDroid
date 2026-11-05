@@ -384,4 +384,19 @@
     <string name="sandbox_install_blocked">Korumalı alanın uygulama yükleme iznine ihtiyacı var. Onun için \"Bu kaynaktan izin ver\"i açıp tekrar dene.</string>
     <string name="tamper_add_to_sandbox">Orijinali korumalı alana ekle</string>
     <string name="cell_tamper_note">Güçlendirmek bu uygulamayı düzeltmez. Değiştirilmiş her kopyayı reddeder ve klon her zaman değiştirilmiş bir kopyadır. Geri dön ve Orijinali korumalı alana ekle\'ye dokun.</string>
+    <string name="my_themes">Temalarım</string>
+    <string name="use_my_colours">Kendi renklerimi kullan</string>
+    <string name="custom_status_on">Kendi renklerin açık · %1$d kayıtlı tema</string>
+    <string name="custom_status_off">Kendi renklerin kapalı · %1$d kayıtlı tema</string>
+    <string name="save_set">Tema olarak kaydet</string>
+    <string name="saved_sets">Kayıtlı temalar</string>
+    <string name="set_default_name">Temam %1$d</string>
+    <string name="set_saved">%1$s kaydedildi</string>
+    <string name="delete_set_confirm">\"%1$s\" teması silinsin mi? Bu geri alınamaz.</string>
+    <string name="save">Kaydet</string>
+    <string name="delete">Sil</string>
+    <string name="delete_q">Silinsin mi?</string>
+    <string name="use_my_colours_hint">Geçerli hazır ayardan başlar</string>
+    <string name="no_sets">Henüz kayıtlı tema yok. Her şeyi istediğin gibi ayarla, sonra Tema olarak kaydet düğmesine dokun.</string>
+    <string name="sets_hint">Kullanmak için bir temaya dokun. Aynı adla kaydetmek onu değiştirir.</string>
 </resources>

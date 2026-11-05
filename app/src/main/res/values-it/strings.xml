@@ -386,4 +386,19 @@
     <string name="sandbox_install_blocked">La sandbox ha bisogno del permesso per installare app. Attiva \"Consenti da questa fonte\" e riprova.</string>
     <string name="tamper_add_to_sandbox">Aggiungi originale alla sandbox</string>
     <string name="cell_tamper_note">Proteggere il clone non risolve. Questa app rifiuta ogni copia modificata, e un clone lo è sempre. Torna indietro e tocca Aggiungi originale alla sandbox.</string>
+    <string name="my_themes">I miei temi</string>
+    <string name="use_my_colours">Usa i miei colori</string>
+    <string name="custom_status_on">Colori personali attivi · %1$d temi salvati</string>
+    <string name="custom_status_off">Colori personali disattivi · %1$d temi salvati</string>
+    <string name="save_set">Salva come tema</string>
+    <string name="saved_sets">Temi salvati</string>
+    <string name="set_default_name">Il mio tema %1$d</string>
+    <string name="set_saved">%1$s salvato</string>
+    <string name="delete_set_confirm">Eliminare il tema \"%1$s\"? Non si può annullare.</string>
+    <string name="save">Salva</string>
+    <string name="delete">Elimina</string>
+    <string name="delete_q">Eliminare?</string>
+    <string name="use_my_colours_hint">Parte dal preset attuale</string>
+    <string name="no_sets">Nessun tema salvato. Imposta tutto come preferisci, poi tocca Salva come tema.</string>
+    <string name="sets_hint">Tocca un tema per usarlo. Salvando con lo stesso nome lo sostituisci.</string>
 </resources>

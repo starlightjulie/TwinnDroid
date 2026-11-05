@@ -384,4 +384,19 @@
     <string name="sandbox_install_blocked">सँडबॉक्सला अ‍ॅप्स इंस्टॉल करण्याची परवानगी हवी. त्यासाठी \"या स्रोतावरून परवानगी द्या\" चालू करा आणि पुन्हा प्रयत्न करा.</string>
     <string name="tamper_add_to_sandbox">मूळ अ‍ॅप सँडबॉक्समध्ये जोडा</string>
     <string name="cell_tamper_note">मजबूत केल्याने हे अ‍ॅप दुरुस्त होणार नाही. ते प्रत्येक बदललेली प्रत नाकारते, आणि क्लोन नेहमीच बदललेली प्रत असते. मागे जा आणि मूळ अ‍ॅप सँडबॉक्समध्ये जोडा वर टॅप करा.</string>
+    <string name="my_themes">माझ्या थीम</string>
+    <string name="use_my_colours">माझे रंग वापरा</string>
+    <string name="custom_status_on">स्वतःचे रंग चालू · %1$d जतन केलेल्या थीम</string>
+    <string name="custom_status_off">स्वतःचे रंग बंद · %1$d जतन केलेल्या थीम</string>
+    <string name="save_set">थीम म्हणून जतन करा</string>
+    <string name="saved_sets">जतन केलेल्या थीम</string>
+    <string name="set_default_name">माझी थीम %1$d</string>
+    <string name="set_saved">%1$s जतन झाले</string>
+    <string name="delete_set_confirm">थीम «%1$s» हटवायची? हे परत करता येत नाही.</string>
+    <string name="save">जतन करा</string>
+    <string name="delete">हटवा</string>
+    <string name="delete_q">हटवायचे?</string>
+    <string name="use_my_colours_hint">सध्याच्या प्रीसेटपासून सुरू होते</string>
+    <string name="no_sets">अजून कोणतीही जतन केलेली थीम नाही. सर्व काही तुमच्या आवडीनुसार सेट करा, मग थीम म्हणून जतन करा वर टॅप करा.</string>
+    <string name="sets_hint">वापरण्यासाठी थीमवर टॅप करा. त्याच नावाने जतन केल्यास ती बदलली जाते.</string>
 </resources>

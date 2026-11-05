@@ -382,4 +382,19 @@
     <string name="sandbox_install_blocked">Sandbox cần quyền cài ứng dụng. Hãy bật \"Cho phép từ nguồn này\" cho nó rồi thử lại.</string>
     <string name="tamper_add_to_sandbox">Thêm bản gốc vào sandbox</string>
     <string name="cell_tamper_note">Tăng cường không sửa được ứng dụng này. Nó từ chối mọi bản đã sửa đổi, mà bản sao luôn là bản đã sửa đổi. Hãy quay lại và chạm Thêm bản gốc vào sandbox.</string>
+    <string name="my_themes">Giao diện của tôi</string>
+    <string name="use_my_colours">Dùng màu của tôi</string>
+    <string name="custom_status_on">Màu riêng bật · %1$d giao diện đã lưu</string>
+    <string name="custom_status_off">Màu riêng tắt · %1$d giao diện đã lưu</string>
+    <string name="save_set">Lưu thành giao diện</string>
+    <string name="saved_sets">Giao diện đã lưu</string>
+    <string name="set_default_name">Giao diện của tôi %1$d</string>
+    <string name="set_saved">Đã lưu %1$s</string>
+    <string name="delete_set_confirm">Xoá giao diện \"%1$s\"? Không thể hoàn tác.</string>
+    <string name="save">Lưu</string>
+    <string name="delete">Xóa</string>
+    <string name="delete_q">Xóa?</string>
+    <string name="use_my_colours_hint">Bắt đầu từ mẫu có sẵn hiện tại</string>
+    <string name="no_sets">Chưa có giao diện đã lưu. Thiết lập mọi thứ theo ý bạn rồi chạm vào Lưu thành giao diện.</string>
+    <string name="sets_hint">Chạm vào một giao diện để dùng. Lưu trùng tên sẽ thay thế giao diện đó.</string>
 </resources>

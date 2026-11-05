@@ -386,4 +386,19 @@
     <string name="sandbox_install_blocked">Le bac à sable a besoin de l\'autorisation d\'installer des apps. Activez « Autoriser cette source » pour lui, puis réessayez.</string>
     <string name="tamper_add_to_sandbox">Ajouter l\'original au bac à sable</string>
     <string name="cell_tamper_note">Le renforcement ne réglera pas le problème. Cette app rejette toute copie modifiée, et un clone en est toujours une. Revenez en arrière et touchez Ajouter l\'original au bac à sable.</string>
+    <string name="my_themes">Mes thèmes</string>
+    <string name="use_my_colours">Utiliser mes propres couleurs</string>
+    <string name="custom_status_on">Couleurs perso activées · %1$d thèmes enregistrés</string>
+    <string name="custom_status_off">Couleurs perso désactivées · %1$d thèmes enregistrés</string>
+    <string name="save_set">Enregistrer comme thème</string>
+    <string name="saved_sets">Thèmes enregistrés</string>
+    <string name="set_default_name">Mon thème %1$d</string>
+    <string name="set_saved">%1$s enregistré</string>
+    <string name="delete_set_confirm">Supprimer le thème « %1$s » ? C’est définitif.</string>
+    <string name="save">Enregistrer</string>
+    <string name="delete">Supprimer</string>
+    <string name="delete_q">Supprimer ?</string>
+    <string name="use_my_colours_hint">Part du préréglage actuel</string>
+    <string name="no_sets">Aucun thème enregistré pour l\'instant. Réglez tout à votre goût, puis appuyez sur Enregistrer comme thème.</string>
+    <string name="sets_hint">Appuyez sur un thème pour l\'utiliser. Enregistrer sous le même nom le remplace.</string>
 </resources>
