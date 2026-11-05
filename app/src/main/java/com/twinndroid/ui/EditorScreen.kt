@@ -33,6 +33,7 @@ import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.automirrored.rounded.KeyboardArrowRight
 import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material.icons.rounded.GppBad
+import androidx.compose.material.icons.rounded.GppGood
 import androidx.compose.material.icons.rounded.ExpandLess
 import androidx.compose.material.icons.rounded.ExpandMore
 import androidx.compose.material.icons.rounded.Image
@@ -85,6 +86,7 @@ import androidx.compose.ui.unit.dp
 import com.twinndroid.data.IconMode
 import com.twinndroid.data.SourceKind
 import com.twinndroid.engine.TamperRisk
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 /** Permissions people most often strip from alt-account clones. */
 private val SENSITIVE = setOf(
@@ -101,6 +103,7 @@ fun EditorScreen(vm: MainViewModel) {
     val state = vm.editor ?: return
     val c = state.config
     var permsExpanded by rememberSaveable { mutableStateOf(false) }
+    val sandbox: SandboxViewModel = viewModel()
 
     Scaffold(
         containerColor = Color.Transparent,
@@ -173,6 +176,19 @@ fun EditorScreen(vm: MainViewModel) {
                                 style = MaterialTheme.typography.bodySmall,
                                 color = if (shield) MaterialTheme.colorScheme.onErrorContainer else MaterialTheme.colorScheme.onSurfaceVariant,
                             )
+                            Spacer(Modifier.height(4.dp))
+                            Text(
+                                stringResource(R.string.tamper_try_sandbox),
+                                style = MaterialTheme.typography.bodySmall,
+                                fontWeight = FontWeight.SemiBold,
+                                color = if (shield) MaterialTheme.colorScheme.onErrorContainer else MaterialTheme.colorScheme.onSurface,
+                            )
+                            Spacer(Modifier.height(10.dp))
+                            Button(onClick = { vm.leaveEditorForSandbox()?.let(sandbox::addUnchanged) }) {
+                                Icon(Icons.Rounded.GppGood, null, Modifier.size(18.dp))
+                                Spacer(Modifier.width(8.dp))
+                                Text(stringResource(R.string.tamper_add_to_sandbox))
+                            }
                         }
                     }
                 }
@@ -231,6 +247,25 @@ fun EditorScreen(vm: MainViewModel) {
                                 if (!c.iconAdjust.isIdentity) { if (isNotEmpty()) append(" · "); append(adjusted) }
                                 if (isEmpty()) append(iconHint)
                             },
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
+                    Icon(Icons.AutoMirrored.Rounded.KeyboardArrowRight, null)
+                }
+            }
+
+            Section(stringResource(R.string.cell_section)) {
+                Row(
+                    Modifier.fillMaxWidth().clickable { vm.screen = Screen.Cell }.padding(vertical = 4.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Icon(Icons.Rounded.GppGood, null, tint = MaterialTheme.colorScheme.primary)
+                    Spacer(Modifier.width(14.dp))
+                    Column(Modifier.weight(1f)) {
+                        Text(stringResource(if (c.cell != null) R.string.chip_hardened else R.string.cell_normal))
+                        Text(
+                            stringResource(if (c.inSandbox) R.string.chip_in_sandbox else R.string.cell_outside),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )

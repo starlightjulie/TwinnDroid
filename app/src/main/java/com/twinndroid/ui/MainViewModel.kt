@@ -28,19 +28,22 @@ import com.twinndroid.engine.ApkExporter
 import com.twinndroid.engine.ApkSources
 import com.twinndroid.engine.ExportFormat
 import com.twinndroid.engine.IconFactory
+import com.twinndroid.engine.SigningKeys
 import com.twinndroid.engine.SourceApks
 import com.twinndroid.install.ShizukuInstaller
 import com.twinndroid.install.SpecialAccess
 import com.twinndroid.engine.TamperReport
 import com.twinndroid.engine.TamperRisk
 import com.twinndroid.install.InstallResult
+import com.twinndroid.sandbox.Sandbox
+import com.twinndroid.sandbox.SandboxStatus
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.util.UUID
 
-enum class Screen { Home, Editor, IconEditor, Settings, Language, Appearance, Background, Header }
+enum class Screen { Home, Editor, IconEditor, Cell, Settings, Language, Appearance, Background, Header }
 
 data class AppEntry(val packageName: String, val label: String, val icon: ImageBitmap?, val isSystem: Boolean)
 
@@ -75,6 +78,7 @@ data class BuildState(
     /** 0 read source, 1 patch, 2 sign, 3 install, 4 finished. */
     val stage: Int = 0,
     val result: InstallResult? = null,
+    val inSandbox: Boolean = false,
 )
 
 data class ExportState(
@@ -123,12 +127,15 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         clones = withContext(Dispatchers.IO) {
             val outdated = CloneOperations.outdated(ctx).map { it.id }.toSet()
             repo.clones.value.sortedByDescending { it.createdAt }.map { c ->
-                val installed = CloneOperations.installedVersion(ctx, c.clonePackage)
+                val installed = CloneOperations.installedVersion(ctx, c)
                 val icon = runCatching {
-                    if (installed != null) ctx.packageManager.getApplicationIcon(c.clonePackage)
-                    else ctx.packageManager.getApplicationIcon(c.sourcePackage)
+                    when {
+                        c.inSandbox && installed != null -> Sandbox.icon(ctx, c.clonePackage) ?: ctx.packageManager.getApplicationIcon(c.sourcePackage)
+                        installed != null -> ctx.packageManager.getApplicationIcon(c.clonePackage)
+                        else -> ctx.packageManager.getApplicationIcon(c.sourcePackage)
+                    }
                 }.getOrNull()
-                val access = if (installed != null) SpecialAccess.forPackage(ctx, c.clonePackage) else emptyList()
+                val access = if (installed != null && !c.inSandbox) SpecialAccess.forPackage(ctx, c.clonePackage) else emptyList()
                 CloneItem(c, icon?.toBitmap(128, 128)?.asImageBitmap(), installed, c.id in outdated, access)
             }
         }
@@ -278,7 +285,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     private fun runBuild(config: CloneConfig) {
         if (build?.running == true) return
         val icon = (editorPreviewFor(config) ?: clones.firstOrNull { it.config.id == config.id }?.icon)
-        build = BuildState(config.clonePackage, config.label, icon, running = true, logs = listOf("Building ${config.label}…"))
+        build = BuildState(config.clonePackage, config.label, icon, running = true, logs = listOf("Building ${config.label}…"), inSandbox = config.inSandbox)
         viewModelScope.launch {
             val result = try {
                 CloneOperations.buildAndInstall(ctx, config) { line ->
@@ -327,11 +334,40 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     fun delete(config: CloneConfig) {
         repo.remove(config.id)
+        SigningKeys.deleteCloneKey(ctx, config.id)
         ApkSources.sourceDir(ctx, config.id).deleteRecursively()
         config.customIconPath?.let { File(it).delete() }
     }
 
     fun launchIntent(packageName: String): Intent? = ctx.packageManager.getLaunchIntentForPackage(packageName)
+
+    /** Opens a clone wherever it lives. */
+    fun open(config: CloneConfig) {
+        if (config.inSandbox) openInSandbox(config.clonePackage)
+        else launchIntent(config.clonePackage)?.let { ctx.startActivity(it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) }
+    }
+
+    fun openInSandbox(packageName: String) = launchBusy { Sandbox.launch(ctx, packageName) }
+
+    fun uninstallFromSandbox(config: CloneConfig) = launchBusy {
+        Sandbox.uninstall(ctx, config.clonePackage)
+        refreshClones()
+    }
+
+    /**
+     * Swaps the editor for the Sandbox tab, for apps that only work unchanged. Hands back what was
+     * being edited; an imported file's APKs stay on disk for the sandbox to read and clean up.
+     */
+    fun leaveEditorForSandbox(): EditorState? {
+        val e = editor ?: return null
+        editor = null
+        tab = SANDBOX_TAB
+        screen = Screen.Home
+        return e
+    }
+
+    /** Whether clones can be sent to the sandbox right now. */
+    fun sandboxReady(): Boolean = Sandbox.status(ctx) == SandboxStatus.READY
 
     // ---- extract ------------------------------------------------------------------------------
 
@@ -396,5 +432,6 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     companion object {
         val PACKAGE_REGEX = Regex("^[a-zA-Z][a-zA-Z0-9_]*(\\.[a-zA-Z][a-zA-Z0-9_]*)+$")
+        const val SANDBOX_TAB = 2
     }
 }

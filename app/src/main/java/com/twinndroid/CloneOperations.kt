@@ -14,6 +14,7 @@ import com.twinndroid.engine.SourceApks
 import com.twinndroid.install.InstallResult
 import com.twinndroid.install.SessionInstaller
 import com.twinndroid.install.ShizukuInstaller
+import com.twinndroid.sandbox.Sandbox
 
 /** Build + install pipeline shared by the UI and the background update worker. */
 object CloneOperations {
@@ -33,10 +34,17 @@ object CloneOperations {
         log("Source: ${source.label} ${source.versionName ?: ""} (${source.files.size} APK file(s))")
 
         val iconPng = IconFactory.render(config, source.icon)?.let(IconFactory::toPng)
-        val outputs = CloneEngine(context).build(config, source.files, iconPng, log)
+        val outputs = CloneEngine(context, config).build(config, source.files, iconPng, log)
 
         val settings = Settings(context)
-        val result = if (settings.useShizuku && ShizukuInstaller.hasPermission()) {
+        val result = if (config.inSandbox) {
+            if (allowPrompt) {
+                log("Installing into the sandbox…")
+                Sandbox.install(context, config.clonePackage, outputs)
+            } else {
+                InstallResult(false, "Sandbox installs can't run in the background")
+            }
+        } else if (settings.useShizuku && ShizukuInstaller.hasPermission()) {
             log("Installing with Shizuku…")
             ShizukuInstaller.install(context, outputs)
         } else if (allowPrompt) {
@@ -63,11 +71,16 @@ object CloneOperations {
         null
     }
 
+    /** Like [installedVersion], but looks inside the sandbox for clones that live there. */
+    fun installedVersion(context: Context, config: CloneConfig): Long? =
+        if (config.inSandbox) config.builtVersionCode.takeIf { Sandbox.contains(context, config.clonePackage) }
+        else installedVersion(context, config.clonePackage)
+
     /** Clones whose original app has a newer version than the one they were built from. */
     fun outdated(context: Context): List<CloneConfig> =
         CloneRepository.get(context).clones.value.filter { c ->
             c.sourceKind == SourceKind.INSTALLED && c.builtVersionCode > 0 &&
-                installedVersion(context, c.clonePackage) != null &&
+                installedVersion(context, c) != null &&
                 (installedVersion(context, c.sourcePackage) ?: 0) > c.builtVersionCode
         }
 }

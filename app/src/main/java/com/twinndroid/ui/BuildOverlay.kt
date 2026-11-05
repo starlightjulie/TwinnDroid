@@ -181,9 +181,11 @@ fun BuildOverlay(vm: MainViewModel, state: BuildState) {
             AnimatedVisibility(!state.running, enter = fadeIn() + expandVertically()) {
                 ButtonRow(horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterHorizontally)) {
                     OutlinedButton(onClick = vm::dismissBuild) { Text(stringResource(if (success) R.string.done else R.string.close)) }
-                    val launch = if (success) vm.launchIntent(state.clonePackage) else null
+                    val launch = if (success && !state.inSandbox) vm.launchIntent(state.clonePackage) else null
                     if (launch != null) {
                         Button(onClick = { vm.dismissBuild(); context.startActivity(launch) }) { Text(stringResource(R.string.open_clone)) }
+                    } else if (success && state.inSandbox) {
+                        Button(onClick = { vm.dismissBuild(); vm.openInSandbox(state.clonePackage) }) { Text(stringResource(R.string.open_clone)) }
                     }
                 }
             }

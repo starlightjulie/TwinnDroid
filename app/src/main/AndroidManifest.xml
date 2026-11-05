@@ -12,6 +12,21 @@
     <!-- Only used to check GitHub for a newer TwinnDroid release (can be turned off in Settings) -->
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- Auto-freeze watches for the screen locking from inside the sandbox -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <!-- Only for the optional payment stub; TwinnDroid never touches NFC itself -->
+    <uses-permission android:name="android.permission.NFC" />
+    <uses-feature
+        android:name="android.hardware.nfc.hce"
+        android:required="false" />
+
+    <!-- Keeps the sandbox bridge to apps signed with TwinnDroid's own key -->
+    <permission
+        android:name="com.twinndroid.permission.SANDBOX_BRIDGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="com.twinndroid.permission.SANDBOX_BRIDGE" />
+
     <application
         android:name=".TwinnApp"
         android:allowBackup="false"
@@ -24,6 +39,79 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TwinnDroid"
         tools:targetApi="36">
+
+        <!-- Sandbox: lets TwinnDroid own a work profile, and the bridge between the two halves -->
+        <receiver
+            android:name=".sandbox.SandboxAdminReceiver"
+            android:description="@string/sandbox_admin_desc"
+            android:exported="true"
+            android:label="@string/sandbox_title"
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/device_admin" />
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+                <action android:name="android.app.action.PROFILE_PROVISIONING_COMPLETE" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
+        <activity
+            android:name=".sandbox.SandboxFinalizeActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_DEVICE_ADMIN"
+            android:theme="@style/Theme.TwinnDroid.Invisible">
+            <intent-filter>
+                <action android:name="android.app.action.PROVISIONING_SUCCESSFUL" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".sandbox.SandboxBridgeActivity"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|keyboard|keyboardHidden|navigation|uiMode|locale|layoutDirection|fontScale|density"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:permission="com.twinndroid.permission.SANDBOX_BRIDGE"
+            android:taskAffinity=""
+            android:theme="@style/Theme.TwinnDroid.Invisible">
+            <intent-filter>
+                <action android:name="com.twinndroid.sandbox.action.INTO_SANDBOX" />
+                <action android:name="com.twinndroid.sandbox.action.OUT_OF_SANDBOX" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".sandbox.SandboxShortcutActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:taskAffinity=""
+            android:theme="@style/Theme.TwinnDroid.Invisible" />
+        <service
+            android:name=".sandbox.SandboxFreezeService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Waits for the screen to lock so it can freeze the sandbox apps you chose" />
+        </service>
+        <service
+            android:name=".sandbox.SandboxPaymentStub"
+            android:enabled="false"
+            android:exported="true"
+            android:permission="android.permission.BIND_NFC_SERVICE">
+            <intent-filter>
+                <action android:name="android.nfc.cardemulation.action.HOST_APDU_SERVICE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.nfc.cardemulation.host_apdu_service"
+                android:resource="@xml/payment_stub" />
+        </service>
+        <provider
+            android:name=".sandbox.SandboxFileProvider"
+            android:authorities="${applicationId}.sandboxfiles"
+            android:exported="false"
+            android:grantUriPermissions="true" />
 
         <activity
             android:name=".MainActivity"

@@ -26,6 +26,7 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AddCircle
+import androidx.compose.material.icons.rounded.GppGood
 import androidx.compose.material.icons.rounded.Layers
 import androidx.compose.material.icons.rounded.Unarchive
 import androidx.compose.material3.AlertDialog
@@ -54,6 +55,7 @@ import kotlin.math.absoluteValue
 private fun tabs() = listOf(
     TabItem(stringResource(R.string.tab_clones), Icons.Rounded.Layers),
     TabItem(stringResource(R.string.tab_new_clone), Icons.Rounded.AddCircle),
+    TabItem(stringResource(R.string.tab_sandbox), Icons.Rounded.GppGood),
     TabItem(stringResource(R.string.tab_extract), Icons.Rounded.Unarchive),
 )
 
@@ -62,7 +64,7 @@ fun TwinnRoot(vm: MainViewModel) {
     BackHandler(enabled = vm.screen != Screen.Home && vm.build == null) {
         when (vm.screen) {
             Screen.Editor -> vm.closeEditor()
-            Screen.IconEditor -> vm.screen = Screen.Editor
+            Screen.IconEditor, Screen.Cell -> vm.screen = Screen.Editor
             Screen.Background, Screen.Header -> vm.screen = Screen.Appearance
             Screen.Language -> vm.screen = Screen.Settings
             else -> vm.screen = Screen.Home
@@ -111,6 +113,7 @@ private fun RootContent(vm: MainViewModel, backdrop: Backdrop) {
                 Screen.Home -> MainTabs(vm)
                 Screen.Editor -> EditorScreen(vm)
                 Screen.IconEditor -> IconEditorScreen(vm)
+                Screen.Cell -> CellScreen(vm)
                 Screen.Settings -> SettingsScreen(vm)
                 Screen.Language -> LanguageScreen(vm)
                 Screen.Appearance -> AppearanceScreen(vm)
@@ -153,7 +156,8 @@ private fun RootContent(vm: MainViewModel, backdrop: Backdrop) {
 
 @Composable
 private fun MainTabs(vm: MainViewModel) {
-    val pager = rememberPagerState(initialPage = vm.tab) { 3 }
+    val sandbox: SandboxViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+    val pager = rememberPagerState(initialPage = vm.tab) { 4 }
     val scope = rememberCoroutineScope()
     LaunchedEffect(pager) { snapshotFlow { pager.settledPage }.collect { vm.tab = it } }
     LaunchedEffect(vm.tab) { if (vm.tab != pager.currentPage && !pager.isScrollInProgress) pager.animateScrollToPage(vm.tab) }
@@ -177,6 +181,7 @@ private fun MainTabs(vm: MainViewModel) {
                 when (page) {
                     0 -> ClonesPage(vm, onNewClone = { scope.launch { pager.animateScrollToPage(1) } })
                     1 -> NewClonePage(vm)
+                    MainViewModel.SANDBOX_TAB -> SandboxPage(vm, sandbox, active = pager.settledPage == MainViewModel.SANDBOX_TAB)
                     else -> ExtractPage(vm)
                 }
             }

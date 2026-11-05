@@ -111,11 +111,12 @@ fun ClonesPage(vm: MainViewModel, onNewClone: () -> Unit) {
                     fadeInSpec = spring(stiffness = Spring.StiffnessMediumLow),
                     placementSpec = spring(stiffness = Spring.StiffnessMediumLow, visibilityThreshold = IntOffset.VisibilityThreshold),
                 ),
-                onOpen = { vm.launchIntent(item.config.clonePackage)?.let(context::startActivity) },
+                onOpen = { vm.open(item.config) },
                 onBuild = { vm.rebuild(item.config) },
                 onEdit = { vm.edit(item.config) },
                 onUninstall = {
-                    context.startActivity(Intent(Intent.ACTION_DELETE, Uri.parse("package:${item.config.clonePackage}")))
+                    if (item.config.inSandbox) vm.uninstallFromSandbox(item.config)
+                    else context.startActivity(Intent(Intent.ACTION_DELETE, Uri.parse("package:${item.config.clonePackage}")))
                 },
                 onDelete = { confirmDelete = item },
                 onAccess = { accessFor = item.config.id },
@@ -217,6 +218,16 @@ private fun CloneCard(
                     )
                     Spacer(Modifier.height(6.dp))
                     StatusChip(item)
+                    if (c.inSandbox || c.cell != null) {
+                        Text(
+                            listOfNotNull(
+                                stringResource(R.string.chip_in_sandbox).takeIf { c.inSandbox },
+                                stringResource(R.string.chip_hardened).takeIf { c.cell != null },
+                            ).joinToString(" · "),
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MaterialTheme.colorScheme.primary,
+                        )
+                    }
                     if (item.missingAccess.isNotEmpty()) {
                         Spacer(Modifier.height(6.dp))
                         Text(
