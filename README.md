@@ -29,7 +29,12 @@ No root, no virtual space. Every copy is a real app, kept apart by Android itsel
 
 ## Why I made this
 
-I was using Shelter to run a second copy of a couple of apps, but I wanted one place to keep all my alt accounts together, without root and without a work profile. So I built TwinnDroid. Pick an app, give the copy its own name and icon, and it installs next to the original with its own login and data.
+I was using Shelter to run a second copy of a couple of apps, but I wanted one place to keep all my alt accounts together, without root. So I built TwinnDroid. Pick an app, give the copy its own name and icon, and it installs next to the original with its own login and data.
+
+TwinnDroid does two separate things, and only one of them uses a work profile:
+
+- **Clones** don't need a work profile. A clone is a renamed copy of the app, installed like any other app, right next to the original in your normal app drawer.
+- **The sandbox** is optional. It uses Android's work profile to wall apps off from the rest of your phone. You only set it up if you want it, and clones work the same either way.
 
 ## What it does
 
@@ -91,18 +96,20 @@ What you can do in there:
 | **Add APK** | Installs an `.apk`, `.apks`, `.xapk` or `.apkm` straight into the sandbox |
 | **More copies** | For apps that can be cloned, make a clone as usual and turn on **Install in the sandbox**. There's no limit, and each copy has its own login |
 | **Freeze** | Stops an app completely until you need it. **Auto-freeze** does it when your screen locks |
-| **Shortcuts** | One tap on your home screen wakes a frozen app and opens it, or freezes everything |
+| **Shortcuts** | One tap on your home screen wakes a frozen app and opens it, or freezes everything. Launchers and shortcut apps also list **Sandbox app** under shortcuts, so you can make them from there too |
 | **Reset app data** | Wipes one app back to fresh, handy for testing |
 | **Block permissions** | Turn off camera, location, contacts and more for any app, without touching the app |
 | **Send files in / Bring files out** | Moves files across, into `Download/TwinnDroid` on the other side |
 | **Copy to main profile** | Brings an app back out |
-| **Rules** | Block copy and paste, block sharing in, block contact lookups, or let adb and Shizuku reach the sandbox for testing |
+| **Rules** | Block copy and paste, block sharing in, block contact lookups, let sandbox apps pick your personal files, or let adb and Shizuku reach the sandbox for testing |
 
 Things to know:
 
 - **Android allows one work profile per phone.** If Shelter, Island or your job already has it, you'll need to remove that one first, and that deletes everything in it. TwinnDroid tells you if the slot's taken. Samsung's Secure Folder doesn't count, so it can stay.
 - **Apps with anti-tamper protection work here, but only as the original.** Clash Royale crashes as a clone, hardened or not, because a clone is always a changed copy, and changing it is what sets the check off. Use **Add app** instead, or tap **Add original to sandbox** on the warning in the clone editor. It runs fine that way because nothing about it has been changed. I've tested that with Clash Royale and Clash of Clans on an S25 Ultra.
 - **Those apps get one copy per Android profile.** A second copy in the same place would need a different package name, and that's exactly what they reject. So that's your normal install plus one in the sandbox. Samsung's Secure Folder or Android's Private Space could hold one more, but I haven't tested those yet.
+- **Your sandboxed apps are in your app drawer already.** Most launchers show them under a **Work** tab. Android doesn't let an app put icons in the personal list, so use a shortcut if you want one there.
+- **Banking apps and developer options.** Some banking and payment apps won't run while developer options are on. That's one switch for the whole phone, so the sandbox can't hide it. Turn developer options off while you use those apps. Wireless debugging and Shizuku stop until you turn them back on.
 - **Switching from Shelter?** TwinnDroid does what Shelter does, and for apps that can be cloned it can also hold several copies of the same app, where Shelter is limited to one.
 
 ## Hardened clones
