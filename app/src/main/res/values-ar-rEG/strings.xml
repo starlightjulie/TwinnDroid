@@ -407,4 +407,12 @@
     <string name="use_my_colours_hint">بيبدأ من الثيم الجاهز الحالي</string>
     <string name="no_sets">مفيش ثيمات محفوظة لسه. ظبط كل حاجة زي ما تحب، وبعدين دوس «احفظه كثيم».</string>
     <string name="sets_hint">دوس على ثيم عشان تستخدمه. لو حفظت بنفس الاسم هيتبدل.</string>
+    <string name="sandbox_shortcut_label">تطبيق في مساحة العزل</string>
+    <string name="sandbox_pick_title">افتح تطبيق من مساحة العزل</string>
+    <string name="sandbox_rule_files">اسمح بالملفات الشخصية</string>
+    <string name="sandbox_rule_files_desc">تطبيقات مساحة العزل تقدر تختار صور وملفات من الجانب الشخصي في منتقي الملفات.</string>
+    <string name="sandbox_dev_title">خيارات المطور شغالة</string>
+    <string name="sandbox_dev_desc">شوية تطبيقات بنوك ودفع مش بتشتغل وخيارات المطور شغالة. ده إعداد واحد للموبايل كله، فمساحة العزل مش هتقدر تخبيه. اقفل خيارات المطور وانت بتستخدم التطبيقات دي. تصحيح الأخطاء اللاسلكي وShizuku هيقفوا لحد ما ترجعها.</string>
+    <string name="sandbox_dev_open">خيارات المطور</string>
+    <string name="sandbox_dev_hide">تمام</string>
 </resources>

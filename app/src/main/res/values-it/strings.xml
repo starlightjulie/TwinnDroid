@@ -401,4 +401,12 @@
     <string name="use_my_colours_hint">Parte dal preset attuale</string>
     <string name="no_sets">Nessun tema salvato. Imposta tutto come preferisci, poi tocca Salva come tema.</string>
     <string name="sets_hint">Tocca un tema per usarlo. Salvando con lo stesso nome lo sostituisci.</string>
+    <string name="sandbox_shortcut_label">App della sandbox</string>
+    <string name="sandbox_pick_title">Apri un\'app della sandbox</string>
+    <string name="sandbox_rule_files">Consenti file personali</string>
+    <string name="sandbox_rule_files_desc">Le app nella sandbox possono scegliere foto e file dal tuo lato personale nel selettore di file.</string>
+    <string name="sandbox_dev_title">Le opzioni sviluppatore sono attive</string>
+    <string name="sandbox_dev_desc">Alcune app di banche e pagamenti non funzionano con le opzioni sviluppatore attive. È un\'unica impostazione per tutto il telefono, quindi la sandbox non può nasconderla. Disattivale mentre usi quelle app. Il debug wireless e Shizuku si fermano finché non le riattivi.</string>
+    <string name="sandbox_dev_open">Opzioni sviluppatore</string>
+    <string name="sandbox_dev_hide">Ho capito</string>
 </resources>

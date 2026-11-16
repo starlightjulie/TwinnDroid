@@ -397,4 +397,12 @@
     <string name="use_my_colours_hint">由目前嘅預設主題開始</string>
     <string name="no_sets">仲未有儲存咗嘅主題。設定好晒之後，撳「儲存為主題」。</string>
     <string name="sets_hint">撳主題就可以用。用同一個名儲存會取代佢。</string>
+    <string name="sandbox_shortcut_label">沙盒應用程式</string>
+    <string name="sandbox_pick_title">開沙盒應用程式</string>
+    <string name="sandbox_rule_files">容許個人檔案</string>
+    <string name="sandbox_rule_files_desc">沙盒入面嘅應用程式可以喺檔案選擇器揀你個人嗰邊嘅相同檔案。</string>
+    <string name="sandbox_dev_title">開發人員選項開咗</string>
+    <string name="sandbox_dev_desc">有啲銀行同付款應用程式喺開發人員選項開咗嘅時候用唔到。呢個係成部手機共用嘅一個設定，所以沙盒冇辦法收埋佢。用嗰啲應用程式嘅時候就熄咗開發人員選項。你再開返之前，無線偵錯同 Shizuku 會停咗。</string>
+    <string name="sandbox_dev_open">開發人員選項</string>
+    <string name="sandbox_dev_hide">明白</string>
 </resources>

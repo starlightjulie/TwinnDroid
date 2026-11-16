@@ -397,4 +397,12 @@
     <string name="use_my_colours_hint">从当前预设开始</string>
     <string name="no_sets">还没有保存的主题。按你的喜好设置好后，点按“保存为主题”。</string>
     <string name="sets_hint">点按主题即可使用。用相同名称保存会替换它。</string>
+    <string name="sandbox_shortcut_label">沙盒应用</string>
+    <string name="sandbox_pick_title">打开沙盒应用</string>
+    <string name="sandbox_rule_files">允许个人文件</string>
+    <string name="sandbox_rule_files_desc">沙盒中的应用可以在文件选择器里选择你个人空间的照片和文件。</string>
+    <string name="sandbox_dev_title">开发者选项已开启</string>
+    <string name="sandbox_dev_desc">有些银行和支付应用在开发者选项开启时无法运行。这是整部手机共用的一个设置，沙盒没法把它藏起来。使用这些应用时请关闭开发者选项。在你重新开启之前，无线调试和 Shizuku 会停止工作。</string>
+    <string name="sandbox_dev_open">开发者选项</string>
+    <string name="sandbox_dev_hide">知道了</string>
 </resources>

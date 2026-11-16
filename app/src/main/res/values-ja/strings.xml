@@ -397,4 +397,12 @@
     <string name="use_my_colours_hint">現在のプリセットから始めます</string>
     <string name="no_sets">保存したテーマはまだありません。好みに設定してから「テーマとして保存」をタップしてください。</string>
     <string name="sets_hint">テーマをタップすると適用されます。同じ名前で保存すると置き換えられます。</string>
+    <string name="sandbox_shortcut_label">サンドボックスのアプリ</string>
+    <string name="sandbox_pick_title">サンドボックスのアプリを開く</string>
+    <string name="sandbox_rule_files">個人用ファイルを許可</string>
+    <string name="sandbox_rule_files_desc">サンドボックスのアプリがファイル選択画面で個人用の写真やファイルを選べるようになります。</string>
+    <string name="sandbox_dev_title">開発者向けオプションがオンです</string>
+    <string name="sandbox_dev_desc">一部の銀行・決済アプリは、開発者向けオプションがオンだと動きません。これはスマホ全体の設定なので、サンドボックスでは隠せません。それらのアプリを使うときは開発者向けオプションをオフにしてください。オンに戻すまでワイヤレスデバッグと Shizuku は止まります。</string>
+    <string name="sandbox_dev_open">開発者向けオプション</string>
+    <string name="sandbox_dev_hide">OK</string>
 </resources>

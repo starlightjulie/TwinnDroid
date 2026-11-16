@@ -407,4 +407,12 @@
     <string name="use_my_colours_hint">يبدأ من السمة الجاهزة الحالية</string>
     <string name="no_sets">لا توجد سمات محفوظة بعد. اضبط كل شيء كما تحب، ثم اضغط «حفظ كسمة».</string>
     <string name="sets_hint">اضغط على سمة لاستخدامها. الحفظ بالاسم نفسه يستبدلها.</string>
+    <string name="sandbox_shortcut_label">تطبيق في مساحة العزل</string>
+    <string name="sandbox_pick_title">افتح تطبيقًا من مساحة العزل</string>
+    <string name="sandbox_rule_files">السماح بالملفات الشخصية</string>
+    <string name="sandbox_rule_files_desc">يمكن لتطبيقات مساحة العزل اختيار الصور والملفات من جانبك الشخصي في منتقي الملفات.</string>
+    <string name="sandbox_dev_title">خيارات المطور مفعّلة</string>
+    <string name="sandbox_dev_desc">بعض تطبيقات البنوك والدفع لا تعمل وخيارات المطور مفعّلة. هذا إعداد واحد للهاتف كله، لذلك لا تستطيع مساحة العزل إخفاءه. أوقف خيارات المطور أثناء استخدام هذه التطبيقات. يتوقف تصحيح الأخطاء اللاسلكي وShizuku حتى تعيد تفعيلها.</string>
+    <string name="sandbox_dev_open">خيارات المطور</string>
+    <string name="sandbox_dev_hide">حسنًا</string>
 </resources>

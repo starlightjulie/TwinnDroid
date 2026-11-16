@@ -397,4 +397,12 @@
     <string name="use_my_colours_hint">현재 프리셋에서 시작합니다</string>
     <string name="no_sets">저장된 테마가 아직 없습니다. 원하는 대로 설정한 다음 테마로 저장을 누르세요.</string>
     <string name="sets_hint">테마를 누르면 적용됩니다. 같은 이름으로 저장하면 교체됩니다.</string>
+    <string name="sandbox_shortcut_label">샌드박스 앱</string>
+    <string name="sandbox_pick_title">샌드박스 앱 열기</string>
+    <string name="sandbox_rule_files">개인 파일 허용</string>
+    <string name="sandbox_rule_files_desc">샌드박스 앱이 파일 선택기에서 개인 영역의 사진과 파일을 고를 수 있습니다.</string>
+    <string name="sandbox_dev_title">개발자 옵션이 켜져 있습니다</string>
+    <string name="sandbox_dev_desc">일부 은행·결제 앱은 개발자 옵션이 켜져 있으면 실행되지 않습니다. 휴대폰 전체에 적용되는 설정이라 샌드박스가 숨길 수 없습니다. 그런 앱을 쓸 때는 개발자 옵션을 꺼 주세요. 다시 켤 때까지 무선 디버깅과 Shizuku가 멈춥니다.</string>
+    <string name="sandbox_dev_open">개발자 옵션</string>
+    <string name="sandbox_dev_hide">확인</string>
 </resources>

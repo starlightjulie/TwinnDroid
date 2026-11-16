@@ -397,4 +397,12 @@
     <string name="use_my_colours_hint">Bắt đầu từ mẫu có sẵn hiện tại</string>
     <string name="no_sets">Chưa có giao diện đã lưu. Thiết lập mọi thứ theo ý bạn rồi chạm vào Lưu thành giao diện.</string>
     <string name="sets_hint">Chạm vào một giao diện để dùng. Lưu trùng tên sẽ thay thế giao diện đó.</string>
+    <string name="sandbox_shortcut_label">Ứng dụng trong sandbox</string>
+    <string name="sandbox_pick_title">Mở ứng dụng trong sandbox</string>
+    <string name="sandbox_rule_files">Cho phép tệp cá nhân</string>
+    <string name="sandbox_rule_files_desc">Ứng dụng trong sandbox có thể chọn ảnh và tệp từ phía cá nhân của bạn trong trình chọn tệp.</string>
+    <string name="sandbox_dev_title">Tùy chọn cho nhà phát triển đang bật</string>
+    <string name="sandbox_dev_desc">Một số ứng dụng ngân hàng và thanh toán không chạy khi tùy chọn cho nhà phát triển đang bật. Đây là một cài đặt cho cả điện thoại, nên sandbox không thể ẩn nó. Hãy tắt tùy chọn này khi dùng các ứng dụng đó. Gỡ lỗi không dây và Shizuku sẽ dừng cho đến khi bạn bật lại.</string>
+    <string name="sandbox_dev_open">Tùy chọn cho nhà phát triển</string>
+    <string name="sandbox_dev_hide">Đã hiểu</string>
 </resources>

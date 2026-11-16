@@ -399,4 +399,12 @@
     <string name="use_my_colours_hint">বর্তমান প্রিসেট থেকে শুরু হয়</string>
     <string name="no_sets">এখনও কোনো সংরক্ষিত থিম নেই। সবকিছু নিজের মতো সাজান, তারপর থিম হিসেবে সংরক্ষণ চাপুন।</string>
     <string name="sets_hint">ব্যবহার করতে কোনো থিমে চাপুন। একই নামে সংরক্ষণ করলে সেটি বদলে যাবে।</string>
+    <string name="sandbox_shortcut_label">স্যান্ডবক্স অ্যাপ</string>
+    <string name="sandbox_pick_title">একটি স্যান্ডবক্স অ্যাপ খুলুন</string>
+    <string name="sandbox_rule_files">ব্যক্তিগত ফাইলের অনুমতি দিন</string>
+    <string name="sandbox_rule_files_desc">স্যান্ডবক্সের অ্যাপগুলো ফাইল পিকারে আপনার ব্যক্তিগত দিক থেকে ছবি ও ফাইল বেছে নিতে পারবে।</string>
+    <string name="sandbox_dev_title">ডেভেলপার অপশন চালু আছে</string>
+    <string name="sandbox_dev_desc">ডেভেলপার অপশন চালু থাকলে কিছু ব্যাংকিং ও পেমেন্ট অ্যাপ চলে না। এটি পুরো ফোনের একটি সেটিং, তাই স্যান্ডবক্স এটি লুকাতে পারে না। ওই অ্যাপগুলো ব্যবহারের সময় ডেভেলপার অপশন বন্ধ রাখুন। আবার চালু না করা পর্যন্ত ওয়্যারলেস ডিবাগিং ও Shizuku বন্ধ থাকবে।</string>
+    <string name="sandbox_dev_open">ডেভেলপার অপশন</string>
+    <string name="sandbox_dev_hide">বুঝেছি</string>
 </resources>

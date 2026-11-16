@@ -399,4 +399,12 @@
     <string name="use_my_colours_hint">ప్రస్తుత ప్రీసెట్ నుండి మొదలవుతుంది</string>
     <string name="no_sets">ఇంకా సేవ్ చేసిన థీమ్‌లు లేవు. అన్నీ మీకు నచ్చినట్లు సెట్ చేసి, థీమ్‌గా సేవ్ చేయండి నొక్కండి.</string>
     <string name="sets_hint">ఉపయోగించడానికి థీమ్‌ను నొక్కండి. అదే పేరుతో సేవ్ చేస్తే అది మారిపోతుంది.</string>
+    <string name="sandbox_shortcut_label">శాండ్‌బాక్స్ యాప్</string>
+    <string name="sandbox_pick_title">శాండ్‌బాక్స్ యాప్‌ను తెరవండి</string>
+    <string name="sandbox_rule_files">వ్యక్తిగత ఫైల్‌లను అనుమతించు</string>
+    <string name="sandbox_rule_files_desc">శాండ్‌బాక్స్‌లోని యాప్‌లు ఫైల్ పికర్‌లో మీ వ్యక్తిగత వైపు నుండి ఫోటోలు, ఫైల్‌లు ఎంచుకోవచ్చు.</string>
+    <string name="sandbox_dev_title">డెవలపర్ ఆప్షన్‌లు ఆన్‌లో ఉన్నాయి</string>
+    <string name="sandbox_dev_desc">డెవలపర్ ఆప్షన్‌లు ఆన్‌లో ఉంటే కొన్ని బ్యాంకింగ్, చెల్లింపు యాప్‌లు పనిచేయవు. ఇది మొత్తం ఫోన్‌కు ఒకే సెట్టింగ్, కాబట్టి శాండ్‌బాక్స్ దాన్ని దాచలేదు. ఆ యాప్‌లు వాడేటప్పుడు డెవలపర్ ఆప్షన్‌లను ఆఫ్ చేయండి. మళ్లీ ఆన్ చేసే వరకు వైర్‌లెస్ డీబగ్గింగ్, Shizuku ఆగిపోతాయి.</string>
+    <string name="sandbox_dev_open">డెవలపర్ ఆప్షన్‌లు</string>
+    <string name="sandbox_dev_hide">సరే</string>
 </resources>

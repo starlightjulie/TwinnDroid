@@ -399,4 +399,12 @@
     <string name="use_my_colours_hint">Startet mit der aktuellen Vorlage</string>
     <string name="no_sets">Noch keine gespeicherten Themes. Stell alles nach Wunsch ein und tippe dann auf Als Theme speichern.</string>
     <string name="sets_hint">Tippe auf ein Theme, um es zu verwenden. Beim Speichern unter demselben Namen wird es ersetzt.</string>
+    <string name="sandbox_shortcut_label">Sandbox-App</string>
+    <string name="sandbox_pick_title">Sandbox-App öffnen</string>
+    <string name="sandbox_rule_files">Persönliche Dateien erlauben</string>
+    <string name="sandbox_rule_files_desc">Apps in der Sandbox können im Dateiauswahl-Dialog Fotos und Dateien aus deinem persönlichen Bereich wählen.</string>
+    <string name="sandbox_dev_title">Entwickleroptionen sind an</string>
+    <string name="sandbox_dev_desc">Manche Banking- und Bezahl-Apps laufen nicht, solange die Entwickleroptionen an sind. Das ist eine Einstellung für das ganze Handy, die Sandbox kann sie also nicht verstecken. Schalte die Entwickleroptionen aus, während du diese Apps nutzt. Kabelloses Debugging und Shizuku laufen erst wieder, wenn du sie einschaltest.</string>
+    <string name="sandbox_dev_open">Entwickleroptionen</string>
+    <string name="sandbox_dev_hide">Verstanden</string>
 </resources>

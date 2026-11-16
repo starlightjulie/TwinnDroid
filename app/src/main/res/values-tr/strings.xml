@@ -399,4 +399,12 @@
     <string name="use_my_colours_hint">Geçerli hazır ayardan başlar</string>
     <string name="no_sets">Henüz kayıtlı tema yok. Her şeyi istediğin gibi ayarla, sonra Tema olarak kaydet düğmesine dokun.</string>
     <string name="sets_hint">Kullanmak için bir temaya dokun. Aynı adla kaydetmek onu değiştirir.</string>
+    <string name="sandbox_shortcut_label">Korumalı alan uygulaması</string>
+    <string name="sandbox_pick_title">Korumalı alandan uygulama aç</string>
+    <string name="sandbox_rule_files">Kişisel dosyalara izin ver</string>
+    <string name="sandbox_rule_files_desc">Korumalı alandaki uygulamalar dosya seçicide kişisel tarafındaki fotoğraf ve dosyaları seçebilir.</string>
+    <string name="sandbox_dev_title">Geliştirici seçenekleri açık</string>
+    <string name="sandbox_dev_desc">Bazı banka ve ödeme uygulamaları geliştirici seçenekleri açıkken çalışmaz. Bu tüm telefon için tek bir ayar, bu yüzden korumalı alan onu gizleyemez. Bu uygulamaları kullanırken geliştirici seçeneklerini kapat. Tekrar açana kadar kablosuz hata ayıklama ve Shizuku durur.</string>
+    <string name="sandbox_dev_open">Geliştirici seçenekleri</string>
+    <string name="sandbox_dev_hide">Anladım</string>
 </resources>

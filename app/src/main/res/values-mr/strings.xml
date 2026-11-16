@@ -399,4 +399,12 @@
     <string name="use_my_colours_hint">सध्याच्या प्रीसेटपासून सुरू होते</string>
     <string name="no_sets">अजून कोणतीही जतन केलेली थीम नाही. सर्व काही तुमच्या आवडीनुसार सेट करा, मग थीम म्हणून जतन करा वर टॅप करा.</string>
     <string name="sets_hint">वापरण्यासाठी थीमवर टॅप करा. त्याच नावाने जतन केल्यास ती बदलली जाते.</string>
+    <string name="sandbox_shortcut_label">सँडबॉक्स ॲप</string>
+    <string name="sandbox_pick_title">सँडबॉक्स ॲप उघडा</string>
+    <string name="sandbox_rule_files">वैयक्तिक फाइल्सना परवानगी द्या</string>
+    <string name="sandbox_rule_files_desc">सँडबॉक्समधील ॲप्स फाइल पिकरमध्ये तुमच्या वैयक्तिक बाजूचे फोटो आणि फाइल्स निवडू शकतात.</string>
+    <string name="sandbox_dev_title">डेव्हलपर पर्याय चालू आहेत</string>
+    <string name="sandbox_dev_desc">डेव्हलपर पर्याय चालू असताना काही बँकिंग आणि पेमेंट ॲप्स चालत नाहीत. ही संपूर्ण फोनची एकच सेटिंग आहे, त्यामुळे सँडबॉक्स ती लपवू शकत नाही. ती ॲप्स वापरताना डेव्हलपर पर्याय बंद ठेवा. पुन्हा चालू करेपर्यंत वायरलेस डीबगिंग आणि Shizuku बंद राहतील.</string>
+    <string name="sandbox_dev_open">डेव्हलपर पर्याय</string>
+    <string name="sandbox_dev_hide">समजले</string>
 </resources>

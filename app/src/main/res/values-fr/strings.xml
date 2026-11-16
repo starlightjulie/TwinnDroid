@@ -401,4 +401,12 @@
     <string name="use_my_colours_hint">Part du préréglage actuel</string>
     <string name="no_sets">Aucun thème enregistré pour l\'instant. Réglez tout à votre goût, puis appuyez sur Enregistrer comme thème.</string>
     <string name="sets_hint">Appuyez sur un thème pour l\'utiliser. Enregistrer sous le même nom le remplace.</string>
+    <string name="sandbox_shortcut_label">App du bac à sable</string>
+    <string name="sandbox_pick_title">Ouvrir une app du bac à sable</string>
+    <string name="sandbox_rule_files">Autoriser les fichiers personnels</string>
+    <string name="sandbox_rule_files_desc">Les apps du bac à sable peuvent choisir des photos et des fichiers côté personnel dans le sélecteur de fichiers.</string>
+    <string name="sandbox_dev_title">Les options pour les développeurs sont activées</string>
+    <string name="sandbox_dev_desc">Certaines apps de banque et de paiement refusent de fonctionner quand les options pour les développeurs sont activées. C\'est un seul réglage pour tout le téléphone, le bac à sable ne peut donc pas le cacher. Désactivez-les pendant que vous utilisez ces apps. Le débogage sans fil et Shizuku s\'arrêtent jusqu\'à ce que vous les réactiviez.</string>
+    <string name="sandbox_dev_open">Options pour les développeurs</string>
+    <string name="sandbox_dev_hide">Compris</string>
 </resources>

@@ -399,4 +399,12 @@
     <string name="use_my_colours_hint">Empieza desde el preajuste actual</string>
     <string name="no_sets">Aún no hay temas guardados. Configura todo a tu gusto y toca Guardar como tema.</string>
     <string name="sets_hint">Toca un tema para usarlo. Guardar con el mismo nombre lo reemplaza.</string>
+    <string name="sandbox_shortcut_label">App del sandbox</string>
+    <string name="sandbox_pick_title">Abrir una app del sandbox</string>
+    <string name="sandbox_rule_files">Permitir archivos personales</string>
+    <string name="sandbox_rule_files_desc">Las apps del sandbox pueden elegir fotos y archivos de tu lado personal en el selector de archivos.</string>
+    <string name="sandbox_dev_title">Las opciones de desarrollador están activadas</string>
+    <string name="sandbox_dev_desc">Algunas apps de bancos y pagos no funcionan con las opciones de desarrollador activadas. Es un solo ajuste para todo el teléfono, así que el sandbox no puede ocultarlo. Desactívalas mientras usas esas apps. La depuración inalámbrica y Shizuku se detienen hasta que las vuelvas a activar.</string>
+    <string name="sandbox_dev_open">Opciones de desarrollador</string>
+    <string name="sandbox_dev_hide">Entendido</string>
 </resources>

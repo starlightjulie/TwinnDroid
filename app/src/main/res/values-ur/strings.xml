@@ -399,4 +399,12 @@
     <string name="use_my_colours_hint">موجودہ پری سیٹ سے شروع ہوتا ہے</string>
     <string name="no_sets">ابھی کوئی محفوظ تھیم نہیں۔ سب کچھ اپنی پسند سے سیٹ کریں، پھر تھیم کے طور پر محفوظ کریں پر ٹیپ کریں۔</string>
     <string name="sets_hint">استعمال کرنے کے لیے تھیم پر ٹیپ کریں۔ اسی نام سے محفوظ کرنے پر وہ بدل جاتی ہے۔</string>
+    <string name="sandbox_shortcut_label">سینڈ باکس ایپ</string>
+    <string name="sandbox_pick_title">سینڈ باکس ایپ کھولیں</string>
+    <string name="sandbox_rule_files">ذاتی فائلوں کی اجازت دیں</string>
+    <string name="sandbox_rule_files_desc">سینڈ باکس کی ایپس فائل پکر میں آپ کی ذاتی طرف سے تصاویر اور فائلیں چن سکتی ہیں۔</string>
+    <string name="sandbox_dev_title">ڈویلپر آپشنز آن ہیں</string>
+    <string name="sandbox_dev_desc">ڈویلپر آپشنز آن ہوں تو کچھ بینکنگ اور ادائیگی کی ایپس نہیں چلتیں۔ یہ پورے فون کی ایک ہی سیٹنگ ہے، اس لیے سینڈ باکس اسے چھپا نہیں سکتا۔ ان ایپس کو استعمال کرتے وقت ڈویلپر آپشنز بند رکھیں۔ دوبارہ آن کرنے تک وائرلیس ڈیبگنگ اور Shizuku رکے رہیں گے۔</string>
+    <string name="sandbox_dev_open">ڈویلپر آپشنز</string>
+    <string name="sandbox_dev_hide">سمجھ گیا</string>
 </resources>

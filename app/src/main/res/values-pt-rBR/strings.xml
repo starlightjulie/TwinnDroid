@@ -399,4 +399,12 @@
     <string name="use_my_colours_hint">Começa da predefinição atual</string>
     <string name="no_sets">Nenhum tema salvo ainda. Ajuste tudo do seu jeito e toque em Salvar como tema.</string>
     <string name="sets_hint">Toque em um tema para usá-lo. Salvar com o mesmo nome o substitui.</string>
+    <string name="sandbox_shortcut_label">App do sandbox</string>
+    <string name="sandbox_pick_title">Abrir um app do sandbox</string>
+    <string name="sandbox_rule_files">Permitir arquivos pessoais</string>
+    <string name="sandbox_rule_files_desc">Os apps do sandbox podem escolher fotos e arquivos do seu lado pessoal no seletor de arquivos.</string>
+    <string name="sandbox_dev_title">As opções do desenvolvedor estão ativadas</string>
+    <string name="sandbox_dev_desc">Alguns apps de banco e pagamento não funcionam com as opções do desenvolvedor ativadas. É uma configuração só para o celular inteiro, então o sandbox não consegue escondê-la. Desative-as enquanto usa esses apps. A depuração por Wi-Fi e o Shizuku param até você ativar de novo.</string>
+    <string name="sandbox_dev_open">Opções do desenvolvedor</string>
+    <string name="sandbox_dev_hide">Entendi</string>
 </resources>

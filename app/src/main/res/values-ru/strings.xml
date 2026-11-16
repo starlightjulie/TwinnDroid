@@ -403,4 +403,12 @@
     <string name="use_my_colours_hint">Начинается с текущего пресета</string>
     <string name="no_sets">Сохранённых тем пока нет. Настройте всё по своему вкусу и нажмите «Сохранить как тему».</string>
     <string name="sets_hint">Нажмите на тему, чтобы применить её. Сохранение с тем же именем заменит её.</string>
+    <string name="sandbox_shortcut_label">Приложение из песочницы</string>
+    <string name="sandbox_pick_title">Открыть приложение из песочницы</string>
+    <string name="sandbox_rule_files">Разрешить личные файлы</string>
+    <string name="sandbox_rule_files_desc">Приложения в песочнице смогут выбирать фото и файлы из личного профиля в окне выбора файлов.</string>
+    <string name="sandbox_dev_title">Включены параметры разработчика</string>
+    <string name="sandbox_dev_desc">Некоторые банковские и платёжные приложения не работают, пока включены параметры разработчика. Это одна настройка на весь телефон, поэтому песочница не может её скрыть. Выключайте параметры разработчика, когда пользуетесь такими приложениями. Отладка по Wi-Fi и Shizuku перестанут работать, пока вы их снова не включите.</string>
+    <string name="sandbox_dev_open">Параметры разработчика</string>
+    <string name="sandbox_dev_hide">Понятно</string>
 </resources>
