@@ -22,6 +22,8 @@ data class SandboxRules(
     val blockContacts: Boolean = true,
     /** Lets adb and Shizuku reach the sandbox, for testing and silent installs. */
     val allowDebugging: Boolean = false,
+    /** Lets sandbox apps pick photos and files from the personal side through the system pickers. */
+    val allowPersonalFiles: Boolean = false,
     /** How long after the screen locks auto-freeze apps get frozen. */
     val freezeDelaySeconds: Int = 0,
     /** Leaves auto-freeze apps alone while something is playing, so music keeps going on a locked phone. */
@@ -44,6 +46,9 @@ object SandboxPolicy {
 
     fun isOwner(context: Context): Boolean = dpm(context).isProfileOwnerApp(context.packageName)
 
+    /** MediaStore.ACTION_PICK_IMAGES, the Android 13+ photo picker. */
+    private const val PICK_IMAGES = "android.provider.action.PICK_IMAGES"
+
     /** Safe to call any number of times; runs on setup and again after every TwinnDroid update. */
     fun enforce(context: Context) {
         val dpm = dpm(context)
@@ -55,6 +60,20 @@ object SandboxPolicy {
         dpm.clearUserRestriction(admin, UserManager.DISALLOW_UNINSTALL_APPS)
         dpm.clearUserRestriction(admin, UserManager.DISALLOW_INSTALL_UNKNOWN_SOURCES)
 
+        val rules = rules(context)
+        openDoors(context, rules)
+        applyRules(context, rules)
+        hideOwnLauncherIcons(context)
+        dpm.setProfileEnabled(admin)
+    }
+
+    /**
+     * Clears and re-adds every cross-profile filter. Runs on setup, on every update, and when a rule
+     * that needs one changes.
+     */
+    private fun openDoors(context: Context, rules: SandboxRules) {
+        val dpm = dpm(context)
+        val admin = admin(context)
         // The only door between the two halves of TwinnDroid. Android forwards just these actions across
         // the profile boundary; the activity behind them only accepts callers signed with TwinnDroid's key.
         dpm.clearCrossProfileIntentFilters(admin)
@@ -85,9 +104,29 @@ object SandboxPolicy {
             dpm.addCrossProfileIntentFilter(admin, links, DevicePolicyManager.FLAG_PARENT_CAN_ACCESS_MANAGED)
         }
 
-        applyRules(context, rules(context))
-        hideOwnLauncherIcons(context)
-        dpm.setProfileEnabled(admin)
+        if (rules.allowPersonalFiles) {
+            // The system file and photo pickers in the sandbox get a Personal tab, the same way a work profile normally has one.
+            for (action in listOf(Intent.ACTION_GET_CONTENT, Intent.ACTION_OPEN_DOCUMENT)) {
+                val pick = IntentFilter(action).apply {
+                    addCategory(Intent.CATEGORY_DEFAULT)
+                    addCategory(Intent.CATEGORY_OPENABLE)
+                    addDataType("*/*")
+                }
+                dpm.addCrossProfileIntentFilter(admin, pick, DevicePolicyManager.FLAG_PARENT_CAN_ACCESS_MANAGED)
+            }
+            val pickData = IntentFilter(Intent.ACTION_PICK).apply {
+                addCategory(Intent.CATEGORY_DEFAULT)
+                addDataType("*/*")
+            }
+            dpm.addCrossProfileIntentFilter(admin, pickData, DevicePolicyManager.FLAG_PARENT_CAN_ACCESS_MANAGED)
+            for (typed in listOf(false, true)) {
+                val photos = IntentFilter(PICK_IMAGES).apply {
+                    addCategory(Intent.CATEGORY_DEFAULT)
+                    if (typed) addDataType("*/*")
+                }
+                dpm.addCrossProfileIntentFilter(admin, photos, DevicePolicyManager.FLAG_PARENT_CAN_ACCESS_MANAGED)
+            }
+        }
     }
 
     fun rules(context: Context): SandboxRules {
@@ -98,20 +137,24 @@ object SandboxPolicy {
             blockShareIn = p.getBoolean("block_share_in", d.blockShareIn),
             blockContacts = p.getBoolean("block_contacts", d.blockContacts),
             allowDebugging = p.getBoolean("allow_debugging", d.allowDebugging),
+            allowPersonalFiles = p.getBoolean("allow_personal_files", d.allowPersonalFiles),
             freezeDelaySeconds = p.getInt("freeze_delay", d.freezeDelaySeconds),
             skipWhilePlaying = p.getBoolean("skip_playing", d.skipWhilePlaying),
         )
     }
 
     fun setRules(context: Context, rules: SandboxRules) {
+        val filesChanged = rules.allowPersonalFiles != rules(context).allowPersonalFiles
         context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit {
             putBoolean("block_clipboard", rules.blockClipboard)
             putBoolean("block_share_in", rules.blockShareIn)
             putBoolean("block_contacts", rules.blockContacts)
             putBoolean("allow_debugging", rules.allowDebugging)
+            putBoolean("allow_personal_files", rules.allowPersonalFiles)
             putInt("freeze_delay", rules.freezeDelaySeconds)
             putBoolean("skip_playing", rules.skipWhilePlaying)
         }
+        if (filesChanged) openDoors(context, rules)
         applyRules(context, rules)
     }
 
@@ -131,11 +174,11 @@ object SandboxPolicy {
         dpm.setCrossProfileCallerIdDisabled(admin, rules.blockContacts)
     }
 
-    /** The app drawer's work tab should only show your sandboxed apps, not a second TwinnDroid. */
+    /** The app drawer's work tab should only show your sandboxed apps, not a second TwinnDroid or its shortcut. */
     private fun hideOwnLauncherIcons(context: Context) {
         val pm = context.packageManager
         val aliases = pm.getPackageInfo(context.packageName, PackageManager.GET_ACTIVITIES or PackageManager.MATCH_DISABLED_COMPONENTS)
-            .activities.orEmpty().filter { it.name.contains(".Launcher") }
+            .activities.orEmpty().filter { it.name.contains(".Launcher") || it.name == SandboxAppPicker::class.java.name }
         for (alias in aliases) {
             pm.setComponentEnabledSetting(
                 ComponentName(context, alias.name),

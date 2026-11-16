@@ -66,6 +66,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextOverflow
@@ -321,6 +322,7 @@ private fun RulesCard(vm: SandboxViewModel, onDelete: () -> Unit) {
             Text(stringResource(R.string.sandbox_rules), style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
             RuleRow(R.string.sandbox_rule_clipboard, R.string.sandbox_rule_clipboard_desc, rules.blockClipboard) { vm.setRules(rules.copy(blockClipboard = it)) }
             RuleRow(R.string.sandbox_rule_share, R.string.sandbox_rule_share_desc, rules.blockShareIn) { vm.setRules(rules.copy(blockShareIn = it)) }
+            RuleRow(R.string.sandbox_rule_files, R.string.sandbox_rule_files_desc, rules.allowPersonalFiles) { vm.setRules(rules.copy(allowPersonalFiles = it)) }
             RuleRow(R.string.sandbox_rule_contacts, R.string.sandbox_rule_contacts_desc, rules.blockContacts) { vm.setRules(rules.copy(blockContacts = it)) }
             RuleRow(R.string.sandbox_rule_debug, R.string.sandbox_rule_debug_desc, rules.allowDebugging) { vm.setRules(rules.copy(allowDebugging = it)) }
             RuleRow(R.string.sandbox_skip_playing, R.string.sandbox_skip_playing_desc, rules.skipWhilePlaying) { vm.setRules(rules.copy(skipWhilePlaying = it)) }

@@ -284,6 +284,7 @@ object Sandbox {
         "block_share_in" to r.blockShareIn,
         "block_contacts" to r.blockContacts,
         "allow_debugging" to r.allowDebugging,
+        "allow_personal_files" to r.allowPersonalFiles,
         "freeze_delay" to r.freezeDelaySeconds,
         "skip_playing" to r.skipWhilePlaying,
     )
@@ -293,6 +294,7 @@ object Sandbox {
         blockShareIn = b.getBoolean("block_share_in"),
         blockContacts = b.getBoolean("block_contacts"),
         allowDebugging = b.getBoolean("allow_debugging"),
+        allowPersonalFiles = b.getBoolean("allow_personal_files"),
         freezeDelaySeconds = b.getInt("freeze_delay"),
         skipWhilePlaying = b.getBoolean("skip_playing"),
     )
