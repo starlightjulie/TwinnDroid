@@ -94,14 +94,42 @@ class SandboxFreezeService : Service() {
 
 /** Home-screen shortcuts that work on frozen apps, because they go through the bridge. */
 object SandboxShortcuts {
-    fun pinLaunch(context: Context, app: SandboxApp): Boolean {
+    const val EXTRA_KEY = "com.twinndroid.extra.SHORTCUT_KEY"
+
+    /** A random key made once per install. Shortcuts carry it so only they can open sandbox apps through [SandboxAppPicker]. */
+    fun key(context: Context): String {
+        val prefs = context.getSharedPreferences("sandbox_shortcuts", Context.MODE_PRIVATE)
+        prefs.getString("key", null)?.let { return it }
+        return java.util.UUID.randomUUID().toString().also { prefs.edit().putString("key", it).apply() }
+    }
+
+    private fun launchIntent(context: Context, packageName: String) =
+        Intent(context, SandboxAppPicker::class.java)
+            .setAction(Intent.ACTION_VIEW)
+            .putExtra(Sandbox.ARG_PACKAGE, packageName)
+            .putExtra(EXTRA_KEY, key(context))
+
+    private fun info(context: Context, app: SandboxApp): ShortcutInfoCompat {
         val icon = app.iconPng?.let { BitmapFactory.decodeByteArray(it, 0, it.size) }
-        val info = ShortcutInfoCompat.Builder(context, "sandbox-${app.packageName}")
+        return ShortcutInfoCompat.Builder(context, "sandbox-${app.packageName}")
             .setShortLabel(app.label)
             .setIcon(icon?.let(IconCompat::createWithBitmap) ?: IconCompat.createWithResource(context, R.mipmap.ic_launcher))
-            .setIntent(shortcutIntent(context).putExtra(Sandbox.ARG_PACKAGE, app.packageName))
+            .setIntent(launchIntent(context, app.packageName))
             .build()
-        return ShortcutManagerCompat.requestPinShortcut(context, info, null)
+    }
+
+    fun pinLaunch(context: Context, app: SandboxApp): Boolean =
+        ShortcutManagerCompat.requestPinShortcut(context, info(context, app), null)
+
+    /** The answer to a launcher's or shortcut app's "create shortcut" request. */
+    @Suppress("DEPRECATION")
+    fun resultIntent(context: Context, app: SandboxApp): Intent {
+        val result = ShortcutManagerCompat.createShortcutResultIntent(context, info(context, app))
+        // Shortcut maker apps still read the old extras.
+        result.putExtra(Intent.EXTRA_SHORTCUT_INTENT, launchIntent(context, app.packageName))
+        result.putExtra(Intent.EXTRA_SHORTCUT_NAME, app.label)
+        app.iconPng?.let { BitmapFactory.decodeByteArray(it, 0, it.size) }?.let { result.putExtra(Intent.EXTRA_SHORTCUT_ICON, it) }
+        return result
     }
 
     fun pinFreezeAll(context: Context): Boolean {
@@ -117,7 +145,7 @@ object SandboxShortcuts {
         Intent(context, SandboxShortcutActivity::class.java).setAction(Intent.ACTION_VIEW)
 }
 
-/** Invisible target of those shortcuts: unfreezes and opens one app, or freezes everything. */
+/** Invisible target of the freeze-all shortcut, and of app shortcuts made before 2.2.0. */
 class SandboxShortcutActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

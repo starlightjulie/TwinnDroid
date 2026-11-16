@@ -82,6 +82,19 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".sandbox.SandboxAppPicker"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/sandbox_shortcut_label"
+            android:taskAffinity=""
+            android:theme="@style/Theme.TwinnDroid.Invisible">
+            <intent-filter>
+                <action android:name="android.intent.action.CREATE_SHORTCUT" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".sandbox.SandboxShortcutActivity"
             android:excludeFromRecents="true"
             android:exported="false"
