@@ -2,6 +2,14 @@
 
 Everything that's changed in TwinnDroid, newest first. You can grab any version's APK from the [Releases](../../releases) page.
 
+## 2.2.0
+
+- **Sandbox app shortcuts from your launcher.** Launchers and shortcut apps now list **Sandbox app** under shortcuts. Pick a sandboxed app and you get a shortcut that opens it, frozen or not. Opening it from an activity launcher asks which app you want.
+- **Let sandbox apps pick your personal files.** A new rule, off by default. Turn on **Allow personal files** and the system file and photo pickers inside the sandbox can reach your personal side, so you can upload things without moving them across first. Newer Android versions already let some pickers through on their own; this opens the rest, and older versions need it for any of them. Apps with their own built-in gallery still only see the sandbox.
+- **A heads-up about developer options.** Some banking and payment apps won't run while developer options are on, and that's a setting for the whole phone that the sandbox can't hide. The Sandbox tab now tells you when they're on and takes you to the switch.
+- **Clearer README.** It now says up front that clones don't need a work profile and the sandbox is the optional part that does.
+- Everything new is translated into all 23 languages.
+
 ## 2.1.0
 
 - **My themes.** There's a new **My themes** page under Match app icon in Appearance, with drop-downs for custom colours, background & effects, text size and the home header. Set it all up how you like, save it under a name, and switch between your saved themes with one tap. Everything's still in the Appearance menu too.
