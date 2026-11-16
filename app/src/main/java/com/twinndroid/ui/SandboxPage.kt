@@ -118,6 +118,7 @@ fun SandboxPage(main: MainViewModel, vm: SandboxViewModel, active: Boolean) {
         when {
             vm.finishing -> item(key = "finishing") { Centered { CircularProgressIndicator() } }
             vm.status == SandboxStatus.READY -> {
+                item(key = "devnote") { DeveloperOptionsNote(active) }
                 item(key = "actions") {
                     ButtonRow(Modifier.padding(horizontal = 16.dp)) {
                         val grow = Modifier.weight(1f)
@@ -222,6 +223,42 @@ private fun Hinted(text: String) {
         color = MaterialTheme.colorScheme.onSurfaceVariant,
         modifier = Modifier.padding(horizontal = 24.dp, vertical = 16.dp),
     )
+}
+
+/**
+ * Banking and payment apps often refuse to run with developer options on. That's one switch for the
+ * whole phone, so a work profile can't hide it; the best TwinnDroid can do is say so and link to it.
+ */
+@Composable
+private fun DeveloperOptionsNote(active: Boolean) {
+    val context = LocalContext.current
+    val prefs = remember { context.getSharedPreferences("sandbox_ui", android.content.Context.MODE_PRIVATE) }
+    var hidden by remember { mutableStateOf(prefs.getBoolean("dev_note_hidden", false)) }
+    val devOn = remember(active) {
+        android.provider.Settings.Global.getInt(context.contentResolver, android.provider.Settings.Global.DEVELOPMENT_SETTINGS_ENABLED, 0) == 1
+    }
+    if (hidden || !devOn) return
+    TwinnCard(Modifier.fillMaxWidth().padding(horizontal = 16.dp)) {
+        Column(Modifier.padding(16.dp)) {
+            Text(stringResource(R.string.sandbox_dev_title), style = MaterialTheme.typography.titleSmall)
+            Spacer(Modifier.height(6.dp))
+            Text(stringResource(R.string.sandbox_dev_desc), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Spacer(Modifier.height(10.dp))
+            ButtonRow {
+                OutlinedButton(
+                    onClick = {
+                        runCatching {
+                            context.startActivity(android.content.Intent(android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS).addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK))
+                        }
+                    },
+                    contentPadding = TightButtonPadding,
+                ) { OneLine(stringResource(R.string.sandbox_dev_open)) }
+                TextButton(onClick = { hidden = true; prefs.edit().putBoolean("dev_note_hidden", true).apply() }) {
+                    OneLine(stringResource(R.string.sandbox_dev_hide))
+                }
+            }
+        }
+    }
 }
 
 @Composable
