@@ -81,8 +81,13 @@ object ManifestPatcher {
      * Renames [oldPkg] to [newPkg]. Must run on every APK of a split set (base and splits),
      * since each split manifest carries the package name too.
      */
-    fun renamePackage(manifest: AndroidManifestBlock, oldPkg: String, newPkg: String) {
+    /**
+     * Returns the string resources that provider authorities point to. Those hold the authority instead
+     * of the manifest, so the caller renames them in the resource table the same way.
+     */
+    fun renamePackage(manifest: AndroidManifestBlock, oldPkg: String, newPkg: String): Set<Int> {
         val root = manifest.manifestElement ?: error("APK has no <manifest> element")
+        val authorityStrings = HashSet<Int>()
 
         // 1. Make relative class names absolute while the old package is still known.
         for (el in manifest.allElements()) {
@@ -128,8 +133,13 @@ object ManifestPatcher {
         for (el in elements) {
             if (el.name != "provider") continue
             val a = el.attr(android.R.attr.authorities) ?: continue
-            val v = a.str() ?: continue
-            a.setValueAsString(v.split(';').joinToString(";") { scoped(it.trim(), oldPkg, newPkg) })
+            val v = a.str()
+            if (v == null) {
+                // Reddit, for one, writes android:authorities="@string/provider_authority_file".
+                if (a.valueType == ValueType.REFERENCE) authorityStrings += a.data
+                continue
+            }
+            a.setValueAsString(scopedAuthorities(v, oldPkg, newPkg))
         }
 
         // 6. Keep clone tasks separate from the original's tasks in Recents.
@@ -138,7 +148,12 @@ object ManifestPatcher {
             val v = a.str() ?: continue
             if (v.startsWith(oldPkg)) a.setValueAsString(newPkg + v.removePrefix(oldPkg))
         }
+        return authorityStrings
     }
+
+    /** One or more authorities separated by semicolons, each moved under the clone's package. */
+    fun scopedAuthorities(value: String, oldPkg: String, newPkg: String): String =
+        value.split(';').joinToString(";") { scoped(it.trim(), oldPkg, newPkg) }
 
     private fun scoped(value: String, oldPkg: String, newPkg: String): String =
         if (value.contains(oldPkg)) value.replace(oldPkg, newPkg) else "$newPkg.$value"

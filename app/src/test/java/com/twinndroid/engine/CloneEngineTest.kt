@@ -58,6 +58,19 @@ class CloneEngineTest {
         val text = base.androidManifest.toString()
         assertTrue("label not applied", base.androidManifest.applicationLabelString == "Twinn Test Clone")
         assertTrue("permission not removed", "POST_NOTIFICATIONS" !in base.androidManifest.usesPermissions.joinToString())
+        // No provider may keep the original's authority, written out or kept in a string resource
+        val oldPkg = ApkModule.loadApkFile(inputs.first()).use { it.androidManifest.packageName }
+        val table = base.tableBlock.packages.asSequence().first { it.id == 0x7f }
+        for (el in base.androidManifest.manifestElement.recursiveElements().asSequence().filter { it.name == "provider" }) {
+            val a = el.searchAttributeByResourceId(android.R.attr.authorities) ?: continue
+            val authority = if (a.valueType == com.reandroid.arsc.value.ValueType.REFERENCE) {
+                table.getSpecTypePair((a.data ushr 16) and 0xFF).listEntries(a.data and 0xFFFF).first { it != null && !it.isNull }.resValue.valueAsString
+            } else {
+                a.valueAsString
+            }
+            println("provider authority: $authority")
+            authority.split(';').forEach { assertTrue("authority $it still belongs to $oldPkg", !it.startsWith("$oldPkg.") && it != oldPkg) }
+        }
         val icon = base.androidManifest.iconResourceId
         val pkg = base.tableBlock.packages.asSequence().first { it.id == 0x7f }
         assertEquals("twinndroid_clone_icon", pkg.getEntry("", "drawable", "twinndroid_clone_icon").name)

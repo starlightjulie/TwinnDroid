@@ -4,6 +4,7 @@ import android.content.Context
 import com.android.apksig.ApkSigner
 import com.android.apksig.KeyConfig
 import com.reandroid.apk.ApkModule
+import com.reandroid.arsc.value.ValueType
 import com.reandroid.archive.ByteInputSource
 import com.twinndroid.data.CloneConfig
 import kotlinx.coroutines.Dispatchers
@@ -44,10 +45,11 @@ class CloneEngine(
                 val oldPkg = manifest.packageName ?: error("${src.name} has no package name")
                 val isBase = !manifest.isSplit
 
-                ManifestPatcher.renamePackage(manifest, oldPkg, config.clonePackage)
+                val authorityStrings = ManifestPatcher.renamePackage(manifest, oldPkg, config.clonePackage)
                 // Resources.getIdentifier(name, type, getPackageName()) resolves against the
                 // resource table's package name, so it must match the new package too.
                 renameResourcePackage(module, oldPkg, config.clonePackage)
+                renameAuthorityStrings(module, authorityStrings, oldPkg, config.clonePackage)
                 config.cell?.let { ManifestPatcher.harden(manifest, it, isBase) }
 
                 if (isBase) {
@@ -88,6 +90,28 @@ class CloneEngine(
         if (!module.hasTableBlock()) return
         for (pkg in module.tableBlock.packages.asSequence()) {
             if (pkg.name == oldPkg) pkg.name = newPkg
+        }
+    }
+
+    /**
+     * Some apps keep a provider's authority in a string resource that both the manifest and their own
+     * code read. Renaming the string keeps the two in step and stops the clone clashing with the
+     * original over that authority.
+     */
+    private fun renameAuthorityStrings(module: ApkModule, ids: Set<Int>, oldPkg: String, newPkg: String) {
+        if (ids.isEmpty() || !module.hasTableBlock()) return
+        for (pkg in module.tableBlock.packages.asSequence()) {
+            for (id in ids) {
+                if (id ushr 24 != pkg.id) continue
+                val pair = pkg.getSpecTypePair((id ushr 16) and 0xFF) ?: continue
+                for (entry in pair.listEntries(id and 0xFFFF)) {
+                    if (entry == null || entry.isNull || entry.isComplex) continue
+                    val value = entry.resValue ?: continue
+                    if (value.valueType != ValueType.STRING) continue
+                    val old = value.valueAsString ?: continue
+                    entry.setValueAsString(ManifestPatcher.scopedAuthorities(old, oldPkg, newPkg))
+                }
+            }
         }
     }
 
