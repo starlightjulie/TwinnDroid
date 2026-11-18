@@ -104,6 +104,30 @@ object SandboxPolicy {
             dpm.addCrossProfileIntentFilter(admin, links, DevicePolicyManager.FLAG_PARENT_CAN_ACCESS_MANAGED)
         }
 
+        // Phone numbers and texts open in your normal dialer and messages app, the same as in any work
+        // profile. Newer Android keeps these on its own, but clearing the filters above removes them on
+        // older versions, and banks that verify your number by sending a text need them.
+        val dial = IntentFilter().apply {
+            addAction(Intent.ACTION_DIAL)
+            addAction(Intent.ACTION_VIEW)
+            addCategory(Intent.CATEGORY_DEFAULT)
+            addCategory(Intent.CATEGORY_BROWSABLE)
+            addDataScheme("tel")
+            addDataScheme("voicemail")
+        }
+        val dialPad = IntentFilter(Intent.ACTION_DIAL).apply { addCategory(Intent.CATEGORY_DEFAULT) }
+        val callButton = IntentFilter(Intent.ACTION_CALL_BUTTON).apply { addCategory(Intent.CATEGORY_DEFAULT) }
+        val texts = IntentFilter().apply {
+            addAction(Intent.ACTION_VIEW)
+            addAction(Intent.ACTION_SENDTO)
+            addCategory(Intent.CATEGORY_DEFAULT)
+            addCategory(Intent.CATEGORY_BROWSABLE)
+            listOf("sms", "smsto", "mms", "mmsto").forEach(::addDataScheme)
+        }
+        for (filter in listOf(dial, dialPad, callButton, texts)) {
+            dpm.addCrossProfileIntentFilter(admin, filter, DevicePolicyManager.FLAG_PARENT_CAN_ACCESS_MANAGED)
+        }
+
         if (rules.allowPersonalFiles) {
             // The system file and photo pickers in the sandbox get a Personal tab, the same way a work profile normally has one.
             for (action in listOf(Intent.ACTION_GET_CONTENT, Intent.ACTION_OPEN_DOCUMENT)) {
