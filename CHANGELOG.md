@@ -2,6 +2,11 @@
 
 Everything that's changed in TwinnDroid, newest first. You can grab any version's APK from the [Releases](../../releases) page.
 
+## 2.2.1
+
+- **Fixed Reddit clones failing to install.** Some apps keep a file provider's name in a string resource instead of the manifest. TwinnDroid wasn't renaming those, so the clone clashed with the original and Android refused to install it. It renames them now, so the app's own code uses the new name too.
+- **Texting and calling from the sandbox works on every Android version.** On some versions, apps in the sandbox couldn't hand a text or a phone number over to your normal messages or phone app. Banks use that to verify your number.
+
 ## 2.2.0
 
 - **Sandbox app shortcuts from your launcher.** Launchers and shortcut apps now list **Sandbox app** under shortcuts. Pick a sandboxed app and you get a shortcut that opens it, frozen or not. Opening it from an activity launcher asks which app you want.
