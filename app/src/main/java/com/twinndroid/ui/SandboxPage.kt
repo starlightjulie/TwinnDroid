@@ -75,8 +75,12 @@ import androidx.lifecycle.compose.LifecycleResumeEffect
 import com.twinndroid.R
 import com.twinndroid.sandbox.Sandbox
 import com.twinndroid.sandbox.SandboxStatus
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.ui.draw.clip
 
 /** Sandbox tab: set up the work profile, then manage everything inside it. */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SandboxPage(main: MainViewModel, vm: SandboxViewModel, active: Boolean) {
     LifecycleResumeEffect(Unit) {
@@ -98,15 +102,18 @@ fun SandboxPage(main: MainViewModel, vm: SandboxViewModel, active: Boolean) {
         if (uris.isNotEmpty()) vm.sendFiles(uris)
     }
     var picking by remember { mutableStateOf(false) }
+    var adding by remember { mutableStateOf(false) }
+    var showRules by remember { mutableStateOf(false) }
     var confirmDelete by remember { mutableStateOf(false) }
 
+    // Padding the list instead of its first item keeps rows from scrolling up under the status bar.
     LazyColumn(
-        Modifier.fillMaxSize(),
+        Modifier.fillMaxSize().statusBarsPadding(),
         contentPadding = PaddingValues(bottom = 24.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
         item(key = "title") {
-            Column(Modifier.statusBarsPadding().padding(start = 24.dp, end = 24.dp, top = 20.dp, bottom = 8.dp)) {
+            Column(Modifier.padding(start = 24.dp, end = 24.dp, top = 20.dp, bottom = 8.dp)) {
                 Text(stringResource(R.string.sandbox_title), style = MaterialTheme.typography.headlineMedium)
                 Text(
                     stringResource(R.string.sandbox_subtitle),
@@ -119,25 +126,15 @@ fun SandboxPage(main: MainViewModel, vm: SandboxViewModel, active: Boolean) {
             vm.finishing -> item(key = "finishing") { Centered { CircularProgressIndicator() } }
             vm.status == SandboxStatus.READY -> {
                 item(key = "devnote") { DeveloperOptionsNote(active) }
+                // Adding and moving files live in one sheet and the rules in another, so the app list comes first.
                 item(key = "actions") {
                     ButtonRow(Modifier.padding(horizontal = 16.dp)) {
                         val grow = Modifier.weight(1f)
-                        FilledTonalButton(onClick = { picking = true }, modifier = grow, contentPadding = TightButtonPadding) {
-                            Icon(Icons.Rounded.Add, null, Modifier.size(18.dp)); Spacer(Modifier.width(6.dp)); OneLine(stringResource(R.string.sandbox_add_app))
+                        FilledTonalButton(onClick = { adding = true }, modifier = grow, contentPadding = TightButtonPadding) {
+                            Icon(Icons.Rounded.Add, null, Modifier.size(18.dp)); Spacer(Modifier.width(6.dp)); OneLine(stringResource(R.string.sandbox_add))
                         }
-                        OutlinedButton(onClick = { pickFile.launch(arrayOf("*/*")) }, modifier = grow, contentPadding = TightButtonPadding) {
-                            Icon(Icons.Rounded.FolderOpen, null, Modifier.size(18.dp)); Spacer(Modifier.width(6.dp)); OneLine(stringResource(R.string.sandbox_add_apk))
-                        }
-                    }
-                }
-                if (Sandbox.supportsFileTransfer) item(key = "files") {
-                    ButtonRow(Modifier.padding(horizontal = 16.dp)) {
-                        val grow = Modifier.weight(1f)
-                        OutlinedButton(onClick = { pickToSend.launch(arrayOf("*/*")) }, modifier = grow, contentPadding = TightButtonPadding) {
-                            Icon(Icons.Rounded.Upload, null, Modifier.size(18.dp)); Spacer(Modifier.width(6.dp)); OneLine(stringResource(R.string.sandbox_send_files))
-                        }
-                        OutlinedButton(onClick = vm::bringFilesOut, modifier = grow, contentPadding = TightButtonPadding) {
-                            Icon(Icons.Rounded.Download, null, Modifier.size(18.dp)); Spacer(Modifier.width(6.dp)); OneLine(stringResource(R.string.sandbox_bring_files))
+                        OutlinedButton(onClick = { showRules = true }, modifier = grow, contentPadding = TightButtonPadding) {
+                            Icon(Icons.Rounded.Tune, null, Modifier.size(18.dp)); Spacer(Modifier.width(6.dp)); OneLine(stringResource(R.string.sandbox_rules))
                         }
                     }
                 }
@@ -160,7 +157,6 @@ fun SandboxPage(main: MainViewModel, vm: SandboxViewModel, active: Boolean) {
                     apps.isEmpty() -> item(key = "empty") { Hinted(stringResource(R.string.sandbox_empty)) }
                     else -> items(apps, key = { it.app.packageName }) { SandboxAppCard(vm, it) }
                 }
-                item(key = "rules") { RulesCard(vm, onDelete = { confirmDelete = true }) }
             }
             vm.status == SandboxStatus.AVAILABLE -> item(key = "setup") {
                 InfoCard(stringResource(R.string.sandbox_setup_title), stringResource(R.string.sandbox_setup_desc)) {
@@ -188,6 +184,20 @@ fun SandboxPage(main: MainViewModel, vm: SandboxViewModel, active: Boolean) {
     }
     if (picking) {
         AddAppSheet(main, onDismiss = { picking = false }) { picking = false; vm.addOriginal(it.packageName) }
+    }
+    if (adding) {
+        AddSheet(
+            onDismiss = { adding = false },
+            onAddApp = { adding = false; picking = true },
+            onAddApk = { adding = false; pickFile.launch(arrayOf("*/*")) },
+            onSend = { adding = false; pickToSend.launch(arrayOf("*/*")) },
+            onBringOut = { adding = false; vm.bringFilesOut() },
+        )
+    }
+    if (showRules) {
+        ModalBottomSheet(onDismissRequest = { showRules = false }) {
+            RulesContent(vm, onDelete = { showRules = false; confirmDelete = true })
+        }
     }
     vm.options?.let { (entry, options) -> SandboxOptionsSheet(vm, entry, options) }
     vm.message?.let { text ->
@@ -351,15 +361,46 @@ private fun SandboxAppCard(vm: SandboxViewModel, entry: SandboxEntry) {
     }
 }
 
+/** Everything you can put into the sandbox or move across, in one place. */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun RulesCard(vm: SandboxViewModel, onDelete: () -> Unit) {
+private fun AddSheet(onDismiss: () -> Unit, onAddApp: () -> Unit, onAddApk: () -> Unit, onSend: () -> Unit, onBringOut: () -> Unit) {
+    ModalBottomSheet(onDismissRequest = onDismiss) {
+        Column(Modifier.padding(start = 16.dp, end = 16.dp, bottom = 32.dp)) {
+            Text(stringResource(R.string.sandbox_add_title), style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp))
+            SheetAction(Icons.Rounded.Apps, R.string.sandbox_add_app, R.string.sandbox_add_app_desc, onAddApp)
+            SheetAction(Icons.Rounded.FolderOpen, R.string.sandbox_add_apk, R.string.sandbox_add_apk_desc, onAddApk)
+            if (Sandbox.supportsFileTransfer) {
+                SheetAction(Icons.Rounded.Upload, R.string.sandbox_send_files, R.string.sandbox_send_files_desc, onSend)
+                SheetAction(Icons.Rounded.Download, R.string.sandbox_bring_files, R.string.sandbox_bring_files_desc, onBringOut)
+            }
+        }
+    }
+}
+
+@Composable
+private fun SheetAction(icon: androidx.compose.ui.graphics.vector.ImageVector, title: Int, desc: Int, onClick: () -> Unit) {
+    Row(
+        Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)).clickable(onClick = onClick).padding(horizontal = 8.dp, vertical = 14.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Icon(icon, null, tint = MaterialTheme.colorScheme.primary)
+        Spacer(Modifier.width(16.dp))
+        Column(Modifier.weight(1f)) {
+            Text(stringResource(title), style = MaterialTheme.typography.bodyLarge)
+            Text(stringResource(desc), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
+    }
+}
+
+@Composable
+private fun RulesContent(vm: SandboxViewModel, onDelete: () -> Unit) {
     val rules = vm.rules ?: return
-    TwinnCard(Modifier.fillMaxWidth().padding(horizontal = 16.dp)) {
-        Column(Modifier.padding(16.dp)) {
-            Text(stringResource(R.string.sandbox_rules), style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
+    Column(Modifier.verticalScroll(rememberScrollState()).padding(start = 24.dp, end = 24.dp, bottom = 32.dp)) {
+        run {
+            Text(stringResource(R.string.sandbox_rules), style = MaterialTheme.typography.titleLarge)
             RuleRow(R.string.sandbox_rule_clipboard, R.string.sandbox_rule_clipboard_desc, rules.blockClipboard) { vm.setRules(rules.copy(blockClipboard = it)) }
             RuleRow(R.string.sandbox_rule_share, R.string.sandbox_rule_share_desc, rules.blockShareIn) { vm.setRules(rules.copy(blockShareIn = it)) }
-            RuleRow(R.string.sandbox_rule_files, R.string.sandbox_rule_files_desc, rules.allowPersonalFiles) { vm.setRules(rules.copy(allowPersonalFiles = it)) }
             RuleRow(R.string.sandbox_rule_contacts, R.string.sandbox_rule_contacts_desc, rules.blockContacts) { vm.setRules(rules.copy(blockContacts = it)) }
             RuleRow(R.string.sandbox_rule_debug, R.string.sandbox_rule_debug_desc, rules.allowDebugging) { vm.setRules(rules.copy(allowDebugging = it)) }
             RuleRow(R.string.sandbox_skip_playing, R.string.sandbox_skip_playing_desc, rules.skipWhilePlaying) { vm.setRules(rules.copy(skipWhilePlaying = it)) }
