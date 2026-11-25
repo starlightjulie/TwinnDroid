@@ -313,7 +313,7 @@
     <string name="sandbox_rule_clipboard">封鎖複製貼上</string>
     <string name="sandbox_rule_clipboard_desc">喺沙盒複製嘅文字唔可以貼出去，反過嚟都一樣。</string>
     <string name="sandbox_rule_share">封鎖分享入去</string>
-    <string name="sandbox_rule_share_desc">個人 App 唔可以將檔案或者連結傳入沙盒。</string>
+    <string name="sandbox_rule_share_desc">個人應用程式唔可以傳檔案或者連結入沙盒，沙盒入面嘅應用程式亦都揀唔到你嘅個人檔案。</string>
     <string name="sandbox_rule_contacts">封鎖聯絡人查詢</string>
     <string name="sandbox_rule_contacts_desc">你嘅個人 App 睇唔到沙盒入面嘅聯絡人。</string>
     <string name="sandbox_rule_debug">允許 adb 同 Shizuku</string>
@@ -399,10 +399,14 @@
     <string name="sets_hint">撳主題就可以用。用同一個名儲存會取代佢。</string>
     <string name="sandbox_shortcut_label">沙盒應用程式</string>
     <string name="sandbox_pick_title">開沙盒應用程式</string>
-    <string name="sandbox_rule_files">容許個人檔案</string>
-    <string name="sandbox_rule_files_desc">沙盒入面嘅應用程式可以喺檔案選擇器揀你個人嗰邊嘅相同檔案。</string>
     <string name="sandbox_dev_title">開發人員選項開咗</string>
     <string name="sandbox_dev_desc">有啲銀行同付款應用程式喺開發人員選項開咗嘅時候用唔到。呢個係成部手機共用嘅一個設定，所以沙盒冇辦法收埋佢。用嗰啲應用程式嘅時候就熄咗開發人員選項。你再開返之前，無線偵錯同 Shizuku 會停咗。</string>
     <string name="sandbox_dev_open">開發人員選項</string>
     <string name="sandbox_dev_hide">明白</string>
+    <string name="sandbox_add">加入</string>
+    <string name="sandbox_add_title">加入沙盒</string>
+    <string name="sandbox_add_app_desc">你本身已經有嘅應用程式，冇改過嘅副本</string>
+    <string name="sandbox_add_apk_desc">.apk、.apks、.xapk 或 .apkm 檔案</string>
+    <string name="sandbox_send_files_desc">將檔案複製去沙盒入面嘅 Download/TwinnDroid</string>
+    <string name="sandbox_bring_files_desc">將檔案由沙盒複製去你嘅 Download/TwinnDroid</string>
 </resources>

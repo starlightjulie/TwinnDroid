@@ -313,7 +313,7 @@
     <string name="sandbox_rule_clipboard">コピーと貼り付けをブロック</string>
     <string name="sandbox_rule_clipboard_desc">サンドボックス内でコピーしたテキストは外に貼り付けられず、その逆もできません。</string>
     <string name="sandbox_rule_share">中への共有をブロック</string>
-    <string name="sandbox_rule_share_desc">個人用アプリからサンドボックスにファイルやリンクを送れなくします。</string>
+    <string name="sandbox_rule_share_desc">個人用アプリからサンドボックスにファイルやリンクを送れなくなり、サンドボックスのアプリも個人用ファイルを選べなくなります。</string>
     <string name="sandbox_rule_contacts">連絡先の検索をブロック</string>
     <string name="sandbox_rule_contacts_desc">個人用アプリからサンドボックス内の連絡先は見えません。</string>
     <string name="sandbox_rule_debug">adb と Shizuku を許可</string>
@@ -399,10 +399,14 @@
     <string name="sets_hint">テーマをタップすると適用されます。同じ名前で保存すると置き換えられます。</string>
     <string name="sandbox_shortcut_label">サンドボックスのアプリ</string>
     <string name="sandbox_pick_title">サンドボックスのアプリを開く</string>
-    <string name="sandbox_rule_files">個人用ファイルを許可</string>
-    <string name="sandbox_rule_files_desc">サンドボックスのアプリがファイル選択画面で個人用の写真やファイルを選べるようになります。</string>
     <string name="sandbox_dev_title">開発者向けオプションがオンです</string>
     <string name="sandbox_dev_desc">一部の銀行・決済アプリは、開発者向けオプションがオンだと動きません。これはスマホ全体の設定なので、サンドボックスでは隠せません。それらのアプリを使うときは開発者向けオプションをオフにしてください。オンに戻すまでワイヤレスデバッグと Shizuku は止まります。</string>
     <string name="sandbox_dev_open">開発者向けオプション</string>
     <string name="sandbox_dev_hide">OK</string>
+    <string name="sandbox_add">追加</string>
+    <string name="sandbox_add_title">サンドボックスに追加</string>
+    <string name="sandbox_add_app_desc">すでにあるアプリの、手を加えていないコピー</string>
+    <string name="sandbox_add_apk_desc">.apk、.apks、.xapk、.apkm ファイル</string>
+    <string name="sandbox_send_files_desc">サンドボックス内の Download/TwinnDroid にファイルをコピーします</string>
+    <string name="sandbox_bring_files_desc">サンドボックスからあなたの Download/TwinnDroid にファイルをコピーします</string>
 </resources>

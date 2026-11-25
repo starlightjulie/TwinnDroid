@@ -317,7 +317,7 @@
     <string name="sandbox_rule_clipboard">Blocca copia e incolla</string>
     <string name="sandbox_rule_clipboard_desc">Il testo copiato nella sandbox non si può incollare fuori, e viceversa.</string>
     <string name="sandbox_rule_share">Blocca condivisione in entrata</string>
-    <string name="sandbox_rule_share_desc">Le app personali non possono inviare file o link nella sandbox.</string>
+    <string name="sandbox_rule_share_desc">Le app personali non possono inviare file o link nella sandbox, e le app nella sandbox non possono scegliere i tuoi file personali.</string>
     <string name="sandbox_rule_contacts">Blocca ricerca contatti</string>
     <string name="sandbox_rule_contacts_desc">Le tue app personali non vedono i contatti salvati nella sandbox.</string>
     <string name="sandbox_rule_debug">Consenti adb e Shizuku</string>
@@ -403,10 +403,14 @@
     <string name="sets_hint">Tocca un tema per usarlo. Salvando con lo stesso nome lo sostituisci.</string>
     <string name="sandbox_shortcut_label">App della sandbox</string>
     <string name="sandbox_pick_title">Apri un\'app della sandbox</string>
-    <string name="sandbox_rule_files">Consenti file personali</string>
-    <string name="sandbox_rule_files_desc">Le app nella sandbox possono scegliere foto e file dal tuo lato personale nel selettore di file.</string>
     <string name="sandbox_dev_title">Le opzioni sviluppatore sono attive</string>
     <string name="sandbox_dev_desc">Alcune app di banche e pagamenti non funzionano con le opzioni sviluppatore attive. È un\'unica impostazione per tutto il telefono, quindi la sandbox non può nasconderla. Disattivale mentre usi quelle app. Il debug wireless e Shizuku si fermano finché non le riattivi.</string>
     <string name="sandbox_dev_open">Opzioni sviluppatore</string>
     <string name="sandbox_dev_hide">Ho capito</string>
+    <string name="sandbox_add">Aggiungi</string>
+    <string name="sandbox_add_title">Aggiungi alla sandbox</string>
+    <string name="sandbox_add_app_desc">Una copia non modificata di un\'app che hai già</string>
+    <string name="sandbox_add_apk_desc">File .apk, .apks, .xapk o .apkm</string>
+    <string name="sandbox_send_files_desc">Copia file in Download/TwinnDroid nella sandbox</string>
+    <string name="sandbox_bring_files_desc">Copia file dalla sandbox nel tuo Download/TwinnDroid</string>
 </resources>

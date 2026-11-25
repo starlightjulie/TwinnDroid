@@ -315,7 +315,7 @@
     <string name="sandbox_rule_clipboard">कॉपी आणि पेस्ट रोखा</string>
     <string name="sandbox_rule_clipboard_desc">सँडबॉक्समध्ये कॉपी केलेला मजकूर बाहेर पेस्ट करता येत नाही, उलटही नाही.</string>
     <string name="sandbox_rule_share">आत शेअर करणे रोखा</string>
-    <string name="sandbox_rule_share_desc">वैयक्तिक अ‍ॅप्स सँडबॉक्समध्ये फाइल्स किंवा लिंक्स पाठवू शकत नाहीत.</string>
+    <string name="sandbox_rule_share_desc">वैयक्तिक ॲप्स सँडबॉक्समध्ये फाइल्स किंवा लिंक्स पाठवू शकत नाहीत, आणि सँडबॉक्समधील ॲप्स तुमच्या वैयक्तिक फाइल्स निवडू शकत नाहीत.</string>
     <string name="sandbox_rule_contacts">संपर्क शोध रोखा</string>
     <string name="sandbox_rule_contacts_desc">तुमची वैयक्तिक अ‍ॅप्स सँडबॉक्समधील संपर्क पाहू शकत नाहीत.</string>
     <string name="sandbox_rule_debug">adb आणि Shizuku ला परवानगी द्या</string>
@@ -401,10 +401,14 @@
     <string name="sets_hint">वापरण्यासाठी थीमवर टॅप करा. त्याच नावाने जतन केल्यास ती बदलली जाते.</string>
     <string name="sandbox_shortcut_label">सँडबॉक्स ॲप</string>
     <string name="sandbox_pick_title">सँडबॉक्स ॲप उघडा</string>
-    <string name="sandbox_rule_files">वैयक्तिक फाइल्सना परवानगी द्या</string>
-    <string name="sandbox_rule_files_desc">सँडबॉक्समधील ॲप्स फाइल पिकरमध्ये तुमच्या वैयक्तिक बाजूचे फोटो आणि फाइल्स निवडू शकतात.</string>
     <string name="sandbox_dev_title">डेव्हलपर पर्याय चालू आहेत</string>
     <string name="sandbox_dev_desc">डेव्हलपर पर्याय चालू असताना काही बँकिंग आणि पेमेंट ॲप्स चालत नाहीत. ही संपूर्ण फोनची एकच सेटिंग आहे, त्यामुळे सँडबॉक्स ती लपवू शकत नाही. ती ॲप्स वापरताना डेव्हलपर पर्याय बंद ठेवा. पुन्हा चालू करेपर्यंत वायरलेस डीबगिंग आणि Shizuku बंद राहतील.</string>
     <string name="sandbox_dev_open">डेव्हलपर पर्याय</string>
     <string name="sandbox_dev_hide">समजले</string>
+    <string name="sandbox_add">जोडा</string>
+    <string name="sandbox_add_title">सँडबॉक्समध्ये जोडा</string>
+    <string name="sandbox_add_app_desc">तुमच्याकडे आधीच असलेल्या ॲपची न बदललेली प्रत</string>
+    <string name="sandbox_add_apk_desc">.apk, .apks, .xapk किंवा .apkm फाइल</string>
+    <string name="sandbox_send_files_desc">सँडबॉक्समधील Download/TwinnDroid मध्ये फाइल्स कॉपी करते</string>
+    <string name="sandbox_bring_files_desc">सँडबॉक्समधून तुमच्या Download/TwinnDroid मध्ये फाइल्स कॉपी करते</string>
 </resources>

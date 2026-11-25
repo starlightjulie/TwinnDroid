@@ -313,7 +313,7 @@
     <string name="sandbox_rule_clipboard">Blokir salin dan tempel</string>
     <string name="sandbox_rule_clipboard_desc">Teks yang disalin di sandbox tidak bisa ditempel di luar, begitu juga sebaliknya.</string>
     <string name="sandbox_rule_share">Blokir berbagi ke dalam</string>
-    <string name="sandbox_rule_share_desc">Aplikasi pribadi tidak bisa mengirim file atau tautan ke sandbox.</string>
+    <string name="sandbox_rule_share_desc">Aplikasi pribadi tidak bisa mengirim file atau tautan ke sandbox, dan aplikasi di sandbox tidak bisa memilih file pribadi Anda.</string>
     <string name="sandbox_rule_contacts">Blokir pencarian kontak</string>
     <string name="sandbox_rule_contacts_desc">Aplikasi pribadimu tidak bisa melihat kontak yang tersimpan di sandbox.</string>
     <string name="sandbox_rule_debug">Izinkan adb dan Shizuku</string>
@@ -399,10 +399,14 @@
     <string name="sets_hint">Ketuk tema untuk memakainya. Menyimpan dengan nama yang sama akan menggantinya.</string>
     <string name="sandbox_shortcut_label">Aplikasi sandbox</string>
     <string name="sandbox_pick_title">Buka aplikasi sandbox</string>
-    <string name="sandbox_rule_files">Izinkan file pribadi</string>
-    <string name="sandbox_rule_files_desc">Aplikasi di sandbox bisa memilih foto dan file dari sisi pribadi Anda di pemilih file.</string>
     <string name="sandbox_dev_title">Opsi developer aktif</string>
     <string name="sandbox_dev_desc">Beberapa aplikasi bank dan pembayaran tidak mau berjalan saat opsi developer aktif. Ini satu setelan untuk seluruh ponsel, jadi sandbox tidak bisa menyembunyikannya. Matikan opsi developer saat memakai aplikasi tersebut. Debugging nirkabel dan Shizuku berhenti sampai Anda menyalakannya lagi.</string>
     <string name="sandbox_dev_open">Opsi developer</string>
     <string name="sandbox_dev_hide">Mengerti</string>
+    <string name="sandbox_add">Tambah</string>
+    <string name="sandbox_add_title">Tambahkan ke sandbox</string>
+    <string name="sandbox_add_app_desc">Salinan tanpa perubahan dari aplikasi yang sudah Anda punya</string>
+    <string name="sandbox_add_apk_desc">File .apk, .apks, .xapk, atau .apkm</string>
+    <string name="sandbox_send_files_desc">Menyalin file ke Download/TwinnDroid di dalam sandbox</string>
+    <string name="sandbox_bring_files_desc">Menyalin file dari sandbox ke Download/TwinnDroid Anda</string>
 </resources>

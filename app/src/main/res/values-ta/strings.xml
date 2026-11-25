@@ -315,7 +315,7 @@
     <string name="sandbox_rule_clipboard">நகலெடு, ஒட்டு தடு</string>
     <string name="sandbox_rule_clipboard_desc">சாண்ட்பாக்ஸில் நகலெடுத்த உரையை வெளியே ஒட்ட முடியாது, மறுபுறமும் முடியாது.</string>
     <string name="sandbox_rule_share">உள்ளே பகிர்வதைத் தடு</string>
-    <string name="sandbox_rule_share_desc">தனிப்பட்ட ஆப்ஸ் சாண்ட்பாக்ஸுக்குக் கோப்புகளையோ இணைப்புகளையோ அனுப்ப முடியாது.</string>
+    <string name="sandbox_rule_share_desc">தனிப்பட்ட ஆப்கள் சாண்ட்பாக்ஸுக்குள் கோப்புகளையோ இணைப்புகளையோ அனுப்ப முடியாது, சாண்ட்பாக்ஸ் ஆப்களும் உங்கள் தனிப்பட்ட கோப்புகளைத் தேர்வு செய்ய முடியாது.</string>
     <string name="sandbox_rule_contacts">தொடர்புத் தேடலைத் தடு</string>
     <string name="sandbox_rule_contacts_desc">உங்கள் தனிப்பட்ட ஆப்ஸ் சாண்ட்பாக்ஸில் சேமித்த தொடர்புகளைப் பார்க்க முடியாது.</string>
     <string name="sandbox_rule_debug">adb, Shizuku அனுமதி</string>
@@ -401,10 +401,14 @@
     <string name="sets_hint">பயன்படுத்த ஒரு தீமைத் தட்டவும். அதே பெயரில் சேமித்தால் அது மாற்றப்படும்.</string>
     <string name="sandbox_shortcut_label">சாண்ட்பாக்ஸ் ஆப்</string>
     <string name="sandbox_pick_title">சாண்ட்பாக்ஸ் ஆப்பைத் திற</string>
-    <string name="sandbox_rule_files">தனிப்பட்ட கோப்புகளை அனுமதி</string>
-    <string name="sandbox_rule_files_desc">சாண்ட்பாக்ஸ் ஆப்கள் கோப்புத் தேர்வியில் உங்கள் தனிப்பட்ட பக்கத்திலிருந்து படங்களையும் கோப்புகளையும் தேர்வு செய்யலாம்.</string>
     <string name="sandbox_dev_title">டெவலப்பர் விருப்பங்கள் இயக்கத்தில் உள்ளன</string>
     <string name="sandbox_dev_desc">டெவலப்பர் விருப்பங்கள் இயக்கத்தில் இருக்கும்போது சில வங்கி மற்றும் பணம் செலுத்தும் ஆப்கள் இயங்காது. இது முழு போனுக்குமான ஒரே அமைப்பு, அதனால் சாண்ட்பாக்ஸால் அதை மறைக்க முடியாது. அந்த ஆப்களைப் பயன்படுத்தும்போது டெவலப்பர் விருப்பங்களை அணைக்கவும். மீண்டும் இயக்கும் வரை வயர்லெஸ் பிழைத்திருத்தமும் Shizuku-வும் நிற்கும்.</string>
     <string name="sandbox_dev_open">டெவலப்பர் விருப்பங்கள்</string>
     <string name="sandbox_dev_hide">சரி</string>
+    <string name="sandbox_add">சேர்</string>
+    <string name="sandbox_add_title">சாண்ட்பாக்ஸில் சேர்</string>
+    <string name="sandbox_add_app_desc">உங்களிடம் ஏற்கனவே உள்ள ஆப்பின் மாற்றப்படாத நகல்</string>
+    <string name="sandbox_add_apk_desc">.apk, .apks, .xapk அல்லது .apkm கோப்பு</string>
+    <string name="sandbox_send_files_desc">சாண்ட்பாக்ஸில் உள்ள Download/TwinnDroid-க்கு கோப்புகளை நகலெடுக்கும்</string>
+    <string name="sandbox_bring_files_desc">சாண்ட்பாக்ஸிலிருந்து உங்கள் Download/TwinnDroid-க்கு கோப்புகளை நகலெடுக்கும்</string>
 </resources>

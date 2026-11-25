@@ -323,7 +323,7 @@
     <string name="sandbox_rule_clipboard">حظر النسخ واللصق</string>
     <string name="sandbox_rule_clipboard_desc">لا يمكن لصق النص المنسوخ داخل مساحة العزل خارجها، ولا العكس.</string>
     <string name="sandbox_rule_share">حظر المشاركة إلى الداخل</string>
-    <string name="sandbox_rule_share_desc">لا يمكن للتطبيقات الشخصية إرسال ملفات أو روابط إلى مساحة العزل.</string>
+    <string name="sandbox_rule_share_desc">لا يمكن للتطبيقات الشخصية إرسال ملفات أو روابط إلى مساحة العزل، ولا يمكن لتطبيقات مساحة العزل اختيار ملفاتك الشخصية.</string>
     <string name="sandbox_rule_contacts">حظر البحث عن جهات الاتصال</string>
     <string name="sandbox_rule_contacts_desc">لا يمكن لتطبيقاتك الشخصية رؤية جهات الاتصال المحفوظة في مساحة العزل.</string>
     <string name="sandbox_rule_debug">السماح بـ adb وShizuku</string>
@@ -409,10 +409,14 @@
     <string name="sets_hint">اضغط على سمة لاستخدامها. الحفظ بالاسم نفسه يستبدلها.</string>
     <string name="sandbox_shortcut_label">تطبيق في مساحة العزل</string>
     <string name="sandbox_pick_title">افتح تطبيقًا من مساحة العزل</string>
-    <string name="sandbox_rule_files">السماح بالملفات الشخصية</string>
-    <string name="sandbox_rule_files_desc">يمكن لتطبيقات مساحة العزل اختيار الصور والملفات من جانبك الشخصي في منتقي الملفات.</string>
     <string name="sandbox_dev_title">خيارات المطور مفعّلة</string>
     <string name="sandbox_dev_desc">بعض تطبيقات البنوك والدفع لا تعمل وخيارات المطور مفعّلة. هذا إعداد واحد للهاتف كله، لذلك لا تستطيع مساحة العزل إخفاءه. أوقف خيارات المطور أثناء استخدام هذه التطبيقات. يتوقف تصحيح الأخطاء اللاسلكي وShizuku حتى تعيد تفعيلها.</string>
     <string name="sandbox_dev_open">خيارات المطور</string>
     <string name="sandbox_dev_hide">حسنًا</string>
+    <string name="sandbox_add">إضافة</string>
+    <string name="sandbox_add_title">إضافة إلى مساحة العزل</string>
+    <string name="sandbox_add_app_desc">نسخة غير معدّلة من تطبيق لديك بالفعل</string>
+    <string name="sandbox_add_apk_desc">ملف ‎.apk أو ‎.apks أو ‎.xapk أو ‎.apkm</string>
+    <string name="sandbox_send_files_desc">ينسخ الملفات إلى Download/TwinnDroid داخل مساحة العزل</string>
+    <string name="sandbox_bring_files_desc">ينسخ الملفات من مساحة العزل إلى Download/TwinnDroid لديك</string>
 </resources>

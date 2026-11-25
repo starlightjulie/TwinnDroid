@@ -319,7 +319,7 @@
     <string name="sandbox_rule_clipboard">Запретить копирование и вставку</string>
     <string name="sandbox_rule_clipboard_desc">Текст из песочницы нельзя вставить снаружи, и наоборот.</string>
     <string name="sandbox_rule_share">Запретить отправку внутрь</string>
-    <string name="sandbox_rule_share_desc">Личные приложения не смогут отправлять файлы и ссылки в песочницу.</string>
+    <string name="sandbox_rule_share_desc">Личные приложения не смогут отправлять файлы и ссылки в песочницу, а приложения в песочнице не смогут выбирать ваши личные файлы.</string>
     <string name="sandbox_rule_contacts">Запретить поиск контактов</string>
     <string name="sandbox_rule_contacts_desc">Личные приложения не видят контакты, сохранённые в песочнице.</string>
     <string name="sandbox_rule_debug">Разрешить adb и Shizuku</string>
@@ -405,10 +405,14 @@
     <string name="sets_hint">Нажмите на тему, чтобы применить её. Сохранение с тем же именем заменит её.</string>
     <string name="sandbox_shortcut_label">Приложение из песочницы</string>
     <string name="sandbox_pick_title">Открыть приложение из песочницы</string>
-    <string name="sandbox_rule_files">Разрешить личные файлы</string>
-    <string name="sandbox_rule_files_desc">Приложения в песочнице смогут выбирать фото и файлы из личного профиля в окне выбора файлов.</string>
     <string name="sandbox_dev_title">Включены параметры разработчика</string>
     <string name="sandbox_dev_desc">Некоторые банковские и платёжные приложения не работают, пока включены параметры разработчика. Это одна настройка на весь телефон, поэтому песочница не может её скрыть. Выключайте параметры разработчика, когда пользуетесь такими приложениями. Отладка по Wi-Fi и Shizuku перестанут работать, пока вы их снова не включите.</string>
     <string name="sandbox_dev_open">Параметры разработчика</string>
     <string name="sandbox_dev_hide">Понятно</string>
+    <string name="sandbox_add">Добавить</string>
+    <string name="sandbox_add_title">Добавить в песочницу</string>
+    <string name="sandbox_add_app_desc">Неизменённая копия приложения, которое у вас уже есть</string>
+    <string name="sandbox_add_apk_desc">Файл .apk, .apks, .xapk или .apkm</string>
+    <string name="sandbox_send_files_desc">Копирует файлы в Download/TwinnDroid внутри песочницы</string>
+    <string name="sandbox_bring_files_desc">Копирует файлы из песочницы в ваш Download/TwinnDroid</string>
 </resources>

@@ -313,7 +313,7 @@
     <string name="sandbox_rule_clipboard">복사 및 붙여넣기 차단</string>
     <string name="sandbox_rule_clipboard_desc">샌드박스에서 복사한 텍스트를 밖에 붙여넣을 수 없고, 그 반대도 마찬가지입니다.</string>
     <string name="sandbox_rule_share">안으로 공유 차단</string>
-    <string name="sandbox_rule_share_desc">개인 앱이 샌드박스로 파일이나 링크를 보낼 수 없습니다.</string>
+    <string name="sandbox_rule_share_desc">개인 앱이 샌드박스로 파일이나 링크를 보낼 수 없고, 샌드박스 앱도 개인 파일을 고를 수 없습니다.</string>
     <string name="sandbox_rule_contacts">연락처 조회 차단</string>
     <string name="sandbox_rule_contacts_desc">개인 앱에서 샌드박스에 저장된 연락처를 볼 수 없습니다.</string>
     <string name="sandbox_rule_debug">adb 및 Shizuku 허용</string>
@@ -399,10 +399,14 @@
     <string name="sets_hint">테마를 누르면 적용됩니다. 같은 이름으로 저장하면 교체됩니다.</string>
     <string name="sandbox_shortcut_label">샌드박스 앱</string>
     <string name="sandbox_pick_title">샌드박스 앱 열기</string>
-    <string name="sandbox_rule_files">개인 파일 허용</string>
-    <string name="sandbox_rule_files_desc">샌드박스 앱이 파일 선택기에서 개인 영역의 사진과 파일을 고를 수 있습니다.</string>
     <string name="sandbox_dev_title">개발자 옵션이 켜져 있습니다</string>
     <string name="sandbox_dev_desc">일부 은행·결제 앱은 개발자 옵션이 켜져 있으면 실행되지 않습니다. 휴대폰 전체에 적용되는 설정이라 샌드박스가 숨길 수 없습니다. 그런 앱을 쓸 때는 개발자 옵션을 꺼 주세요. 다시 켤 때까지 무선 디버깅과 Shizuku가 멈춥니다.</string>
     <string name="sandbox_dev_open">개발자 옵션</string>
     <string name="sandbox_dev_hide">확인</string>
+    <string name="sandbox_add">추가</string>
+    <string name="sandbox_add_title">샌드박스에 추가</string>
+    <string name="sandbox_add_app_desc">이미 있는 앱을 수정하지 않은 복사본</string>
+    <string name="sandbox_add_apk_desc">.apk, .apks, .xapk 또는 .apkm 파일</string>
+    <string name="sandbox_send_files_desc">샌드박스 안의 Download/TwinnDroid로 파일을 복사합니다</string>
+    <string name="sandbox_bring_files_desc">샌드박스의 파일을 내 Download/TwinnDroid로 복사합니다</string>
 </resources>

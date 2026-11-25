@@ -313,7 +313,7 @@
     <string name="sandbox_rule_clipboard">Chặn sao chép và dán</string>
     <string name="sandbox_rule_clipboard_desc">Văn bản sao chép trong sandbox không dán ra ngoài được, và ngược lại.</string>
     <string name="sandbox_rule_share">Chặn chia sẻ vào trong</string>
-    <string name="sandbox_rule_share_desc">Ứng dụng cá nhân không gửi được tệp hay liên kết vào sandbox.</string>
+    <string name="sandbox_rule_share_desc">Ứng dụng cá nhân không thể gửi tệp hay liên kết vào sandbox, và ứng dụng trong sandbox không thể chọn tệp cá nhân của bạn.</string>
     <string name="sandbox_rule_contacts">Chặn tra cứu danh bạ</string>
     <string name="sandbox_rule_contacts_desc">Ứng dụng cá nhân không thấy danh bạ lưu trong sandbox.</string>
     <string name="sandbox_rule_debug">Cho phép adb và Shizuku</string>
@@ -399,10 +399,14 @@
     <string name="sets_hint">Chạm vào một giao diện để dùng. Lưu trùng tên sẽ thay thế giao diện đó.</string>
     <string name="sandbox_shortcut_label">Ứng dụng trong sandbox</string>
     <string name="sandbox_pick_title">Mở ứng dụng trong sandbox</string>
-    <string name="sandbox_rule_files">Cho phép tệp cá nhân</string>
-    <string name="sandbox_rule_files_desc">Ứng dụng trong sandbox có thể chọn ảnh và tệp từ phía cá nhân của bạn trong trình chọn tệp.</string>
     <string name="sandbox_dev_title">Tùy chọn cho nhà phát triển đang bật</string>
     <string name="sandbox_dev_desc">Một số ứng dụng ngân hàng và thanh toán không chạy khi tùy chọn cho nhà phát triển đang bật. Đây là một cài đặt cho cả điện thoại, nên sandbox không thể ẩn nó. Hãy tắt tùy chọn này khi dùng các ứng dụng đó. Gỡ lỗi không dây và Shizuku sẽ dừng cho đến khi bạn bật lại.</string>
     <string name="sandbox_dev_open">Tùy chọn cho nhà phát triển</string>
     <string name="sandbox_dev_hide">Đã hiểu</string>
+    <string name="sandbox_add">Thêm</string>
+    <string name="sandbox_add_title">Thêm vào sandbox</string>
+    <string name="sandbox_add_app_desc">Bản sao nguyên vẹn của một ứng dụng bạn đã có</string>
+    <string name="sandbox_add_apk_desc">Tệp .apk, .apks, .xapk hoặc .apkm</string>
+    <string name="sandbox_send_files_desc">Sao chép tệp vào Download/TwinnDroid trong sandbox</string>
+    <string name="sandbox_bring_files_desc">Sao chép tệp từ sandbox vào Download/TwinnDroid của bạn</string>
 </resources>

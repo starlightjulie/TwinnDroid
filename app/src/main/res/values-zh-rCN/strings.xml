@@ -313,7 +313,7 @@
     <string name="sandbox_rule_clipboard">阻止复制粘贴</string>
     <string name="sandbox_rule_clipboard_desc">在沙盒中复制的文字不能粘贴到外面，反之亦然。</string>
     <string name="sandbox_rule_share">阻止分享到沙盒</string>
-    <string name="sandbox_rule_share_desc">个人应用无法向沙盒发送文件或链接。</string>
+    <string name="sandbox_rule_share_desc">个人应用无法向沙盒发送文件或链接，沙盒中的应用也无法选取你的个人文件。</string>
     <string name="sandbox_rule_contacts">阻止联系人查询</string>
     <string name="sandbox_rule_contacts_desc">你的个人应用看不到沙盒中保存的联系人。</string>
     <string name="sandbox_rule_debug">允许 adb 和 Shizuku</string>
@@ -399,10 +399,14 @@
     <string name="sets_hint">点按主题即可使用。用相同名称保存会替换它。</string>
     <string name="sandbox_shortcut_label">沙盒应用</string>
     <string name="sandbox_pick_title">打开沙盒应用</string>
-    <string name="sandbox_rule_files">允许个人文件</string>
-    <string name="sandbox_rule_files_desc">沙盒中的应用可以在文件选择器里选择你个人空间的照片和文件。</string>
     <string name="sandbox_dev_title">开发者选项已开启</string>
     <string name="sandbox_dev_desc">有些银行和支付应用在开发者选项开启时无法运行。这是整部手机共用的一个设置，沙盒没法把它藏起来。使用这些应用时请关闭开发者选项。在你重新开启之前，无线调试和 Shizuku 会停止工作。</string>
     <string name="sandbox_dev_open">开发者选项</string>
     <string name="sandbox_dev_hide">知道了</string>
+    <string name="sandbox_add">添加</string>
+    <string name="sandbox_add_title">添加到沙盒</string>
+    <string name="sandbox_add_app_desc">你已有应用的未修改副本</string>
+    <string name="sandbox_add_apk_desc">.apk、.apks、.xapk 或 .apkm 文件</string>
+    <string name="sandbox_send_files_desc">把文件复制到沙盒中的 Download/TwinnDroid</string>
+    <string name="sandbox_bring_files_desc">把文件从沙盒复制到你的 Download/TwinnDroid</string>
 </resources>

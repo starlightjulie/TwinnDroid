@@ -315,7 +315,7 @@
     <string name="sandbox_rule_clipboard">Kopieren und Einfügen blockieren</string>
     <string name="sandbox_rule_clipboard_desc">In der Sandbox kopierter Text lässt sich außerhalb nicht einfügen, und umgekehrt.</string>
     <string name="sandbox_rule_share">Teilen nach innen blockieren</string>
-    <string name="sandbox_rule_share_desc">Private Apps können keine Dateien oder Links in die Sandbox schicken.</string>
+    <string name="sandbox_rule_share_desc">Persönliche Apps können keine Dateien oder Links in die Sandbox schicken, und Apps in der Sandbox können deine persönlichen Dateien nicht auswählen.</string>
     <string name="sandbox_rule_contacts">Kontaktsuche blockieren</string>
     <string name="sandbox_rule_contacts_desc">Deine privaten Apps sehen keine Kontakte, die in der Sandbox gespeichert sind.</string>
     <string name="sandbox_rule_debug">adb und Shizuku erlauben</string>
@@ -401,10 +401,14 @@
     <string name="sets_hint">Tippe auf ein Theme, um es zu verwenden. Beim Speichern unter demselben Namen wird es ersetzt.</string>
     <string name="sandbox_shortcut_label">Sandbox-App</string>
     <string name="sandbox_pick_title">Sandbox-App öffnen</string>
-    <string name="sandbox_rule_files">Persönliche Dateien erlauben</string>
-    <string name="sandbox_rule_files_desc">Apps in der Sandbox können im Dateiauswahl-Dialog Fotos und Dateien aus deinem persönlichen Bereich wählen.</string>
     <string name="sandbox_dev_title">Entwickleroptionen sind an</string>
     <string name="sandbox_dev_desc">Manche Banking- und Bezahl-Apps laufen nicht, solange die Entwickleroptionen an sind. Das ist eine Einstellung für das ganze Handy, die Sandbox kann sie also nicht verstecken. Schalte die Entwickleroptionen aus, während du diese Apps nutzt. Kabelloses Debugging und Shizuku laufen erst wieder, wenn du sie einschaltest.</string>
     <string name="sandbox_dev_open">Entwickleroptionen</string>
     <string name="sandbox_dev_hide">Verstanden</string>
+    <string name="sandbox_add">Hinzufügen</string>
+    <string name="sandbox_add_title">Zur Sandbox hinzufügen</string>
+    <string name="sandbox_add_app_desc">Eine unveränderte Kopie einer App, die du schon hast</string>
+    <string name="sandbox_add_apk_desc">.apk-, .apks-, .xapk- oder .apkm-Datei</string>
+    <string name="sandbox_send_files_desc">Kopiert Dateien nach Download/TwinnDroid in der Sandbox</string>
+    <string name="sandbox_bring_files_desc">Kopiert Dateien aus der Sandbox in dein Download/TwinnDroid</string>
 </resources>

@@ -315,7 +315,7 @@
     <string name="sandbox_rule_clipboard">کاپی اور پیسٹ روکیں</string>
     <string name="sandbox_rule_clipboard_desc">سینڈ باکس میں کاپی کیا گیا متن باہر پیسٹ نہیں ہو سکتا، نہ ہی الٹا۔</string>
     <string name="sandbox_rule_share">اندر شیئر کرنا روکیں</string>
-    <string name="sandbox_rule_share_desc">ذاتی ایپس سینڈ باکس میں فائلیں یا لنکس نہیں بھیج سکتیں۔</string>
+    <string name="sandbox_rule_share_desc">ذاتی ایپس سینڈ باکس میں فائلیں یا لنکس نہیں بھیج سکتیں، اور سینڈ باکس کی ایپس آپ کی ذاتی فائلیں نہیں چن سکتیں۔</string>
     <string name="sandbox_rule_contacts">رابطوں کی تلاش روکیں</string>
     <string name="sandbox_rule_contacts_desc">آپ کی ذاتی ایپس سینڈ باکس میں محفوظ رابطے نہیں دیکھ سکتیں۔</string>
     <string name="sandbox_rule_debug">adb اور Shizuku کی اجازت دیں</string>
@@ -401,10 +401,14 @@
     <string name="sets_hint">استعمال کرنے کے لیے تھیم پر ٹیپ کریں۔ اسی نام سے محفوظ کرنے پر وہ بدل جاتی ہے۔</string>
     <string name="sandbox_shortcut_label">سینڈ باکس ایپ</string>
     <string name="sandbox_pick_title">سینڈ باکس ایپ کھولیں</string>
-    <string name="sandbox_rule_files">ذاتی فائلوں کی اجازت دیں</string>
-    <string name="sandbox_rule_files_desc">سینڈ باکس کی ایپس فائل پکر میں آپ کی ذاتی طرف سے تصاویر اور فائلیں چن سکتی ہیں۔</string>
     <string name="sandbox_dev_title">ڈویلپر آپشنز آن ہیں</string>
     <string name="sandbox_dev_desc">ڈویلپر آپشنز آن ہوں تو کچھ بینکنگ اور ادائیگی کی ایپس نہیں چلتیں۔ یہ پورے فون کی ایک ہی سیٹنگ ہے، اس لیے سینڈ باکس اسے چھپا نہیں سکتا۔ ان ایپس کو استعمال کرتے وقت ڈویلپر آپشنز بند رکھیں۔ دوبارہ آن کرنے تک وائرلیس ڈیبگنگ اور Shizuku رکے رہیں گے۔</string>
     <string name="sandbox_dev_open">ڈویلپر آپشنز</string>
     <string name="sandbox_dev_hide">سمجھ گیا</string>
+    <string name="sandbox_add">شامل کریں</string>
+    <string name="sandbox_add_title">سینڈ باکس میں شامل کریں</string>
+    <string name="sandbox_add_app_desc">آپ کے پاس پہلے سے موجود ایپ کی بغیر تبدیلی والی کاپی</string>
+    <string name="sandbox_add_apk_desc">‎.apk، ‎.apks، ‎.xapk یا ‎.apkm فائل</string>
+    <string name="sandbox_send_files_desc">سینڈ باکس کے Download/TwinnDroid میں فائلیں کاپی کرتا ہے</string>
+    <string name="sandbox_bring_files_desc">سینڈ باکس سے آپ کے Download/TwinnDroid میں فائلیں کاپی کرتا ہے</string>
 </resources>

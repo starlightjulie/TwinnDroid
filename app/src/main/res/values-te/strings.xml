@@ -315,7 +315,7 @@
     <string name="sandbox_rule_clipboard">కాపీ, పేస్ట్ బ్లాక్ చేయి</string>
     <string name="sandbox_rule_clipboard_desc">శాండ్‌బాక్స్‌లో కాపీ చేసిన టెక్స్ట్ బయట పేస్ట్ కాదు, వ్యతిరేకంగానూ కాదు.</string>
     <string name="sandbox_rule_share">లోపలికి షేర్ బ్లాక్ చేయి</string>
-    <string name="sandbox_rule_share_desc">వ్యక్తిగత యాప్‌లు శాండ్‌బాక్స్‌లోకి ఫైళ్లు లేదా లింక్‌లు పంపలేవు.</string>
+    <string name="sandbox_rule_share_desc">వ్యక్తిగత యాప్‌లు శాండ్‌బాక్స్‌లోకి ఫైల్‌లు లేదా లింక్‌లు పంపలేవు, శాండ్‌బాక్స్ యాప్‌లు మీ వ్యక్తిగత ఫైల్‌లను ఎంచుకోలేవు.</string>
     <string name="sandbox_rule_contacts">కాంటాక్ట్ శోధన బ్లాక్ చేయి</string>
     <string name="sandbox_rule_contacts_desc">మీ వ్యక్తిగత యాప్‌లు శాండ్‌బాక్స్‌లోని కాంటాక్ట్‌లను చూడలేవు.</string>
     <string name="sandbox_rule_debug">adb, Shizuku అనుమతించు</string>
@@ -401,10 +401,14 @@
     <string name="sets_hint">ఉపయోగించడానికి థీమ్‌ను నొక్కండి. అదే పేరుతో సేవ్ చేస్తే అది మారిపోతుంది.</string>
     <string name="sandbox_shortcut_label">శాండ్‌బాక్స్ యాప్</string>
     <string name="sandbox_pick_title">శాండ్‌బాక్స్ యాప్‌ను తెరవండి</string>
-    <string name="sandbox_rule_files">వ్యక్తిగత ఫైల్‌లను అనుమతించు</string>
-    <string name="sandbox_rule_files_desc">శాండ్‌బాక్స్‌లోని యాప్‌లు ఫైల్ పికర్‌లో మీ వ్యక్తిగత వైపు నుండి ఫోటోలు, ఫైల్‌లు ఎంచుకోవచ్చు.</string>
     <string name="sandbox_dev_title">డెవలపర్ ఆప్షన్‌లు ఆన్‌లో ఉన్నాయి</string>
     <string name="sandbox_dev_desc">డెవలపర్ ఆప్షన్‌లు ఆన్‌లో ఉంటే కొన్ని బ్యాంకింగ్, చెల్లింపు యాప్‌లు పనిచేయవు. ఇది మొత్తం ఫోన్‌కు ఒకే సెట్టింగ్, కాబట్టి శాండ్‌బాక్స్ దాన్ని దాచలేదు. ఆ యాప్‌లు వాడేటప్పుడు డెవలపర్ ఆప్షన్‌లను ఆఫ్ చేయండి. మళ్లీ ఆన్ చేసే వరకు వైర్‌లెస్ డీబగ్గింగ్, Shizuku ఆగిపోతాయి.</string>
     <string name="sandbox_dev_open">డెవలపర్ ఆప్షన్‌లు</string>
     <string name="sandbox_dev_hide">సరే</string>
+    <string name="sandbox_add">జోడించు</string>
+    <string name="sandbox_add_title">శాండ్‌బాక్స్‌కు జోడించు</string>
+    <string name="sandbox_add_app_desc">మీ దగ్గర ఇప్పటికే ఉన్న యాప్‌కు మార్పులు లేని కాపీ</string>
+    <string name="sandbox_add_apk_desc">.apk, .apks, .xapk లేదా .apkm ఫైల్</string>
+    <string name="sandbox_send_files_desc">శాండ్‌బాక్స్‌లోని Download/TwinnDroid‌కు ఫైల్‌లను కాపీ చేస్తుంది</string>
+    <string name="sandbox_bring_files_desc">శాండ్‌బాక్స్ నుండి మీ Download/TwinnDroid‌కు ఫైల్‌లను కాపీ చేస్తుంది</string>
 </resources>

@@ -315,7 +315,7 @@
     <string name="sandbox_rule_clipboard">কপি ও পেস্ট বন্ধ করুন</string>
     <string name="sandbox_rule_clipboard_desc">স্যান্ডবক্সে কপি করা লেখা বাইরে পেস্ট করা যাবে না, উল্টোটাও না।</string>
     <string name="sandbox_rule_share">ভেতরে শেয়ার বন্ধ করুন</string>
-    <string name="sandbox_rule_share_desc">ব্যক্তিগত অ্যাপ স্যান্ডবক্সে ফাইল বা লিংক পাঠাতে পারবে না।</string>
+    <string name="sandbox_rule_share_desc">ব্যক্তিগত অ্যাপ স্যান্ডবক্সে ফাইল বা লিংক পাঠাতে পারবে না, আর স্যান্ডবক্সের অ্যাপ আপনার ব্যক্তিগত ফাইল বেছে নিতে পারবে না।</string>
     <string name="sandbox_rule_contacts">কন্টাক্ট খোঁজা বন্ধ করুন</string>
     <string name="sandbox_rule_contacts_desc">আপনার ব্যক্তিগত অ্যাপ স্যান্ডবক্সে রাখা কন্টাক্ট দেখতে পাবে না।</string>
     <string name="sandbox_rule_debug">adb ও Shizuku অনুমতি দিন</string>
@@ -401,10 +401,14 @@
     <string name="sets_hint">ব্যবহার করতে কোনো থিমে চাপুন। একই নামে সংরক্ষণ করলে সেটি বদলে যাবে।</string>
     <string name="sandbox_shortcut_label">স্যান্ডবক্স অ্যাপ</string>
     <string name="sandbox_pick_title">একটি স্যান্ডবক্স অ্যাপ খুলুন</string>
-    <string name="sandbox_rule_files">ব্যক্তিগত ফাইলের অনুমতি দিন</string>
-    <string name="sandbox_rule_files_desc">স্যান্ডবক্সের অ্যাপগুলো ফাইল পিকারে আপনার ব্যক্তিগত দিক থেকে ছবি ও ফাইল বেছে নিতে পারবে।</string>
     <string name="sandbox_dev_title">ডেভেলপার অপশন চালু আছে</string>
     <string name="sandbox_dev_desc">ডেভেলপার অপশন চালু থাকলে কিছু ব্যাংকিং ও পেমেন্ট অ্যাপ চলে না। এটি পুরো ফোনের একটি সেটিং, তাই স্যান্ডবক্স এটি লুকাতে পারে না। ওই অ্যাপগুলো ব্যবহারের সময় ডেভেলপার অপশন বন্ধ রাখুন। আবার চালু না করা পর্যন্ত ওয়্যারলেস ডিবাগিং ও Shizuku বন্ধ থাকবে।</string>
     <string name="sandbox_dev_open">ডেভেলপার অপশন</string>
     <string name="sandbox_dev_hide">বুঝেছি</string>
+    <string name="sandbox_add">যোগ করুন</string>
+    <string name="sandbox_add_title">স্যান্ডবক্সে যোগ করুন</string>
+    <string name="sandbox_add_app_desc">আপনার আগে থেকে থাকা কোনো অ্যাপের অপরিবর্তিত কপি</string>
+    <string name="sandbox_add_apk_desc">.apk, .apks, .xapk বা .apkm ফাইল</string>
+    <string name="sandbox_send_files_desc">স্যান্ডবক্সের Download/TwinnDroid-এ ফাইল কপি করে</string>
+    <string name="sandbox_bring_files_desc">স্যান্ডবক্স থেকে আপনার Download/TwinnDroid-এ ফাইল কপি করে</string>
 </resources>

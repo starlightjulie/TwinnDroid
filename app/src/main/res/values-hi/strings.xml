@@ -315,7 +315,7 @@
     <string name="sandbox_rule_clipboard">कॉपी और पेस्ट रोकें</string>
     <string name="sandbox_rule_clipboard_desc">सैंडबॉक्स में कॉपी किया टेक्स्ट बाहर पेस्ट नहीं हो सकता, न ही उल्टा।</string>
     <string name="sandbox_rule_share">अंदर शेयर करना रोकें</string>
-    <string name="sandbox_rule_share_desc">निजी ऐप सैंडबॉक्स में फ़ाइलें या लिंक नहीं भेज सकते।</string>
+    <string name="sandbox_rule_share_desc">निजी ऐप सैंडबॉक्स में फ़ाइलें या लिंक नहीं भेज सकते, और सैंडबॉक्स के ऐप आपकी निजी फ़ाइलें नहीं चुन सकते।</string>
     <string name="sandbox_rule_contacts">कॉन्टैक्ट खोज रोकें</string>
     <string name="sandbox_rule_contacts_desc">आपके निजी ऐप सैंडबॉक्स में सहेजे कॉन्टैक्ट नहीं देख सकते।</string>
     <string name="sandbox_rule_debug">adb और Shizuku की अनुमति दें</string>
@@ -401,10 +401,14 @@
     <string name="sets_hint">इस्तेमाल करने के लिए किसी थीम पर टैप करें। उसी नाम से सेव करने पर वह बदल जाती है।</string>
     <string name="sandbox_shortcut_label">सैंडबॉक्स ऐप</string>
     <string name="sandbox_pick_title">सैंडबॉक्स ऐप खोलें</string>
-    <string name="sandbox_rule_files">निजी फ़ाइलों की अनुमति दें</string>
-    <string name="sandbox_rule_files_desc">सैंडबॉक्स के ऐप फ़ाइल पिकर में आपकी निजी तरफ़ से फ़ोटो और फ़ाइलें चुन सकते हैं।</string>
     <string name="sandbox_dev_title">डेवलपर विकल्प चालू हैं</string>
     <string name="sandbox_dev_desc">डेवलपर विकल्प चालू होने पर कुछ बैंकिंग और पेमेंट ऐप नहीं चलते। यह पूरे फ़ोन की एक ही सेटिंग है, इसलिए सैंडबॉक्स इसे छिपा नहीं सकता। उन ऐप को इस्तेमाल करते समय डेवलपर विकल्प बंद रखें। दोबारा चालू करने तक वायरलेस डीबगिंग और Shizuku बंद रहेंगे।</string>
     <string name="sandbox_dev_open">डेवलपर विकल्प</string>
     <string name="sandbox_dev_hide">ठीक है</string>
+    <string name="sandbox_add">जोड़ें</string>
+    <string name="sandbox_add_title">सैंडबॉक्स में जोड़ें</string>
+    <string name="sandbox_add_app_desc">आपके पास पहले से मौजूद ऐप की बिना बदली कॉपी</string>
+    <string name="sandbox_add_apk_desc">.apk, .apks, .xapk या .apkm फ़ाइल</string>
+    <string name="sandbox_send_files_desc">सैंडबॉक्स के Download/TwinnDroid में फ़ाइलें कॉपी करता है</string>
+    <string name="sandbox_bring_files_desc">सैंडबॉक्स से आपके Download/TwinnDroid में फ़ाइलें कॉपी करता है</string>
 </resources>

@@ -315,7 +315,7 @@
     <string name="sandbox_rule_clipboard">Kopyala ve yapıştırı engelle</string>
     <string name="sandbox_rule_clipboard_desc">Korumalı alanda kopyalanan metin dışarı yapıştırılamaz, tersi de geçerli.</string>
     <string name="sandbox_rule_share">İçeri paylaşımı engelle</string>
-    <string name="sandbox_rule_share_desc">Kişisel uygulamalar korumalı alana dosya veya bağlantı gönderemez.</string>
+    <string name="sandbox_rule_share_desc">Kişisel uygulamalar korumalı alana dosya veya bağlantı gönderemez, korumalı alandaki uygulamalar da kişisel dosyalarını seçemez.</string>
     <string name="sandbox_rule_contacts">Kişi aramayı engelle</string>
     <string name="sandbox_rule_contacts_desc">Kişisel uygulamaların korumalı alandaki kişileri göremez.</string>
     <string name="sandbox_rule_debug">adb ve Shizuku\'ya izin ver</string>
@@ -401,10 +401,14 @@
     <string name="sets_hint">Kullanmak için bir temaya dokun. Aynı adla kaydetmek onu değiştirir.</string>
     <string name="sandbox_shortcut_label">Korumalı alan uygulaması</string>
     <string name="sandbox_pick_title">Korumalı alandan uygulama aç</string>
-    <string name="sandbox_rule_files">Kişisel dosyalara izin ver</string>
-    <string name="sandbox_rule_files_desc">Korumalı alandaki uygulamalar dosya seçicide kişisel tarafındaki fotoğraf ve dosyaları seçebilir.</string>
     <string name="sandbox_dev_title">Geliştirici seçenekleri açık</string>
     <string name="sandbox_dev_desc">Bazı banka ve ödeme uygulamaları geliştirici seçenekleri açıkken çalışmaz. Bu tüm telefon için tek bir ayar, bu yüzden korumalı alan onu gizleyemez. Bu uygulamaları kullanırken geliştirici seçeneklerini kapat. Tekrar açana kadar kablosuz hata ayıklama ve Shizuku durur.</string>
     <string name="sandbox_dev_open">Geliştirici seçenekleri</string>
     <string name="sandbox_dev_hide">Anladım</string>
+    <string name="sandbox_add">Ekle</string>
+    <string name="sandbox_add_title">Korumalı alana ekle</string>
+    <string name="sandbox_add_app_desc">Zaten sende olan bir uygulamanın değiştirilmemiş kopyası</string>
+    <string name="sandbox_add_apk_desc">.apk, .apks, .xapk veya .apkm dosyası</string>
+    <string name="sandbox_send_files_desc">Dosyaları korumalı alandaki Download/TwinnDroid klasörüne kopyalar</string>
+    <string name="sandbox_bring_files_desc">Dosyaları korumalı alandan senin Download/TwinnDroid klasörüne kopyalar</string>
 </resources>

@@ -317,7 +317,7 @@
     <string name="sandbox_rule_clipboard">Bloquer le copier-coller</string>
     <string name="sandbox_rule_clipboard_desc">Le texte copié dans le bac à sable ne peut pas être collé à l\'extérieur, ni l\'inverse.</string>
     <string name="sandbox_rule_share">Bloquer le partage entrant</string>
-    <string name="sandbox_rule_share_desc">Les apps personnelles ne peuvent pas envoyer de fichiers ou de liens dans le bac à sable.</string>
+    <string name="sandbox_rule_share_desc">Les apps personnelles ne peuvent pas envoyer de fichiers ou de liens dans le bac à sable, et les apps du bac à sable ne peuvent pas choisir vos fichiers personnels.</string>
     <string name="sandbox_rule_contacts">Bloquer la recherche de contacts</string>
     <string name="sandbox_rule_contacts_desc">Vos apps personnelles ne voient pas les contacts enregistrés dans le bac à sable.</string>
     <string name="sandbox_rule_debug">Autoriser adb et Shizuku</string>
@@ -403,10 +403,14 @@
     <string name="sets_hint">Appuyez sur un thème pour l\'utiliser. Enregistrer sous le même nom le remplace.</string>
     <string name="sandbox_shortcut_label">App du bac à sable</string>
     <string name="sandbox_pick_title">Ouvrir une app du bac à sable</string>
-    <string name="sandbox_rule_files">Autoriser les fichiers personnels</string>
-    <string name="sandbox_rule_files_desc">Les apps du bac à sable peuvent choisir des photos et des fichiers côté personnel dans le sélecteur de fichiers.</string>
     <string name="sandbox_dev_title">Les options pour les développeurs sont activées</string>
     <string name="sandbox_dev_desc">Certaines apps de banque et de paiement refusent de fonctionner quand les options pour les développeurs sont activées. C\'est un seul réglage pour tout le téléphone, le bac à sable ne peut donc pas le cacher. Désactivez-les pendant que vous utilisez ces apps. Le débogage sans fil et Shizuku s\'arrêtent jusqu\'à ce que vous les réactiviez.</string>
     <string name="sandbox_dev_open">Options pour les développeurs</string>
     <string name="sandbox_dev_hide">Compris</string>
+    <string name="sandbox_add">Ajouter</string>
+    <string name="sandbox_add_title">Ajouter au bac à sable</string>
+    <string name="sandbox_add_app_desc">Une copie non modifiée d\'une app que vous avez déjà</string>
+    <string name="sandbox_add_apk_desc">Fichier .apk, .apks, .xapk ou .apkm</string>
+    <string name="sandbox_send_files_desc">Copie des fichiers dans Download/TwinnDroid du bac à sable</string>
+    <string name="sandbox_bring_files_desc">Copie des fichiers du bac à sable vers votre Download/TwinnDroid</string>
 </resources>
