@@ -22,8 +22,8 @@ data class SandboxRules(
     val blockContacts: Boolean = true,
     /** Lets adb and Shizuku reach the sandbox, for testing and silent installs. */
     val allowDebugging: Boolean = false,
-    /** Lets sandbox apps pick photos and files from the personal side through the system pickers. */
-    val allowPersonalFiles: Boolean = false,
+    /** Lets sandbox apps ask for a folder on the personal side through the system folder picker. */
+    val allowPersonalFolders: Boolean = false,
     /** How long after the screen locks auto-freeze apps get frozen. */
     val freezeDelaySeconds: Int = 0,
     /** Leaves auto-freeze apps alone while something is playing, so music keeps going on a locked phone. */
@@ -45,9 +45,6 @@ object SandboxPolicy {
     private fun dpm(context: Context) = context.getSystemService(DevicePolicyManager::class.java)
 
     fun isOwner(context: Context): Boolean = dpm(context).isProfileOwnerApp(context.packageName)
-
-    /** MediaStore.ACTION_PICK_IMAGES, the Android 13+ photo picker. */
-    private const val PICK_IMAGES = "android.provider.action.PICK_IMAGES"
 
     /** Safe to call any number of times; runs on setup and again after every TwinnDroid update. */
     fun enforce(context: Context) {
@@ -104,52 +101,11 @@ object SandboxPolicy {
             dpm.addCrossProfileIntentFilter(admin, links, DevicePolicyManager.FLAG_PARENT_CAN_ACCESS_MANAGED)
         }
 
-        // Phone numbers and texts open in your normal dialer and messages app, the same as in any work
-        // profile. Newer Android keeps these on its own, but clearing the filters above removes them on
-        // older versions, and banks that verify your number by sending a text need them.
-        val dial = IntentFilter().apply {
-            addAction(Intent.ACTION_DIAL)
-            addAction(Intent.ACTION_VIEW)
-            addCategory(Intent.CATEGORY_DEFAULT)
-            addCategory(Intent.CATEGORY_BROWSABLE)
-            addDataScheme("tel")
-            addDataScheme("voicemail")
-        }
-        val dialPad = IntentFilter(Intent.ACTION_DIAL).apply { addCategory(Intent.CATEGORY_DEFAULT) }
-        val callButton = IntentFilter(Intent.ACTION_CALL_BUTTON).apply { addCategory(Intent.CATEGORY_DEFAULT) }
-        val texts = IntentFilter().apply {
-            addAction(Intent.ACTION_VIEW)
-            addAction(Intent.ACTION_SENDTO)
-            addCategory(Intent.CATEGORY_DEFAULT)
-            addCategory(Intent.CATEGORY_BROWSABLE)
-            listOf("sms", "smsto", "mms", "mmsto").forEach(::addDataScheme)
-        }
-        for (filter in listOf(dial, dialPad, callButton, texts)) {
-            dpm.addCrossProfileIntentFilter(admin, filter, DevicePolicyManager.FLAG_PARENT_CAN_ACCESS_MANAGED)
-        }
-
-        if (rules.allowPersonalFiles) {
-            // The system file and photo pickers in the sandbox get a Personal tab, the same way a work profile normally has one.
-            for (action in listOf(Intent.ACTION_GET_CONTENT, Intent.ACTION_OPEN_DOCUMENT)) {
-                val pick = IntentFilter(action).apply {
-                    addCategory(Intent.CATEGORY_DEFAULT)
-                    addCategory(Intent.CATEGORY_OPENABLE)
-                    addDataType("*/*")
-                }
-                dpm.addCrossProfileIntentFilter(admin, pick, DevicePolicyManager.FLAG_PARENT_CAN_ACCESS_MANAGED)
-            }
-            val pickData = IntentFilter(Intent.ACTION_PICK).apply {
-                addCategory(Intent.CATEGORY_DEFAULT)
-                addDataType("*/*")
-            }
-            dpm.addCrossProfileIntentFilter(admin, pickData, DevicePolicyManager.FLAG_PARENT_CAN_ACCESS_MANAGED)
-            for (typed in listOf(false, true)) {
-                val photos = IntentFilter(PICK_IMAGES).apply {
-                    addCategory(Intent.CATEGORY_DEFAULT)
-                    if (typed) addDataType("*/*")
-                }
-                dpm.addCrossProfileIntentFilter(admin, photos, DevicePolicyManager.FLAG_PARENT_CAN_ACCESS_MANAGED)
-            }
+        // Android sets up file and photo picking, texting and dialling for every work profile on its own,
+        // and clearing above only removes TwinnDroid's filters. Picking a whole folder isn't on its list.
+        if (rules.allowPersonalFolders && !rules.blockShareIn) {
+            val folder = IntentFilter(Intent.ACTION_OPEN_DOCUMENT_TREE).apply { addCategory(Intent.CATEGORY_DEFAULT) }
+            dpm.addCrossProfileIntentFilter(admin, folder, DevicePolicyManager.FLAG_PARENT_CAN_ACCESS_MANAGED)
         }
     }
 
@@ -161,24 +117,25 @@ object SandboxPolicy {
             blockShareIn = p.getBoolean("block_share_in", d.blockShareIn),
             blockContacts = p.getBoolean("block_contacts", d.blockContacts),
             allowDebugging = p.getBoolean("allow_debugging", d.allowDebugging),
-            allowPersonalFiles = p.getBoolean("allow_personal_files", d.allowPersonalFiles),
+            allowPersonalFolders = p.getBoolean("allow_personal_folders", d.allowPersonalFolders),
             freezeDelaySeconds = p.getInt("freeze_delay", d.freezeDelaySeconds),
             skipWhilePlaying = p.getBoolean("skip_playing", d.skipWhilePlaying),
         )
     }
 
     fun setRules(context: Context, rules: SandboxRules) {
-        val filesChanged = rules.allowPersonalFiles != rules(context).allowPersonalFiles
+        val old = rules(context)
+        val doorsChanged = rules.allowPersonalFolders != old.allowPersonalFolders || rules.blockShareIn != old.blockShareIn
         context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit {
             putBoolean("block_clipboard", rules.blockClipboard)
             putBoolean("block_share_in", rules.blockShareIn)
             putBoolean("block_contacts", rules.blockContacts)
             putBoolean("allow_debugging", rules.allowDebugging)
-            putBoolean("allow_personal_files", rules.allowPersonalFiles)
+            putBoolean("allow_personal_folders", rules.allowPersonalFolders)
             putInt("freeze_delay", rules.freezeDelaySeconds)
             putBoolean("skip_playing", rules.skipWhilePlaying)
         }
-        if (filesChanged) openDoors(context, rules)
+        if (doorsChanged) openDoors(context, rules)
         applyRules(context, rules)
     }
 
