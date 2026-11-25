@@ -2,15 +2,23 @@
 
 Everything that's changed in TwinnDroid, newest first. You can grab any version's APK from the [Releases](../../releases) page.
 
+## 2.3.0
+
+- **Tidier Sandbox tab.** Adding apps and moving files now sit behind one **Add** button, and the rules open in their own sheet, so your apps come first.
+- **Removed the Allow personal files rule.** It didn't do anything. Android already lets apps in the sandbox pick personal files and photos through the system pickers, and **Block sharing in** is what turns that off, so its description says that now. Picking a whole personal folder still isn't possible, because Android doesn't support it from a work profile.
+- **Took out the texting and dialling change from 2.2.1.** Android already sets that up for every work profile, so it wasn't fixing anything. Sorry for the confusion there.
+- Fixed the Sandbox list scrolling up under the status bar.
+- Everything new is translated into all 23 languages.
+
 ## 2.2.1
 
 - **Fixed Reddit clones failing to install.** Some apps keep a file provider's name in a string resource instead of the manifest. TwinnDroid wasn't renaming those, so the clone clashed with the original and Android refused to install it. It renames them now, so the app's own code uses the new name too.
-- **Texting and calling from the sandbox works on every Android version.** On some versions, apps in the sandbox couldn't hand a text or a phone number over to your normal messages or phone app. Banks use that to verify your number.
+- **Texting and calling from the sandbox works on every Android version.** On some versions, apps in the sandbox couldn't hand a text or a phone number over to your normal messages or phone app. Banks use that to verify your number. *(Turned out Android already did this on every version, so this changed nothing. Taken out in 2.3.0.)*
 
 ## 2.2.0
 
 - **Sandbox app shortcuts from your launcher.** Launchers and shortcut apps now list **Sandbox app** under shortcuts. Pick a sandboxed app and you get a shortcut that opens it, frozen or not. Opening it from an activity launcher asks which app you want.
-- **Let sandbox apps pick your personal files.** A new rule, off by default. Turn on **Allow personal files** and the system file and photo pickers inside the sandbox can reach your personal side, so you can upload things without moving them across first. Newer Android versions already let some pickers through on their own; this opens the rest, and older versions need it for any of them. Apps with their own built-in gallery still only see the sandbox.
+- **Let sandbox apps pick your personal files.** A new rule, off by default. Turn on **Allow personal files** and the system file and photo pickers inside the sandbox can reach your personal side, so you can upload things without moving them across first. Newer Android versions already let some pickers through on their own; this opens the rest, and older versions need it for any of them. Apps with their own built-in gallery still only see the sandbox. *(Turned out this didn't do anything, because Android already allows it. Removed in 2.3.0.)*
 - **A heads-up about developer options.** Some banking and payment apps won't run while developer options are on, and that's a setting for the whole phone that the sandbox can't hide. The Sandbox tab now tells you when they're on and takes you to the switch.
 - **Clearer README.** It now says up front that clones don't need a work profile and the sandbox is the optional part that does.
 - Everything new is translated into all 23 languages.
