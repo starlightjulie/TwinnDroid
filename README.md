@@ -80,7 +80,7 @@ The first time, Android will ask you to let TwinnDroid install apps. Tap **Allow
 
 The **Sandbox** tab sets up a separate space on your phone. It's built on Android's work profile, the same thing companies use to keep work apps apart, except here you're the one in charge and TwinnDroid is the admin. Android keeps it separate, not TwinnDroid, so an app inside it can't reach out no matter what it tries.
 
-Apps in the sandbox get their own storage, accounts, contacts and data. They can't see your other apps or your files.
+Apps in the sandbox get their own storage, accounts, contacts and data. They can't see your other apps, and they only get a personal file or photo when you pick one for them in the system picker. Turn on **Block sharing in** to stop that too.
 
 Setting it up:
 
@@ -101,7 +101,7 @@ What you can do in there:
 | **Block permissions** | Turn off camera, location, contacts and more for any app, without touching the app |
 | **Send files in / Bring files out** | Moves files across, into `Download/TwinnDroid` on the other side |
 | **Copy to main profile** | Brings an app back out |
-| **Rules** | Block copy and paste, block sharing in, block contact lookups, let sandbox apps pick your personal files, or let adb and Shizuku reach the sandbox for testing |
+| **Rules** | Block copy and paste, block sharing in (which also stops sandbox apps picking your personal files), block contact lookups, or let adb and Shizuku reach the sandbox for testing |
 
 Things to know:
 
@@ -110,6 +110,7 @@ Things to know:
 - **Those apps get one copy per Android profile.** A second copy in the same place would need a different package name, and that's exactly what they reject. So that's your normal install plus one in the sandbox. Samsung's Secure Folder or Android's Private Space could hold one more, but I haven't tested those yet.
 - **Your sandboxed apps are in your app drawer already.** Most launchers show them under a **Work** tab. Android doesn't let an app put icons in the personal list, so use a shortcut if you want one there.
 - **One-time codes don't fill in by themselves.** Texts only ever arrive on your personal side, so apps in the sandbox can't read them. Type the code in from the notification. Sending a text to verify your number does work.
+- **Whole personal folders can't be shared in.** Android lets an app in the sandbox pick a personal file, but not keep using a personal folder, so sync apps can't reach your normal storage from in there.
 - **Banking apps and developer options.** Some banking and payment apps won't run while developer options are on. That's one switch for the whole phone, so the sandbox can't hide it. Turn developer options off while you use those apps. Wireless debugging and Shizuku stop until you turn them back on.
 - **Switching from Shelter?** TwinnDroid does what Shelter does, and for apps that can be cloned it can also hold several copies of the same app, where Shelter is limited to one.
 
